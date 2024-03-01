@@ -12,7 +12,9 @@
     <Folder Include="Helpers\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Mappers\" />
-    <Folder Include="Services\" />
+    <Folder Include="Services\Google\" />
+    <Folder Include="Services\SwiftELD\" />
+    <Folder Include="Services\RoadReady\" />
   </ItemGroup>
 
 </Project>
