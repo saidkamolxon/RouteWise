@@ -5,10 +5,8 @@ namespace RouteWise.Data.Contexts;
 
 public class AppDbContext : DbContext
 {
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        base.OnConfiguring(optionsBuilder);
-    }
+    public AppDbContext(DbContextOptions options) : base(options) { }
+    protected override void OnModelCreating(ModelBuilder modelBuilder) { }
 
     DbSet<Driver> Drivers { get; set; }
     DbSet<Landmark> Landmarks { get; set; }

@@ -7,14 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
     <Folder Include="Exceptions\" />
     <Folder Include="Helpers\" />
     <Folder Include="Interfaces\" />
-    <Folder Include="Mappers\" />
     <Folder Include="Services\Google\" />
     <Folder Include="Services\SwiftELD\" />
     <Folder Include="Services\RoadReady\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RouteWise.Domain\RouteWise.Domain.csproj" />
   </ItemGroup>
 
 </Project>
