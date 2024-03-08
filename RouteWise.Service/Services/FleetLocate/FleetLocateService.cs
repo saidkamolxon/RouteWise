@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json;
+using RouteWise.Service.Interfaces;
 using System.Net.Http;
 using System.Text;
 
 namespace RouteWise.Service.Services.FleetLocate;
 
-public class FleetLocateService
+public class FleetLocateService : IFleetLocateService
 {
     private string _user;
     private HttpClient _client;

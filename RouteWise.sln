@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteWise.Data", "RouteWise.Data\RouteWise.Data.csproj", "{09578B63-0BFB-43C2-8CA6-E2A239D00800}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RouteWise.Data", "RouteWise.Data\RouteWise.Data.csproj", "{09578B63-0BFB-43C2-8CA6-E2A239D00800}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteWise.Service", "RouteWise.Service\RouteWise.Service.csproj", "{5B670507-A4F3-4CD6-B3EE-F65BE41DCD8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RouteWise.Service", "RouteWise.Service\RouteWise.Service.csproj", "{5B670507-A4F3-4CD6-B3EE-F65BE41DCD8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteWise.Domain", "RouteWise.Domain\RouteWise.Domain.csproj", "{29BBEADB-90CD-4342-A440-D8BA5903264E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RouteWise.Domain", "RouteWise.Domain\RouteWise.Domain.csproj", "{29BBEADB-90CD-4342-A440-D8BA5903264E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteWise.TelegramBot", "RouteWise.TelegramBot\RouteWise.TelegramBot.csproj", "{10516A26-4D78-424E-AE2C-EF1023D6683D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RouteWise.TelegramBot", "RouteWise.TelegramBot\RouteWise.TelegramBot.csproj", "{10516A26-4D78-424E-AE2C-EF1023D6683D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteWise.BotApi", "RouteWise.BotApi\RouteWise.BotApi.csproj", "{D48FA389-C847-4F74-A91F-22B4BE13EDFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{10516A26-4D78-424E-AE2C-EF1023D6683D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10516A26-4D78-424E-AE2C-EF1023D6683D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10516A26-4D78-424E-AE2C-EF1023D6683D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D48FA389-C847-4F74-A91F-22B4BE13EDFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D48FA389-C847-4F74-A91F-22B4BE13EDFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D48FA389-C847-4F74-A91F-22B4BE13EDFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D48FA389-C847-4F74-A91F-22B4BE13EDFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
