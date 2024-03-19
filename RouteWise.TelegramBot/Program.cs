@@ -4,13 +4,16 @@ class Program
 {
     static async Task Main(string[] args)
     {
-        string login = "SpireonIntegration@mcoexpress.com";
-        string password = "Welcome1234";
-        string accountId = "1685539";
+        var credentials = new FleetLocateAPICredentials
+        {
+            Login = "spireonintegration@mcoexpress.com",
+            Password = "Welcome1234",
+            AccountId = "1685539"
+        };
 
-        FleetLocateService service = new FleetLocateService(login: login, password: password, accountId: accountId);
+        FleetLocateService service = new FleetLocateService(credentials);
 
-        var result = await service.GetAssetsAsync();
+        var result = await service.GetLandmarksStatusesAsync();
         Console.WriteLine(result);
     }
 }
