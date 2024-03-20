@@ -1,6 +1,6 @@
 ﻿namespace RouteWise.Service.Services.FleetLocate;
 
-public class FleetLocateAPICredentials
+public class FleetLocateApiCredentials
 {
     public string Login { get; set; }
     public string Password { get; set; }

@@ -1,17 +1,30 @@
 ﻿using RouteWise.Service.Interfaces;
 using RouteWise.Service.Services.FleetLocate;
+using RouteWise.Service.Services.GoogleMaps;
 
 namespace RouteWise.Bot.Extensions;
 
 public static class ServiceCollection
 {
-    public static void AddFleetLocate(this IServiceCollection services, IConfiguration configuration)
+    public static void AddServices(this IServiceCollection services, IConfiguration configuration)
     {
-        var credentials = configuration.GetSection("AccessToExternalAPIs:FleetLocate")
-                            .Get<FleetLocateAPICredentials>();
+        AddFleetLocate(services, configuration);
+        AddGoogleMaps(services, configuration);
+    }
+
+    private static void AddGoogleMaps(IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddScoped<IGoogleMapsService, GoogleMapsService>(provider =>
+            new GoogleMapsService(configuration.GetSection("AccessToExternalAPIs:GoogleMaps")
+                                                       .Get<GoogleMapsApiCredentials>())
+        );
+    }
+
+    private static void AddFleetLocate(IServiceCollection services, IConfiguration configuration)
+    {
         services.AddScoped<IFleetLocateService, FleetLocateService>(provider =>
-        {
-            return new FleetLocateService(credentials);
-        });
+            new FleetLocateService(configuration.GetSection("AccessToExternalAPIs:FleetLocate")
+                                                .Get<FleetLocateApiCredentials>())
+        );
     }
 }

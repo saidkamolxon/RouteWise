@@ -4,7 +4,7 @@ class Program
 {
     static async Task Main(string[] args)
     {
-        var credentials = new FleetLocateAPICredentials
+        var credentials = new FleetLocateApiCredentials
         {
             Login = "spireonintegration@mcoexpress.com",
             Password = "Welcome1234",

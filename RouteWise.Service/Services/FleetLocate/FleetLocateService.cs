@@ -13,7 +13,7 @@ public class FleetLocateService : IFleetLocateService
     private HttpClient _client;
     private int _tries;
 
-    public FleetLocateService(FleetLocateAPICredentials credentials)
+    public FleetLocateService(FleetLocateApiCredentials credentials)
     {
         _tries = 10;
         _client = new HttpClient();
@@ -22,7 +22,7 @@ public class FleetLocateService : IFleetLocateService
         Authorize(credentials);
     }
 
-    private void Authorize(FleetLocateAPICredentials credentials)
+    private void Authorize(FleetLocateApiCredentials credentials)
     {
         string authString = this.GetAuthString(credentials.Login, credentials.Password);
         _client.DefaultRequestHeaders.Add("Authorization", $"Basic {authString}");
@@ -37,7 +37,10 @@ public class FleetLocateService : IFleetLocateService
     }
 
     public async Task<object> GetAssetsAsync()
-        => await this.GetDataAsync(url:"asset");
+    {
+        var result = await this.GetDataAsync(url: "asset");
+        return $"{result}";
+    }
 
     public async Task<dynamic> GetAssetsStatusesAsync()
         => await this.GetDataAsync(url: "assetStatus");
