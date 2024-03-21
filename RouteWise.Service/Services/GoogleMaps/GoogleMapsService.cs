@@ -43,7 +43,7 @@ public class GoogleMapsService : IGoogleMapsService
     {
         var request = CreateNewRestRequest(resource, parameters);
         var response = await _client.GetAsync(request);
-        if (response.IsSuccessful)
+        if (response.IsSuccessful && response.Content is not null)
             return JObject.Parse(response.Content);
         throw new Exception("Error occured while trying to get a result.");
     }
@@ -64,9 +64,22 @@ public class GoogleMapsService : IGoogleMapsService
         return await this.GetResultAsync("geocode/json", parameters);
     }
 
-    public Task<object> GetStaticMapAsync(string coordinates)
+    public async Task<object> GetStaticMapAsync(string coordinates)
     {
-        throw new NotImplementedException();
+        var parameters = new Dictionary<string, string>
+        {
+            { "center", coordinates },
+            { "scale", "2" },
+            { "language", "en" },
+            { "zoom", "17" },
+            { "maptype", "hybrid" },
+            { "markers", $"color:red%7C{coordinates}"},
+            { "size", "700x700" },
+            { "format", "jpg" }
+        };
+
+        var request = CreateNewRestRequest("staticmap", parameters);
+        return _client.BuildUri(request);
     }
 
     public Task<object> GetStaticMapAsync(string center, string[] objects)
