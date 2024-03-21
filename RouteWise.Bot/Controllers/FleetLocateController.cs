@@ -42,4 +42,10 @@ public class FleetLocateController : ControllerBase
     {
         return Ok(await _googleMapsService.GetStaticMapAsync(location));
     }
+
+    [HttpPost("StaticMap2")]
+    public async Task<IActionResult> StaticMap2(string center, [FromForm]string[] objects)
+    {
+        return Ok(await _googleMapsService.GetStaticMapAsync(center, objects));
+    }
 }

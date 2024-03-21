@@ -66,24 +66,33 @@ public class GoogleMapsService : IGoogleMapsService
 
     public async Task<object> GetStaticMapAsync(string coordinates)
     {
-        var parameters = new Dictionary<string, string>
-        {
-            { "center", coordinates },
-            { "scale", "2" },
+        var parameters = GetStaticMapsDefaultParameters();
+        parameters.Add("center", coordinates);
+        parameters.Add("markers", coordinates);
+        return _client.BuildUri(CreateNewRestRequest("staticmap", parameters));
+    }
+
+    public async Task<object> GetStaticMapAsync(string center, string[] objects)
+    {
+        var parameters = GetStaticMapsDefaultParameters();
+        parameters.Add("center", center);
+
+        var url = _client.BuildUri(CreateNewRestRequest("staticmap", parameters)).ToString();
+
+        foreach (string obj in objects)
+            url += $"&markers={obj}";
+
+        return url;
+    }
+
+    private static Dictionary<string, string> GetStaticMapsDefaultParameters()
+    {
+        return new Dictionary<string, string>
+           {{ "scale", "2" },
             { "language", "en" },
             { "zoom", "17" },
             { "maptype", "hybrid" },
-            { "markers", $"color:red%7C{coordinates}"},
             { "size", "700x700" },
-            { "format", "jpg" }
-        };
-
-        var request = CreateNewRestRequest("staticmap", parameters);
-        return _client.BuildUri(request);
-    }
-
-    public Task<object> GetStaticMapAsync(string center, string[] objects)
-    {
-        throw new NotImplementedException();
+            { "format", "jpg" }};
     }
 }
