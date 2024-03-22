@@ -18,7 +18,6 @@ public class FleetLocateService : IFleetLocateService
         _tries = 10;
         _client = new HttpClient();
         _client.BaseAddress = new Uri("https://api.us.spireon.com/api/");
-        
         Authorize(credentials);
     }
 

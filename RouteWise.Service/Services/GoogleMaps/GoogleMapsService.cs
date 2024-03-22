@@ -17,8 +17,8 @@ public class GoogleMapsService : IGoogleMapsService
 
     public async Task<string> GetDistanceAsync(string origin, string destination)
     {
-        var parameters = new Dictionary<string, string>{
-            { "origins", origin },
+        var parameters = new Dictionary<string, string>
+           {{ "origins", origin },
             { "destinations", destination }};
 
         var result = await GetDistanceMatrixResult(parameters);

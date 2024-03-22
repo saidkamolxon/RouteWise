@@ -8,19 +8,22 @@ namespace RouteWise.Bot.Controllers;
 [ApiController]
 public class FleetLocateController : ControllerBase
 {
-    private readonly IFleetLocateService _service;
+    private readonly IFleetLocateService _fleetLocateService;
     private readonly IGoogleMapsService _googleMapsService;
+    private readonly IRoadReadyService _roadReadyService;
 
-    public FleetLocateController(IFleetLocateService service, IGoogleMapsService googleMapsService)
+    public FleetLocateController(IFleetLocateService service, IGoogleMapsService googleMapsService,
+                                 IRoadReadyService roadReadyService)
     {
-        _service = service;
+        _fleetLocateService = service;
         _googleMapsService = googleMapsService;
+        _roadReadyService = roadReadyService;
     }
 
     [HttpGet("GetTrailers")]
     public async Task<IActionResult> GetTrailers()
     {
-        var assets = await _service.GetAssetsAsync();
+        var assets = await _fleetLocateService.GetAssetsAsync();
         return Ok(assets);
     }
 
@@ -47,5 +50,12 @@ public class FleetLocateController : ControllerBase
     public async Task<IActionResult> StaticMap2(string center, [FromForm]string[] objects)
     {
         return Ok(await _googleMapsService.GetStaticMapAsync(center, objects));
+    }
+
+    [HttpGet("RoadReady")]
+    public async Task<IActionResult> RoadReady()
+    {
+        await _roadReadyService.LoadTrailersDataToDatabaseAsync();
+        return Ok("Done");
     }
 }
