@@ -1,8 +1,5 @@
 ﻿using Newtonsoft.Json;
-using RouteWise.Domain.Entities;
 using RouteWise.Service.Interfaces;
-using System.Net;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -49,6 +46,11 @@ public class FleetLocateService : IFleetLocateService
 
     public async Task<dynamic> GetLandmarksStatusesAsync()
         => await this.GetDataAsync(url: "landmarkStatus");
+
+    public Task GetTrailersStates()
+    {
+        throw new NotImplementedException();
+    }
 
     #region Encapsulated methods --->>
     private async Task<dynamic> GetDataAsync(string url, string param = "data")

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RouteWise.Service.DTOs.Trailer;
 using RouteWise.Service.Interfaces;
 
 namespace RouteWise.Bot.Controllers;
@@ -53,9 +54,8 @@ public class FleetLocateController : ControllerBase
     }
 
     [HttpGet("RoadReady")]
-    public async Task<IActionResult> RoadReady()
+    public async Task<ActionResult<IReadOnlyList<TrailerStateDto>>> RoadReady()
     {
-        await _roadReadyService.LoadTrailersDataToDatabaseAsync();
-        return Ok("Done");
+        return Ok(await _roadReadyService.GetTrailersStatesAsync());
     }
 }

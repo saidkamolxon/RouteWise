@@ -1,6 +1,8 @@
-﻿namespace RouteWise.Service.Interfaces;
+﻿using RouteWise.Service.DTOs.Trailer;
+
+namespace RouteWise.Service.Interfaces;
 
 public interface IRoadReadyService
 {
-    Task LoadTrailersDataToDatabaseAsync();
+    Task<IReadOnlyList<TrailerStateDto>> GetTrailersStatesAsync();
 }

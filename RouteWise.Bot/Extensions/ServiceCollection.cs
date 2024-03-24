@@ -33,9 +33,9 @@ public static class ServiceCollection
 
     private static void AddRoadReady(IServiceCollection services, IConfiguration configuration)
     {
-        //services.AddScoped<IRoadReadyService, RoadReadyService>(provider =>
-        //    new RoadReadyService(configuration.GetSection("AccessToExternalAPIs:RoadReady")
-        //                                      .Get<RoadReadyApiCredentials>())        
-        //);
+        services.AddScoped<IRoadReadyService, RoadReadyService>(provider =>
+            new RoadReadyService(configuration.GetSection("AccessToExternalAPIs:RoadReady")
+                                              .Get<RoadReadyApiCredentials>())
+        );
     }
 }

@@ -1,13 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using RouteWise.Domain.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace RouteWise.Domain.Entities;
 
 public class Trailer : Auditable
 {
-    public string Name { get; set; } = default!;
-    public string License { get; set; } = default!; // License Plate Number
+    public string Name { get; set; }
+    public string Vin { get; set; }
+    public int Year { get; set; }
+    public string License { get; set; }
+    public string Coordinates { get; set; }
+    public Address Address { get; set; }
+    public bool IsMoving { get; set; }
+    public DateTime LastEventAt { get; set; }
+    public DateOnly LastInspectionOn { get; set; }
+    public DateOnly NextInspectionOn { get; set; }
 
-    [MinLength(17), MaxLength(17)]
-    public string VIN { get; set; } = default!; // Vehicle Identification Number (17 chars)
-    public int Year { get; set; } = default!;
+    public int LandmarkId { get; set; }
+    public Landmark Landmark { get; set; }
 }
