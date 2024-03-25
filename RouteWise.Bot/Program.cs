@@ -1,6 +1,4 @@
 using RouteWise.Bot.Extensions;
-using RouteWise.Service.Interfaces;
-using RouteWise.Service.Services.FleetLocate;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddServices(configuration: builder.Configuration);
+builder.Services.AddServices(builder.Configuration);
 
 var app = builder.Build();
 

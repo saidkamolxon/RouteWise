@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json.Linq;
 using RestSharp;
+using RouteWise.Data.IRepositories;
 using RouteWise.Service.DTOs.Trailer;
 using RouteWise.Service.Interfaces;
 
@@ -33,27 +34,25 @@ public class RoadReadyService : IRoadReadyService
 
     public async Task<IReadOnlyList<TrailerStateDto>> GetTrailersStatesAsync()
     {
-        var data = await GetDataAsync("fleet_trailer_states");
-        var mapped = await MapAsync(data["data"]);
+        var content = await GetDataAsync("fleet_trailer_states");
+        var mapped = await MapAsync((JArray)content.GetValue("data"));
         return mapped;
     }
 
     private async Task<JObject> GetDataAsync(string source)
     {
-        var request = new RestRequest(source);
-        var result = await _client.GetAsync(request);
-        if(result.IsSuccessful)
-            return JObject.Parse(result.Content);
+        var response = await _client.GetAsync(new RestRequest(source));
+        if (response.IsSuccessful)
+            return JObject.Parse(response.Content);
         throw new Exception(""); //TODO must edit this line
     }
 
-    private async Task<IReadOnlyList<TrailerStateDto>> MapAsync(JToken data)
+    private async Task<IReadOnlyList<TrailerStateDto>> MapAsync(JArray trailers)
     {
         var result = new List<TrailerStateDto>();
-
-        foreach (var tdata in data)
+        foreach (var trailer in trailers)
         {
-            var attr = tdata["attributes"];
+            var attr = trailer["attributes"];
             var dto = _mapper.Map<TrailerStateDto>(attr);
             dto.Id = 1; //TODO need to write a code that gets id
             dto.LandmarkId = 1; //TODO need to write a code that gets landmarkid

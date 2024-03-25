@@ -1,19 +1,11 @@
-﻿using RouteWise.Service.Services.FleetLocate;
+﻿using RouteWise.Service.Services;
+using RouteWise.Service.Services.FleetLocate;
+using System.Globalization;
 
 class Program
 {
-    static async Task Main(string[] args)
+    static void Main(string[] args)
     {
-        var credentials = new FleetLocateApiCredentials
-        {
-            Login = "spireonintegration@mcoexpress.com",
-            Password = "Welcome1234",
-            AccountId = "1685539"
-        };
 
-        FleetLocateService service = new FleetLocateService(credentials);
-
-        var result = await service.GetLandmarksStatusesAsync();
-        Console.WriteLine(result);
     }
 }
