@@ -4,5 +4,5 @@ namespace RouteWise.Service.Interfaces;
 
 public interface ILandmarkService
 {
-    Task<int> GetLandmarkIdOrDefaultAsync(TrailerStateDto dto);
+    Task<int> GetLandmarkIdOrDefaultAsync(string state, string coordinates);
 }

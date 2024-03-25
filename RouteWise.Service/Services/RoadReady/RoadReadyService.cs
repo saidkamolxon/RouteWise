@@ -12,12 +12,14 @@ public class RoadReadyService : IRoadReadyService
     private readonly IRestClient _client;
     private readonly int _tries = 10;
     private readonly IMapper _mapper;
+    public readonly ILandmarkService _landmarkService;
 
-    public RoadReadyService(RoadReadyApiCredentials credentials)
+    public RoadReadyService(RoadReadyApiCredentials credentials, ILandmarkService landmarkService)
     {
         _client = new RestClient("https://api.roadreadysystem.com/jsonapi");
         _client.AddDefaultHeader("x-api-key", credentials.Token);
         _mapper = CreateAndConfigureMapper();
+        _landmarkService = landmarkService;
     }
 
     private static IMapper CreateAndConfigureMapper()
@@ -55,7 +57,8 @@ public class RoadReadyService : IRoadReadyService
             var attr = trailer["attributes"];
             var dto = _mapper.Map<TrailerStateDto>(attr);
             dto.Id = 1; //TODO need to write a code that gets id
-            dto.LandmarkId = 1; //TODO need to write a code that gets landmarkid
+            dto.LandmarkId = await _landmarkService
+                .GetLandmarkIdOrDefaultAsync(dto.Address.Substring(dto.Address.Length-13, 2), dto.Coordinates);
             result.Add(dto);
         }
 

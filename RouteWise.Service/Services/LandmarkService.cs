@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.Geometries;
 using RouteWise.Data.IRepositories;
-using RouteWise.Domain.Entities;
-using RouteWise.Service.DTOs.Trailer;
 using RouteWise.Service.Interfaces;
 using System.Globalization;
 
@@ -17,17 +15,18 @@ public class LandmarkService : ILandmarkService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<int> GetLandmarkIdOrDefaultAsync(TrailerStateDto asset)
+    public async Task<int> GetLandmarkIdOrDefaultAsync(string state, string coordinates)
     {
         var landmarks = _unitOfWork.LandmarkRepository
             .SelectAll(landmark => landmark.Address.State
-            .Equals(asset.Address.State, StringComparison.OrdinalIgnoreCase));
+            .Equals(state, StringComparison.OrdinalIgnoreCase));
 
         var landmark = await landmarks.FirstOrDefaultAsync(landmark =>
-            IsAssetWithinLandmark(landmark.BorderPoints, asset.Coordinates));
+            IsAssetWithinLandmark(landmark.BorderPoints, coordinates));
 
         if (landmark is not null) 
             return landmark.Id;
+
         return default;
     }
 
@@ -49,14 +48,12 @@ public class LandmarkService : ILandmarkService
 
     private static Polygon CreateLandmarkPolygon(string landmarkBorders, GeometryFactory factory)
     {
-        var coordinates = Array.ConvertAll(landmarkBorders.Split(','), b =>
+        var coordinates = Array.ConvertAll(landmarkBorders.Split(','), border =>
         {
-            string[] xy = b.Trim().Split();
+            string[] xy = border.Trim().Split();
             return new Coordinate(double.Parse(xy[1], CultureInfo.InvariantCulture),
                                   double.Parse(xy[0], CultureInfo.InvariantCulture));
         });
-        if (coordinates.Length < 3)
-            throw new ArgumentException("Invalid landmark borders");
         return factory.CreatePolygon(coordinates.Append(coordinates[0]).ToArray());
     }
 
