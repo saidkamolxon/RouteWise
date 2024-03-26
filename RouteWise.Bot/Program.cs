@@ -1,4 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using RouteWise.Bot.Extensions;
+using RouteWise.Data.Contexts;
+using RouteWise.Service.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +11,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection"))
+);
+
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddServices(builder.Configuration);
 

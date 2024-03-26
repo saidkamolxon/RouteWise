@@ -1,4 +1,7 @@
-﻿using RouteWise.Service.Interfaces;
+﻿using RouteWise.Data.IRepositories;
+using RouteWise.Data.Repositories;
+using RouteWise.Service.Interfaces;
+using RouteWise.Service.Services;
 using RouteWise.Service.Services.FleetLocate;
 using RouteWise.Service.Services.GoogleMaps;
 using RouteWise.Service.Services.RoadReady;
@@ -9,10 +12,15 @@ public static class ServiceCollection
 {
     public static void AddServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        services.AddScoped<ILandmarkService, LandmarkService>();
+        services.AddScoped<ITrailerService, TrailerService>();
+        services.AddScoped<ITrailerRepository, TrailerRepository>();
+        services.AddScoped<ILandmarkRepository, LandmarkRepository>();
         AddFleetLocate(services, configuration);
         AddGoogleMaps(services, configuration);
         AddRoadReady(services, configuration);
-        
     }
 
     private static void AddGoogleMaps(IServiceCollection services, IConfiguration configuration)
@@ -35,7 +43,8 @@ public static class ServiceCollection
     {
         services.AddScoped<IRoadReadyService, RoadReadyService>(provider =>
             new RoadReadyService(configuration.GetSection("AccessToExternalAPIs:RoadReady")
-                                              .Get<RoadReadyApiCredentials>())
+                                              .Get<RoadReadyApiCredentials>(),
+                                 provider.GetService<ILandmarkService>())
         );
     }
 }

@@ -37,7 +37,7 @@ public class RoadReadyService : IRoadReadyService
     public async Task<IReadOnlyList<TrailerStateDto>> GetTrailersStatesAsync()
     {
         var content = await GetDataAsync("fleet_trailer_states");
-        var mapped = await MapAsync((JArray)content.GetValue("data"));
+        var mapped = await MapAsync(content.Value<JArray>("data"));
         return mapped;
     }
 
@@ -46,7 +46,7 @@ public class RoadReadyService : IRoadReadyService
         var response = await _client.GetAsync(new RestRequest(source));
         if (response.IsSuccessful)
             return JObject.Parse(response.Content);
-        throw new Exception(""); //TODO must edit this line
+        throw new Exception("A bad request...");
     }
 
     private async Task<IReadOnlyList<TrailerStateDto>> MapAsync(JArray trailers)
@@ -56,12 +56,10 @@ public class RoadReadyService : IRoadReadyService
         {
             var attr = trailer["attributes"];
             var dto = _mapper.Map<TrailerStateDto>(attr);
-            dto.Id = 1; //TODO need to write a code that gets id
-            dto.LandmarkId = await _landmarkService
-                .GetLandmarkIdOrDefaultAsync(dto.Address.Substring(dto.Address.Length-13, 2), dto.Coordinates);
+            //dto.LandmarkId = await _landmarkService
+            //    .GetLandmarkIdOrDefaultAsync(dto.Address.Substring(dto.Address.Length-13, 2), dto.Coordinates);
             result.Add(dto);
         }
-
         return result;
     }
 }

@@ -9,7 +9,7 @@ public interface IRepository<TEntity> where TEntity : Auditable
     void Update(TEntity entity);
     void Delete(TEntity entity);
     void Destroy(TEntity entity);
-    Task<TEntity?> SelectAsync(long id, string[]? includes = null);
+    Task<TEntity?> SelectAsync(int id, string[]? includes = null);
     Task<TEntity?> SelectAsync(Expression<Func<TEntity, bool>> expression, string[]? includes = null);
-    IQueryable<TEntity> SelectAll(Expression<Func<TEntity, bool>>? expression = null, bool asNoTracked = true, string[]? includes = null);
+    IQueryable<TEntity> SelectAll(Expression<Func<TEntity, bool>>? expression = null, bool asNoTracking = true, string[]? includes = null);
 }

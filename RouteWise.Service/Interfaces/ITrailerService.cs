@@ -1,7 +1,4 @@
-﻿using RouteWise.Domain.Entities;
-using RouteWise.Domain.Models;
-using RouteWise.Service.DTOs.Trailer;
-using System.Linq.Expressions;
+﻿using RouteWise.Service.DTOs.Trailer;
 
 namespace RouteWise.Service.Interfaces;
 

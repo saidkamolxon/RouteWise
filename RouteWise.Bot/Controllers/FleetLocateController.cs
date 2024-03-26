@@ -1,30 +1,39 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using RouteWise.Data.IRepositories;
 using RouteWise.Service.DTOs.Trailer;
 using RouteWise.Service.Interfaces;
 
 namespace RouteWise.Bot.Controllers;
 
-[Route("api/[action]")]
 [ApiController]
+[Route("api/[controller]")]
 public class FleetLocateController : ControllerBase
 {
     private readonly IFleetLocateService _fleetLocateService;
     private readonly IGoogleMapsService _googleMapsService;
     private readonly IRoadReadyService _roadReadyService;
+    private readonly IUnitOfWork _unitOfWork;
 
     public FleetLocateController(IFleetLocateService service, IGoogleMapsService googleMapsService,
-                                 IRoadReadyService roadReadyService)
+                                 IRoadReadyService roadReadyService, IUnitOfWork unitOfWork)
     {
         _fleetLocateService = service;
         _googleMapsService = googleMapsService;
         _roadReadyService = roadReadyService;
+        _unitOfWork = unitOfWork;
+    }
+
+    [HttpGet("GetTrailer")]
+    public async Task<IActionResult> GetTrailer(int trailerId)
+    {
+        string[] inclusion = {"Landmark"};
+        return Ok(await _unitOfWork.TrailerRepository.SelectAsync(trailerId, inclusion));
     }
 
     [HttpGet("GetTrailers")]
-    public async Task<IActionResult> GetTrailers()
+    public IActionResult GetTrailers()
     {
-        var assets = await _fleetLocateService.GetAssetsAsync();
+        var assets = _unitOfWork.TrailerRepository.SelectAll(includes: new string[] { "Landmark" });
         return Ok(assets);
     }
 

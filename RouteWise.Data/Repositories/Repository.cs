@@ -1,4 +1,6 @@
-﻿using RouteWise.Data.IRepositories;
+﻿using Microsoft.EntityFrameworkCore;
+using RouteWise.Data.Contexts;
+using RouteWise.Data.IRepositories;
 using RouteWise.Domain.Entities;
 using System.Linq.Expressions;
 
@@ -6,38 +8,57 @@ namespace RouteWise.Data.Repositories;
 
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : Auditable
 {
-    public Task CreateAsync(TEntity entity)
+    private readonly AppDbContext _appDbContext;
+    private readonly DbSet<TEntity> _dbSet;
+
+    public Repository(AppDbContext appDbContext)
     {
-        throw new NotImplementedException();
+        _appDbContext = appDbContext;
+        _dbSet = appDbContext.Set<TEntity>();
     }
+
+    public async Task CreateAsync(TEntity entity)
+        => await _dbSet.AddAsync(entity);
 
     public void Delete(TEntity entity)
-    {
-        throw new NotImplementedException();
-    }
+        => entity.IsDeleted = true;
 
     public void Destroy(TEntity entity)
-    {
-        throw new NotImplementedException();
-    }
-
-    public IQueryable<TEntity> SelectAll(Expression<Func<TEntity, bool>>? expression = null, bool asNoTracked = true, string[]? includes = null)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<TEntity?> SelectAsync(long id, string[]? includes = null)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<TEntity?> SelectAsync(Expression<Func<TEntity, bool>> expression, string[]? includes = null)
-    {
-        throw new NotImplementedException();
-    }
+        => _appDbContext.Entry(entity).State = EntityState.Deleted;
 
     public void Update(TEntity entity)
     {
-        throw new NotImplementedException();
+        entity.UpdatedAt = DateTime.UtcNow;
+        _appDbContext.Entry(entity).State = EntityState.Modified;
+    }
+
+    public async Task<TEntity?> SelectAsync(Expression<Func<TEntity, bool>> expression, string[]? includes = null)
+    {
+        IQueryable<TEntity> query = _dbSet.Where(e => !e.IsDeleted);
+
+        if (includes is not null)
+            foreach (var include in includes)
+                query = query.Include(include);
+
+        return await query.FirstOrDefaultAsync(expression);
+    }
+
+    public async Task<TEntity?> SelectAsync(int id, string[]? includes = null)
+        => await this.SelectAsync(e => e.Id.Equals(id), includes);
+
+    public IQueryable<TEntity> SelectAll(Expression<Func<TEntity, bool>>? expression = null, bool asNoTracking = true, string[]? includes = null)
+    {
+        IQueryable<TEntity> query = _dbSet;
+
+        if (expression is not null)
+            query = query.Where(expression);
+
+        if (asNoTracking)
+            query = query.AsNoTracking();
+
+        if (includes is not null)
+            query = includes.Aggregate(query, (current, include) => current.Include(include));
+
+        return query.Where(e => !e.IsDeleted);
     }
 }

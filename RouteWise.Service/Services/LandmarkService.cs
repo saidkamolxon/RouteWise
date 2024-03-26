@@ -10,10 +10,10 @@ public class LandmarkService : ILandmarkService
 {
     private readonly IUnitOfWork _unitOfWork;
 
-    public LandmarkService(IUnitOfWork unitOfWork)
-    {
-        _unitOfWork = unitOfWork;
-    }
+    //public LandmarkService(IUnitOfWork unitOfWork)
+    //{
+    //    _unitOfWork = unitOfWork;
+    //}
 
     public async Task<int> GetLandmarkIdOrDefaultAsync(string state, string coordinates)
     {

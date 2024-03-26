@@ -5,7 +5,6 @@ using RouteWise.Domain.Entities;
 using RouteWise.Service.DTOs.Trailer;
 using RouteWise.Service.Exceptions;
 using RouteWise.Service.Interfaces;
-using System.Data.Common;
 
 namespace RouteWise.Service.Services;
 
@@ -47,7 +46,7 @@ public class TrailerService : ITrailerService
     public async Task<IReadOnlyList<TrailerResultDto>> GetAllAsync()
     {
         var trailers = await _unitOfWork.TrailerRepository
-                                .SelectAll(asNoTracked: true)
+                                .SelectAll(asNoTracking: true)
                                 .OrderBy(t => t.Name)
                                 .ToListAsync();
         return _mapper.Map<IReadOnlyList<TrailerResultDto>>(trailers);
@@ -72,7 +71,7 @@ public class TrailerService : ITrailerService
 
     public async Task<TrailerResultDto> UpdateAsync(TrailerStateDto dto)
     {
-        var trailer = await _unitOfWork.TrailerRepository.SelectAsync(dto.Id);
+        var trailer = await _unitOfWork.TrailerRepository.SelectAsync(1);
         var mappedTrailer = _mapper.Map(dto, trailer);
 
         _unitOfWork.TrailerRepository.Update(mappedTrailer);
