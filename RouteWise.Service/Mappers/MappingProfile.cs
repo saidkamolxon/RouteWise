@@ -11,7 +11,8 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMap<UserCreationDto, User>();
-
+        CreateMap<Trailer, TrailerResultDto>();
+        CreateMap<TrailerCreationDto, Trailer>();
 
         // 
         CreateMap<JObject, TrailerStateDto>()

@@ -5,7 +5,7 @@ namespace RouteWise.Data.Contexts;
 
 public class AppDbContext : DbContext
 {
-    public AppDbContext(DbContextOptions options) : base(options) { }
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -13,7 +13,12 @@ public class AppDbContext : DbContext
         var landmarks = modelBuilder.Entity<Landmark>();
 
         trailers.OwnsOne(t => t.Address);
+        trailers.HasIndex(t => t.Name).IsUnique();
+        trailers.HasIndex(t => t.Vin).IsUnique();
+        trailers.HasIndex(t => t.License).IsUnique();
+
         landmarks.OwnsOne(l => l.Address);
+        landmarks.HasIndex(l => l.Name).IsUnique();
     }
 
     public DbSet<Driver> Drivers { get; set; }

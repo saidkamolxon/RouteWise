@@ -23,7 +23,7 @@ namespace RouteWise.Data.Migrations
                     DriverId = table.Column<int>(type: "integer", nullable: false),
                     Phone = table.Column<string>(type: "text", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -38,13 +38,13 @@ namespace RouteWise.Data.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: true),
+                    BorderPoints = table.Column<string>(type: "text", nullable: true),
                     Address_Street = table.Column<string>(type: "text", nullable: true),
                     Address_City = table.Column<string>(type: "text", nullable: true),
                     Address_State = table.Column<string>(type: "text", nullable: true),
                     Address_ZipCode = table.Column<string>(type: "text", nullable: true),
-                    BorderPoints = table.Column<string>(type: "text", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -65,7 +65,7 @@ namespace RouteWise.Data.Migrations
                     Year = table.Column<int>(type: "integer", nullable: false),
                     DriverId = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -85,7 +85,7 @@ namespace RouteWise.Data.Migrations
                     TelegramId = table.Column<long>(type: "bigint", nullable: false),
                     Role = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -104,17 +104,17 @@ namespace RouteWise.Data.Migrations
                     Year = table.Column<int>(type: "integer", nullable: false),
                     License = table.Column<string>(type: "text", nullable: true),
                     Coordinates = table.Column<string>(type: "text", nullable: true),
-                    Address_Street = table.Column<string>(type: "text", nullable: true),
-                    Address_City = table.Column<string>(type: "text", nullable: true),
-                    Address_State = table.Column<string>(type: "text", nullable: true),
-                    Address_ZipCode = table.Column<string>(type: "text", nullable: true),
                     IsMoving = table.Column<bool>(type: "boolean", nullable: false),
                     LastEventAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastInspectionOn = table.Column<DateOnly>(type: "date", nullable: false),
                     NextInspectionOn = table.Column<DateOnly>(type: "date", nullable: false),
+                    Address_Street = table.Column<string>(type: "text", nullable: true),
+                    Address_City = table.Column<string>(type: "text", nullable: true),
+                    Address_State = table.Column<string>(type: "text", nullable: true),
+                    Address_ZipCode = table.Column<string>(type: "text", nullable: true),
                     LandmarkId = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -129,9 +129,33 @@ namespace RouteWise.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Landmarks_Name",
+                table: "Landmarks",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Trailers_LandmarkId",
                 table: "Trailers",
                 column: "LandmarkId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trailers_License",
+                table: "Trailers",
+                column: "License",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trailers_Name",
+                table: "Trailers",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trailers_Vin",
+                table: "Trailers",
+                column: "Vin",
+                unique: true);
         }
 
         /// <inheritdoc />

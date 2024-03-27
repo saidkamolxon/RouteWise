@@ -12,7 +12,7 @@ using RouteWise.Data.Contexts;
 namespace RouteWise.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240326085828_InitialCreate")]
+    [Migration("20240327053703_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -51,7 +51,7 @@ namespace RouteWise.Data.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
@@ -79,10 +79,13 @@ namespace RouteWise.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Landmarks");
                 });
@@ -125,7 +128,7 @@ namespace RouteWise.Data.Migrations
                     b.Property<DateOnly>("NextInspectionOn")
                         .HasColumnType("date");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Vin")
@@ -137,6 +140,15 @@ namespace RouteWise.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("LandmarkId");
+
+                    b.HasIndex("License")
+                        .IsUnique();
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("Vin")
+                        .IsUnique();
 
                     b.ToTable("Trailers");
                 });
@@ -167,7 +179,7 @@ namespace RouteWise.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("VIN")
@@ -208,7 +220,7 @@ namespace RouteWise.Data.Migrations
                     b.Property<long>("TelegramId")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UserName")
@@ -246,7 +258,8 @@ namespace RouteWise.Data.Migrations
                                 .HasForeignKey("LandmarkId");
                         });
 
-                    b.Navigation("Address");
+                    b.Navigation("Address")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RouteWise.Domain.Entities.Trailer", b =>
@@ -282,7 +295,8 @@ namespace RouteWise.Data.Migrations
                                 .HasForeignKey("TrailerId");
                         });
 
-                    b.Navigation("Address");
+                    b.Navigation("Address")
+                        .IsRequired();
 
                     b.Navigation("Landmark");
                 });

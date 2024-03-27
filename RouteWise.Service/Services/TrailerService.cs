@@ -46,7 +46,7 @@ public class TrailerService : ITrailerService
     public async Task<IReadOnlyList<TrailerResultDto>> GetAllAsync()
     {
         var trailers = await _unitOfWork.TrailerRepository
-                                .SelectAll(asNoTracking: true)
+                                .SelectAll(asNoTracking: true, includes: new string[] { "Landmark" })
                                 .OrderBy(t => t.Name)
                                 .ToListAsync();
         return _mapper.Map<IReadOnlyList<TrailerResultDto>>(trailers);
@@ -54,7 +54,7 @@ public class TrailerService : ITrailerService
 
     public async Task<TrailerResultDto> GetByIdAsync(int id)
     {
-        var trailer = await _unitOfWork.TrailerRepository.SelectAsync(id)
+        var trailer = await _unitOfWork.TrailerRepository.SelectAsync(id, new string[] { "Landmark" })
             ?? throw new NotFoundException("Trailer with such id is not found.");
 
         return _mapper.Map<TrailerResultDto>(trailer);
