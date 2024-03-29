@@ -1,4 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using AutoMapper;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using RouteWise.Service.DTOs.Trailer;
+using RouteWise.Service.Helpers;
 using RouteWise.Service.Interfaces;
 using System.Net.Http.Headers;
 using System.Text;
@@ -7,8 +11,9 @@ namespace RouteWise.Service.Services.FleetLocate;
 
 public class FleetLocateService : IFleetLocateService
 {
-    private HttpClient _client;
-    private int _tries;
+    private readonly HttpClient _client;
+    private readonly int _tries;
+    private readonly IMapper _mapper;
 
     public FleetLocateService(FleetLocateApiCredentials credentials)
     {
@@ -16,6 +21,22 @@ public class FleetLocateService : IFleetLocateService
         _client = new HttpClient();
         _client.BaseAddress = new Uri("https://api.us.spireon.com/api/");
         Authorize(credentials);
+        _mapper = CreateAndConfigureMapper();
+    }
+
+    private static IMapper CreateAndConfigureMapper()
+    {
+        var config = new MapperConfiguration(cfg => {
+            cfg.CreateMap<JToken, TrailerStateDto>()
+              .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Value<string>("name")))
+              .ForMember(dest => dest.Address, opt => opt.MapFrom<TrailerAddressResolver>())
+              .ForMember(dest => dest.Coordinates, opt => opt.MapFrom<TrailerCoordinatesResolver>())
+              .ForMember(dest => dest.LastEventDate, opt => opt.MapFrom(src => 
+                  DateTime.ParseExact(src.Value<string>("eventDateTime"),"yyyy-MM-dd HH:mm:ss", null))
+               )
+              .ForMember(dest => dest.IsMoving, opt => opt.MapFrom(src => src.Value<bool>("moving")));
+        });
+        return config.CreateMapper();
     }
 
     private void Authorize(FleetLocateApiCredentials credentials)
@@ -47,24 +68,27 @@ public class FleetLocateService : IFleetLocateService
     public async Task<dynamic> GetLandmarksStatusesAsync()
         => await this.GetDataAsync(url: "landmarkStatus");
 
-    public Task GetTrailersStates()
+    public async Task<IEnumerable<TrailerStateDto>> GetTrailersStatesAsync()
     {
-        throw new NotImplementedException();
+        var data = await this.GetDataAsync(url: "assetStatus");
+        return await MapAsync(data.Where(x =>
+            !string.IsNullOrEmpty(x.Value<string>("name")) ||
+            !string.IsNullOrEmpty(x.Value<string>("eventDateTime"))));
     }
 
     #region Encapsulated methods --->>
-    private async Task<dynamic> GetDataAsync(string url, string param = "data")
+    private async Task<IEnumerable<JToken>> GetDataAsync(string url, string param = "data")
     {
         int tries = _tries;
         while (tries > 0)
         {
-            dynamic jsonResponse = await GetJsonResponseAsync(url);
-            if ((bool)jsonResponse.success)
-                return jsonResponse[param];
+            JObject jsonResponse = await GetJsonResponseAsync(url);
+            if ((bool)jsonResponse["success"])
+                return jsonResponse.Value<IEnumerable<JToken>>(param);
             await Task.Delay(1000);
             tries--;
         }
-        return -1;
+        throw new Exception(); //TODO need to edit this exception in proper way
     }
 
     private async Task<dynamic> GetJsonResponseAsync(string url)
@@ -73,6 +97,11 @@ public class FleetLocateService : IFleetLocateService
         response.EnsureSuccessStatusCode();
         var responseBody = await response.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<dynamic>(responseBody);
+    }
+
+    private async Task<IEnumerable<TrailerStateDto>> MapAsync(IEnumerable<JToken> trailers)
+    {
+        return _mapper.Map<List<TrailerStateDto>>(trailers);
     }
     #endregion
 }

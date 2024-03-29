@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using NetTopologySuite.IO;
 using RouteWise.Bot.Extensions;
 using RouteWise.Bot.Models;
 using RouteWise.Bot.Services;
@@ -27,7 +26,7 @@ builder.Services.AddScoped<UpdateHandlerService>();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection"))
+    options.UseSqlite(builder.Configuration.GetConnectionString("SqliteConnection"))
 );
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));

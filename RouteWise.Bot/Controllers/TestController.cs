@@ -5,17 +5,17 @@ namespace RouteWise.Bot.Controllers;
 
 public class TestController : BaseController
 {
-    private readonly IRoadReadyService _roadReadyService;
+    private readonly ITrailerService _service;
 
-    public TestController(IRoadReadyService roadReadyService)
+    public TestController(ITrailerService service)
     {
-        _roadReadyService = roadReadyService;
+        _service = service;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetRoadReadyTrailers()
     {
-        var result = await _roadReadyService.GetTrailersStatesAsync();
-        return Ok(result);
+        await _service.UpdateTrailersStatesAsync();
+        return Ok();
     }
 }

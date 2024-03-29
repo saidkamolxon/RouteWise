@@ -10,4 +10,5 @@ public interface ITrailerService
     Task<TrailerResultDto> GetByIdAsync(int id);
     Task<TrailerResultDto> GetByNameAsync(string name);
     Task<IReadOnlyList<TrailerResultDto>> GetAllAsync();
+    Task UpdateTrailersStatesAsync();
 }

@@ -1,6 +1,4 @@
-﻿using Npgsql.PostgresTypes;
-using RouteWise.Domain.Entities;
-using Telegram.Bot;
+﻿using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;

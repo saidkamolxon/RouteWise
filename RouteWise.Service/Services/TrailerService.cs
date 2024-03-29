@@ -83,7 +83,36 @@ public class TrailerService : ITrailerService
 
     public async Task UpdateTrailersStatesAsync()
     {
-        await _roadReadyService.GetTrailersStatesAsync();
-        await _fleetLocateService.GetTrailersStates();
+        var trailerStates = MergeData(await _fleetLocateService.GetTrailersStatesAsync(), 
+                                      await _roadReadyService.GetTrailersStatesAsync());
+
+        foreach (var state in trailerStates)
+        {
+            var trailer = await _unitOfWork.TrailerRepository.SelectAsync(t => t.Name.Equals(state.Name));
+            if (trailer is not null)
+            {
+                _mapper.Map(state, trailer);
+                _unitOfWork.TrailerRepository.Update(trailer);
+            }
+            else
+            {
+                var newTrailer = _mapper.Map<Trailer>(state);
+                await _unitOfWork.TrailerRepository.CreateAsync(newTrailer);
+            }
+            await _unitOfWork.SaveAsync();
+        }
+
+        await Console.Out.WriteLineAsync("Done");
+    }
+
+    private static List<TrailerStateDto> MergeData(IEnumerable<TrailerStateDto> firstData, IEnumerable<TrailerStateDto> secondData)
+    {
+        return firstData
+            .Concat(secondData)
+            .GroupBy(trl => trl.Name)
+            .Select(group => group
+                .OrderByDescending(trl => trl.LastEventDate)
+                .First())
+            .ToList();
     }
 }
