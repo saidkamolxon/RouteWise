@@ -7,7 +7,7 @@ using RouteWise.Service.Mappers;
 using Telegram.Bot;
 
 var builder = WebApplication.CreateBuilder(args);
-var botConfig = builder.Configuration.GetSection("BotConfiguration").Get<BotConfiguration>();
+BotConfiguration botConfig = builder.Configuration.GetSection("BotConfiguration").Get<BotConfiguration>();
 
 // Add services to the container.
 
@@ -43,6 +43,19 @@ if (app.Environment.IsDevelopment())
 }
 
 //app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseCors();
+
+app.MapControllerRoute(name: "tgwebhook", pattern: $"bot/{botConfig.Token}",
+    defaults: new { controller = "Webhook", action = "Post" });
+
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllerRoute(name: "tgwebhook", pattern: $"bot/{botConfig.Token}",
+//        new { controller = "Webhook", action = "Post" });
+//});
 
 app.UseAuthorization();
 
