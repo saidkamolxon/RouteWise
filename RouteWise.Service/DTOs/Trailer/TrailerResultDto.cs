@@ -1,4 +1,6 @@
-﻿namespace RouteWise.Service.DTOs.Trailer;
+﻿using RouteWise.Domain.Models;
+
+namespace RouteWise.Service.DTOs.Trailer;
 
 public class TrailerResultDto
 {

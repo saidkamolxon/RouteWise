@@ -18,4 +18,10 @@ public class TestController : BaseController
         await _service.UpdateTrailersStatesAsync();
         return Ok();
     }
+
+    [HttpGet("Trailers")]
+    public async Task<IActionResult> GetAllTrailers()
+    {
+        return Ok(await _service.GetAllAsync());
+    }
 }

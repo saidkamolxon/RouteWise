@@ -43,8 +43,7 @@ public static class ServiceCollection
     {
         services.AddScoped<IRoadReadyService, RoadReadyService>(provider =>
             new RoadReadyService(configuration.GetSection("AccessToExternalAPIs:RoadReady")
-                                              .Get<RoadReadyApiCredentials>(),
-                                 provider.GetService<ILandmarkService>())
+                                              .Get<RoadReadyApiCredentials>())
         );
     }
 }

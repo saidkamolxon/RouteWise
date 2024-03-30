@@ -11,8 +11,8 @@ using RouteWise.Data.Contexts;
 namespace RouteWise.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240329035122_SqliteInitialSetup")]
-    partial class SqliteInitialSetup
+    [Migration("20240329164550_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,7 +58,7 @@ namespace RouteWise.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("BorderPoints")
+                    b.Property<string>("BorderPointsJson")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
@@ -68,6 +68,7 @@ namespace RouteWise.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -87,9 +88,6 @@ namespace RouteWise.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Coordinates")
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
@@ -99,22 +97,23 @@ namespace RouteWise.Data.Migrations
                     b.Property<bool>("IsMoving")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("LandmarkId")
+                    b.Property<int?>("LandmarkId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("LastEventAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly>("LastInspectionOn")
+                    b.Property<DateOnly?>("LastInspectionOn")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("License")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly>("NextInspectionOn")
+                    b.Property<DateOnly?>("NextInspectionOn")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -123,7 +122,7 @@ namespace RouteWise.Data.Migrations
                     b.Property<string>("Vin")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Year")
+                    b.Property<int?>("Year")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -243,17 +242,37 @@ namespace RouteWise.Data.Migrations
                                 .HasForeignKey("LandmarkId");
                         });
 
+                    b.OwnsOne("RouteWise.Domain.Models.Coordinate", "Coordinates", b1 =>
+                        {
+                            b1.Property<int>("LandmarkId")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<double>("Latitude")
+                                .HasColumnType("REAL");
+
+                            b1.Property<double>("Longitude")
+                                .HasColumnType("REAL");
+
+                            b1.HasKey("LandmarkId");
+
+                            b1.ToTable("Landmarks");
+
+                            b1.WithOwner()
+                                .HasForeignKey("LandmarkId");
+                        });
+
                     b.Navigation("Address")
+                        .IsRequired();
+
+                    b.Navigation("Coordinates")
                         .IsRequired();
                 });
 
             modelBuilder.Entity("RouteWise.Domain.Entities.Trailer", b =>
                 {
                     b.HasOne("RouteWise.Domain.Entities.Landmark", "Landmark")
-                        .WithMany()
-                        .HasForeignKey("LandmarkId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Trailers")
+                        .HasForeignKey("LandmarkId");
 
                     b.OwnsOne("RouteWise.Domain.Models.Address", "Address", b1 =>
                         {
@@ -280,10 +299,37 @@ namespace RouteWise.Data.Migrations
                                 .HasForeignKey("TrailerId");
                         });
 
+                    b.OwnsOne("RouteWise.Domain.Models.Coordinate", "Coordinates", b1 =>
+                        {
+                            b1.Property<int>("TrailerId")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<double>("Latitude")
+                                .HasColumnType("REAL");
+
+                            b1.Property<double>("Longitude")
+                                .HasColumnType("REAL");
+
+                            b1.HasKey("TrailerId");
+
+                            b1.ToTable("Trailers");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TrailerId");
+                        });
+
                     b.Navigation("Address")
                         .IsRequired();
 
+                    b.Navigation("Coordinates")
+                        .IsRequired();
+
                     b.Navigation("Landmark");
+                });
+
+            modelBuilder.Entity("RouteWise.Domain.Entities.Landmark", b =>
+                {
+                    b.Navigation("Trailers");
                 });
 #pragma warning restore 612, 618
         }

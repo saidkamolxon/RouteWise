@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RouteWise.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class SqliteInitialSetup : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,12 +36,14 @@ namespace RouteWise.Data.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    BorderPoints = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Coordinates_Latitude = table.Column<double>(type: "REAL", nullable: false),
+                    Coordinates_Longitude = table.Column<double>(type: "REAL", nullable: false),
                     Address_Street = table.Column<string>(type: "TEXT", nullable: true),
                     Address_City = table.Column<string>(type: "TEXT", nullable: true),
                     Address_State = table.Column<string>(type: "TEXT", nullable: true),
                     Address_ZipCode = table.Column<string>(type: "TEXT", nullable: true),
+                    BorderPointsJson = table.Column<string>(type: "TEXT", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
@@ -98,20 +100,21 @@ namespace RouteWise.Data.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Vin = table.Column<string>(type: "TEXT", nullable: true),
-                    Year = table.Column<int>(type: "INTEGER", nullable: false),
-                    License = table.Column<string>(type: "TEXT", nullable: true),
-                    Coordinates = table.Column<string>(type: "TEXT", nullable: true),
-                    IsMoving = table.Column<bool>(type: "INTEGER", nullable: false),
-                    LastEventAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    LastInspectionOn = table.Column<DateOnly>(type: "TEXT", nullable: false),
-                    NextInspectionOn = table.Column<DateOnly>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Coordinates_Latitude = table.Column<double>(type: "REAL", nullable: false),
+                    Coordinates_Longitude = table.Column<double>(type: "REAL", nullable: false),
                     Address_Street = table.Column<string>(type: "TEXT", nullable: true),
                     Address_City = table.Column<string>(type: "TEXT", nullable: true),
                     Address_State = table.Column<string>(type: "TEXT", nullable: true),
                     Address_ZipCode = table.Column<string>(type: "TEXT", nullable: true),
-                    LandmarkId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Vin = table.Column<string>(type: "TEXT", nullable: true),
+                    Year = table.Column<int>(type: "INTEGER", nullable: true),
+                    License = table.Column<string>(type: "TEXT", nullable: true),
+                    IsMoving = table.Column<bool>(type: "INTEGER", nullable: false),
+                    LastEventAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    LastInspectionOn = table.Column<DateOnly>(type: "TEXT", nullable: true),
+                    NextInspectionOn = table.Column<DateOnly>(type: "TEXT", nullable: true),
+                    LandmarkId = table.Column<int>(type: "INTEGER", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
@@ -123,8 +126,7 @@ namespace RouteWise.Data.Migrations
                         name: "FK_Trailers_Landmarks_LandmarkId",
                         column: x => x.LandmarkId,
                         principalTable: "Landmarks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(

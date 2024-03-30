@@ -10,12 +10,12 @@ public class LandmarkService : ILandmarkService
 {
     private readonly IUnitOfWork _unitOfWork;
 
-    //public LandmarkService(IUnitOfWork unitOfWork)
-    //{
-    //    _unitOfWork = unitOfWork;
-    //}
+    public LandmarkService(IUnitOfWork unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+    }
 
-    public async Task<int> GetLandmarkIdOrDefaultAsync(string state, string coordinates)
+    public async Task<int> GetLandmarkIdOrDefaultAsync(string state, Domain.Models.Coordinate coordinates)
     {
         var landmarks = _unitOfWork.LandmarkRepository
             .SelectAll(landmark => landmark.Address.State
@@ -30,7 +30,7 @@ public class LandmarkService : ILandmarkService
         return default;
     }
 
-    private static bool IsAssetWithinLandmark(string landmarkBorders, string assetCoordinates)
+    private static bool IsAssetWithinLandmark(IEnumerable<Domain.Models.Coordinate> landmarkBorders, Domain.Models.Coordinate assetCoordinates)
     {
         try
         {
@@ -46,21 +46,9 @@ public class LandmarkService : ILandmarkService
         }
     }
 
-    private static Polygon CreateLandmarkPolygon(string landmarkBorders, GeometryFactory factory)
-    {
-        var coordinates = Array.ConvertAll(landmarkBorders.Split(','), border =>
-        {
-            string[] xy = border.Trim().Split();
-            return new Coordinate(double.Parse(xy[1], CultureInfo.InvariantCulture),
-                                  double.Parse(xy[0], CultureInfo.InvariantCulture));
-        });
-        return factory.CreatePolygon(coordinates.Append(coordinates[0]).ToArray());
-    }
+    private static Polygon CreateLandmarkPolygon(IEnumerable<Domain.Models.Coordinate> borders, GeometryFactory factory)
+        => factory.CreatePolygon(Array.ConvertAll(borders.ToArray(), b => new Coordinate { X = b.Latitude, Y = b.Longitude }));
 
-    private static Point CreateAssetPoint(string assetCoordinates, GeometryFactory factory)
-    {
-        var pointCoordinates = Array.ConvertAll(assetCoordinates.Split(','), c =>
-            double.Parse(c.Trim(), CultureInfo.InvariantCulture));
-        return factory.CreatePoint(new Coordinate(pointCoordinates[1], pointCoordinates[0]));
-    }
+    private static Point CreateAssetPoint(Domain.Models.Coordinate coordinates, GeometryFactory factory)
+        => factory.CreatePoint(new Coordinate { X = coordinates.Latitude, Y = coordinates.Longitude });
 }

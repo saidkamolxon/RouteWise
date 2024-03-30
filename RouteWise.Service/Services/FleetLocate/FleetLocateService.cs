@@ -31,9 +31,7 @@ public class FleetLocateService : IFleetLocateService
               .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Value<string>("name")))
               .ForMember(dest => dest.Address, opt => opt.MapFrom<TrailerAddressResolver>())
               .ForMember(dest => dest.Coordinates, opt => opt.MapFrom<TrailerCoordinatesResolver>())
-              .ForMember(dest => dest.LastEventDate, opt => opt.MapFrom(src => 
-                  DateTime.ParseExact(src.Value<string>("eventDateTime"),"yyyy-MM-dd HH:mm:ss", null))
-               )
+              .ForMember(dest => dest.LastEventAt, opt => opt.MapFrom<TrailerDateTimeResolver>())
               .ForMember(dest => dest.IsMoving, opt => opt.MapFrom(src => src.Value<bool>("moving")));
         });
         return config.CreateMapper();
@@ -72,7 +70,7 @@ public class FleetLocateService : IFleetLocateService
     {
         var data = await this.GetDataAsync(url: "assetStatus");
         return await MapAsync(data.Where(x =>
-            !string.IsNullOrEmpty(x.Value<string>("name")) ||
+            !string.IsNullOrEmpty(x.Value<string>("name")) &&
             !string.IsNullOrEmpty(x.Value<string>("eventDateTime"))));
     }
 
@@ -99,9 +97,9 @@ public class FleetLocateService : IFleetLocateService
         return JsonConvert.DeserializeObject<dynamic>(responseBody);
     }
 
-    private async Task<IEnumerable<TrailerStateDto>> MapAsync(IEnumerable<JToken> trailers)
+    private Task<IEnumerable<TrailerStateDto>> MapAsync(IEnumerable<JToken> trailers)
     {
-        return _mapper.Map<List<TrailerStateDto>>(trailers);
+        return Task.FromResult<IEnumerable<TrailerStateDto>>(_mapper.Map<List<TrailerStateDto>>(trailers));
     }
     #endregion
 }

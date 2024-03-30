@@ -13,11 +13,13 @@ public class AppDbContext : DbContext
         var landmarks = modelBuilder.Entity<Landmark>();
 
         trailers.OwnsOne(t => t.Address);
+        trailers.OwnsOne(t => t.Coordinates);
         trailers.HasIndex(t => t.Name).IsUnique();
         trailers.HasIndex(t => t.Vin).IsUnique();
         trailers.HasIndex(t => t.License).IsUnique();
 
         landmarks.OwnsOne(l => l.Address);
+        landmarks.OwnsOne(l => l.Coordinates);
         landmarks.HasIndex(l => l.Name).IsUnique();
     }
 

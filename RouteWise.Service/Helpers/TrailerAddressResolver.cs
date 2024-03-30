@@ -25,7 +25,7 @@ public class TrailerAddressResolver : IValueResolver<JToken, TrailerStateDto, Ad
                 Street = addressArray[0].Trim(),
                 City = addressArray[1].Trim(),
                 State = addressArray[2].Trim()[..2],
-                ZipCode = addressArray[2].Trim()[2..],
+                ZipCode = addressArray[2].Trim()[3..],
             };
         }
     }

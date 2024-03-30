@@ -1,8 +1,8 @@
-﻿using RouteWise.Service.DTOs.Trailer;
+﻿using RouteWise.Domain.Models;
 
 namespace RouteWise.Service.Interfaces;
 
 public interface ILandmarkService
 {
-    Task<int> GetLandmarkIdOrDefaultAsync(string state, string coordinates);
+    Task<int> GetLandmarkIdOrDefaultAsync(string state, Coordinate coordinates);
 }

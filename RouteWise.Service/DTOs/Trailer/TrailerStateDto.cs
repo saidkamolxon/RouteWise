@@ -7,7 +7,7 @@ public class TrailerStateDto
 {
     public string Name { get; set; }
     public Address Address { get; set; }
-    public string Coordinates { get; set; }
+    public Coordinate Coordinates { get; set; }
     public bool IsMoving { get; set; }
-    public DateTime LastEventDate { get; set; }
+    public DateTime LastEventAt { get; set; }
 }
