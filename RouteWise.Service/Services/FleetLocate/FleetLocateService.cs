@@ -6,6 +6,7 @@ using RouteWise.Service.Helpers;
 using RouteWise.Service.Interfaces;
 using System.Net.Http.Headers;
 using System.Text;
+using RouteWise.Service.DTOs.Landmark;
 
 namespace RouteWise.Service.Services.FleetLocate;
 
@@ -13,7 +14,8 @@ public class FleetLocateService : IFleetLocateService
 {
     private readonly HttpClient _client;
     private readonly int _tries;
-    private readonly IMapper _mapper;
+    private readonly IMapper _trailerStateMapper;
+    private readonly IMapper _landmarkUpdateMapper;
 
     public FleetLocateService(FleetLocateApiCredentials credentials)
     {
@@ -21,10 +23,11 @@ public class FleetLocateService : IFleetLocateService
         _client = new HttpClient();
         _client.BaseAddress = new Uri("https://api.us.spireon.com/api/");
         Authorize(credentials);
-        _mapper = CreateAndConfigureMapper();
+        _trailerStateMapper = ConfigureTrailerStateMapper();
+        _landmarkUpdateMapper = ConfigureLandmarkUpdateMapper();
     }
 
-    private static IMapper CreateAndConfigureMapper()
+    private static IMapper ConfigureTrailerStateMapper()
     {
         var config = new MapperConfiguration(cfg => {
             cfg.CreateMap<JToken, TrailerStateDto>()
@@ -33,6 +36,19 @@ public class FleetLocateService : IFleetLocateService
               .ForMember(dest => dest.Coordinates, opt => opt.MapFrom<TrailerCoordinatesResolver>())
               .ForMember(dest => dest.LastEventAt, opt => opt.MapFrom<TrailerDateTimeResolver>())
               .ForMember(dest => dest.IsMoving, opt => opt.MapFrom(src => src.Value<bool>("moving")));
+        });
+        return config.CreateMapper();
+    }
+
+    private static IMapper ConfigureLandmarkUpdateMapper()
+    {
+        var config = new MapperConfiguration(cfg =>
+        {
+            cfg.CreateMap<JToken, LandmarkUpdateDto>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Value<string>("name")))
+                .ForMember(dest => dest.Address, opt => opt.MapFrom<LandmarkAddressResolver>())
+                .ForMember(dest => dest.Coordinates, opt => opt.MapFrom<LandmarkCoordinatesResolver>())
+                .ForMember(dest => dest.BorderPoints, opt => opt.MapFrom<LandmarkBorderPointsResolver>());
         });
         return config.CreateMapper();
     }
@@ -60,8 +76,12 @@ public class FleetLocateService : IFleetLocateService
     public async Task<dynamic> GetAssetsStatusesAsync()
         => await this.GetDataAsync(url: "assetStatus");
 
-    public async Task<object> GetLandmarksAsync()
-        => await this.GetDataAsync(url: "landmark");
+    public async Task<IEnumerable<LandmarkUpdateDto>> GetLandmarksAsync()
+    {
+        var landmarks = await this.GetDataAsync(url: "landmark");
+        return await this.MapToLandmarkUpdateDtoAsync(landmarks);
+    }
+        
 
     public async Task<dynamic> GetLandmarksStatusesAsync()
         => await this.GetDataAsync(url: "landmarkStatus");
@@ -69,7 +89,7 @@ public class FleetLocateService : IFleetLocateService
     public async Task<IEnumerable<TrailerStateDto>> GetTrailersStatesAsync()
     {
         var data = await this.GetDataAsync(url: "assetStatus");
-        return await MapAsync(data.Where(x =>
+        return await MapToTrailerStateDtoAsync(data.Where(x =>
             !string.IsNullOrEmpty(x.Value<string>("name")) &&
             !string.IsNullOrEmpty(x.Value<string>("eventDateTime"))));
     }
@@ -77,7 +97,7 @@ public class FleetLocateService : IFleetLocateService
     #region Encapsulated methods --->>
     private async Task<IEnumerable<JToken>> GetDataAsync(string url, string param = "data")
     {
-        int tries = _tries;
+        var tries = _tries;
         while (tries > 0)
         {
             JObject jsonResponse = await GetJsonResponseAsync(url);
@@ -97,9 +117,14 @@ public class FleetLocateService : IFleetLocateService
         return JsonConvert.DeserializeObject<dynamic>(responseBody);
     }
 
-    private Task<IEnumerable<TrailerStateDto>> MapAsync(IEnumerable<JToken> trailers)
+    private Task<IEnumerable<TrailerStateDto>> MapToTrailerStateDtoAsync(IEnumerable<JToken> trailers)
     {
-        return Task.FromResult<IEnumerable<TrailerStateDto>>(_mapper.Map<List<TrailerStateDto>>(trailers));
+        return Task.FromResult<IEnumerable<TrailerStateDto>>(_trailerStateMapper.Map<List<TrailerStateDto>>(trailers));
+    }
+
+    private Task<IEnumerable<LandmarkUpdateDto>> MapToLandmarkUpdateDtoAsync(IEnumerable<JToken> landmarks)
+    {
+        return Task.FromResult<IEnumerable<LandmarkUpdateDto>>(_landmarkUpdateMapper.Map<List<LandmarkUpdateDto>>(landmarks));
     }
     #endregion
 }

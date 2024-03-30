@@ -3,16 +3,58 @@ using NetTopologySuite.Geometries;
 using RouteWise.Data.IRepositories;
 using RouteWise.Service.Interfaces;
 using System.Globalization;
+using AutoMapper;
+using RouteWise.Domain.Entities;
+using RouteWise.Service.DTOs.Landmark;
 
 namespace RouteWise.Service.Services;
 
 public class LandmarkService : ILandmarkService
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IFleetLocateService _service;
+    private readonly IMapper _mapper;
 
-    public LandmarkService(IUnitOfWork unitOfWork)
+    public LandmarkService(IUnitOfWork unitOfWork, IFleetLocateService service, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
+        _service = service;
+        _mapper = mapper;
+    }
+
+    public async Task<IEnumerable<LandmarkResultDto>> GetLandmarksByNameAsync(string name)
+    {
+        var landmarks = await _unitOfWork.LandmarkRepository.SelectAll(l =>
+            l.Name.ToUpper()
+                .Contains(name.ToUpper()))
+            .ToListAsync();
+        return _mapper.Map<IEnumerable<LandmarkResultDto>>(landmarks);
+    }
+
+    public async Task<IEnumerable<LandmarkResultDto>> GetAllLandmarksAsync()
+    {
+        var landmarks = await _unitOfWork.LandmarkRepository.SelectAll(asNoTracking:true).ToListAsync();
+        return _mapper.Map<IEnumerable<LandmarkResultDto>>(landmarks);
+    }
+
+    public async Task UpdateLandmarksAsync()
+    {
+        var landmarkUpdates = await _service.GetLandmarksAsync();
+        foreach (var update in landmarkUpdates)
+        {
+            var landmark = await _unitOfWork.LandmarkRepository.SelectAsync(l => l.Name.Equals(update.Name));
+            if (landmark is not null)
+            {
+                _mapper.Map(update, landmark);
+                _unitOfWork.LandmarkRepository.Update(landmark);
+            }
+            else
+            {
+                var newLandmark = _mapper.Map<Landmark>(update);
+                await _unitOfWork.LandmarkRepository.CreateAsync(newLandmark);
+            }
+            await _unitOfWork.SaveAsync();
+        }
     }
 
     public async Task<int> GetLandmarkIdOrDefaultAsync(string state, Domain.Models.Coordinate coordinates)
