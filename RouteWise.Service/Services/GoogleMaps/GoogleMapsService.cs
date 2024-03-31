@@ -10,7 +10,7 @@ public class GoogleMapsService : IGoogleMapsService
 
     public GoogleMapsService(GoogleMapsApiCredentials credentials)
     {
-        _client = new RestClient("https://maps.googleapis.com/maps/api/");
+        _client = new RestClient(credentials.BaseUrl);
         _client.AddDefaultParameter("key", credentials.Token);
     }
 

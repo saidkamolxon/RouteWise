@@ -14,7 +14,7 @@ public class RoadReadyService : IRoadReadyService
 
     public RoadReadyService(RoadReadyApiCredentials credentials)
     {
-        _client = new RestClient("https://api.roadreadysystem.com/jsonapi");
+        _client = new RestClient(credentials.BaseUrl);
         _client.AddDefaultHeader("x-api-key", credentials.Token);
         _mapper = CreateAndConfigureMapper();
     }
