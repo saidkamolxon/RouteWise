@@ -14,6 +14,7 @@ public class MappingProfile : Profile
     {
         CreateMap<UserCreationDto, User>();
         CreateMap<Trailer, TrailerResultDto>();
+        CreateMap<Trailer, TrailerWithinLandmarkDto>();
         CreateMap<TrailerCreationDto, Trailer>();
         CreateMap<TrailerStateDto, Trailer>();
         CreateMap<LandmarkUpdateDto, Landmark>();

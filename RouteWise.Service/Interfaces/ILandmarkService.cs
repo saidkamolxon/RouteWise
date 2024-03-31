@@ -8,5 +8,5 @@ public interface ILandmarkService
     Task<IEnumerable<LandmarkResultDto>> GetLandmarksByNameAsync(string name);
     Task<IEnumerable<LandmarkResultDto>> GetAllLandmarksAsync();
     Task UpdateLandmarksAsync();
-    Task<int> GetLandmarkIdOrDefaultAsync(string state, Coordinate coordinates);
+    Task<int?> GetLandmarkIdOrDefaultAsync(string state, Coordinate coordinates);
 }

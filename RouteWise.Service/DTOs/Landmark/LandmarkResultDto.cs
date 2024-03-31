@@ -8,6 +8,5 @@ public class LandmarkResultDto
     public string Name { get; set; }
     public string Address { get; set; }
     public string Coordinates { get; set; }
-    public IEnumerable<string> BorderPoints { get; set; }
-    public IEnumerable<TrailerResultDto> Trailers { get; set; }
+    public IEnumerable<TrailerWithinLandmarkDto> Trailers { get; set; }
 }

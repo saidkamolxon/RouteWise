@@ -25,11 +25,9 @@ public class LandmarkService : ILandmarkService
     {
         var landmarks = await _unitOfWork
             .LandmarkRepository
-            .SelectAll(l => l.Name.ToUpper().Contains(name.ToUpper()))
+            .SelectAll(l => l.Name.ToUpper().Contains(name.ToUpper()), includes: new[] {"Trailers"})
             .OrderBy(l => l.Name)
             .ToListAsync();
-
-        landmarks.ForEach(x => Console.WriteLine(x.BorderPoints.GetType()));
 
         return _mapper.Map<IEnumerable<LandmarkResultDto>>(landmarks);
     }
@@ -60,7 +58,7 @@ public class LandmarkService : ILandmarkService
         }
     }
 
-    public async Task<int> GetLandmarkIdOrDefaultAsync(string state, Domain.Models.Coordinate coordinates)
+    public async Task<int?> GetLandmarkIdOrDefaultAsync(string state, Domain.Models.Coordinate coordinates)
     {
         var landmarks = await _unitOfWork.LandmarkRepository
             .SelectAll(landmark => landmark.Address.State
@@ -70,7 +68,7 @@ public class LandmarkService : ILandmarkService
         var landmark = landmarks.FirstOrDefault(landmark =>
             IsAssetWithinLandmark(landmark.BorderPoints, coordinates));
 
-        return landmark?.Id ?? default;
+        return landmark?.Id;
     }
 
     public static bool IsAssetWithinLandmark(IEnumerable<Domain.Models.Coordinate> landmarkBorders, Domain.Models.Coordinate assetCoordinates) //TODO need to make private
