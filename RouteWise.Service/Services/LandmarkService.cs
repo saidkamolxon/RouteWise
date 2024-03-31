@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.Geometries;
 using RouteWise.Data.IRepositories;
-using RouteWise.Service.Interfaces;
-using System.Globalization;
-using AutoMapper;
 using RouteWise.Domain.Entities;
 using RouteWise.Service.DTOs.Landmark;
+using RouteWise.Service.Interfaces;
 
 namespace RouteWise.Service.Services;
 
@@ -24,16 +23,20 @@ public class LandmarkService : ILandmarkService
 
     public async Task<IEnumerable<LandmarkResultDto>> GetLandmarksByNameAsync(string name)
     {
-        var landmarks = await _unitOfWork.LandmarkRepository.SelectAll(l =>
-            l.Name.ToUpper()
-                .Contains(name.ToUpper()))
+        var landmarks = await _unitOfWork
+            .LandmarkRepository
+            .SelectAll(l => l.Name.ToUpper().Contains(name.ToUpper()))
+            .OrderBy(l => l.Name)
             .ToListAsync();
+
+        landmarks.ForEach(x => Console.WriteLine(x.BorderPoints.GetType()));
+
         return _mapper.Map<IEnumerable<LandmarkResultDto>>(landmarks);
     }
 
     public async Task<IEnumerable<LandmarkResultDto>> GetAllLandmarksAsync()
     {
-        var landmarks = await _unitOfWork.LandmarkRepository.SelectAll(asNoTracking:true).ToListAsync();
+        var landmarks = await _unitOfWork.LandmarkRepository.SelectAll(includes: new []{"Trailers"}).ToListAsync();
         return _mapper.Map<IEnumerable<LandmarkResultDto>>(landmarks);
     }
 
@@ -59,20 +62,18 @@ public class LandmarkService : ILandmarkService
 
     public async Task<int> GetLandmarkIdOrDefaultAsync(string state, Domain.Models.Coordinate coordinates)
     {
-        var landmarks = _unitOfWork.LandmarkRepository
+        var landmarks = await _unitOfWork.LandmarkRepository
             .SelectAll(landmark => landmark.Address.State
-            .Equals(state, StringComparison.OrdinalIgnoreCase));
+                .Equals(state), asNoTracking:true)
+            .ToListAsync();
 
-        var landmark = await landmarks.FirstOrDefaultAsync(landmark =>
+        var landmark = landmarks.FirstOrDefault(landmark =>
             IsAssetWithinLandmark(landmark.BorderPoints, coordinates));
 
-        if (landmark is not null) 
-            return landmark.Id;
-
-        return default;
+        return landmark?.Id ?? default;
     }
 
-    private static bool IsAssetWithinLandmark(IEnumerable<Domain.Models.Coordinate> landmarkBorders, Domain.Models.Coordinate assetCoordinates)
+    public static bool IsAssetWithinLandmark(IEnumerable<Domain.Models.Coordinate> landmarkBorders, Domain.Models.Coordinate assetCoordinates) //TODO need to make private
     {
         try
         {
@@ -89,7 +90,15 @@ public class LandmarkService : ILandmarkService
     }
 
     private static Polygon CreateLandmarkPolygon(IEnumerable<Domain.Models.Coordinate> borders, GeometryFactory factory)
-        => factory.CreatePolygon(Array.ConvertAll(borders.ToArray(), b => new Coordinate { X = b.Latitude, Y = b.Longitude }));
+    {
+        var bordersArray = borders.ToArray();
+
+        if (bordersArray.First() != bordersArray.Last())
+            bordersArray = bordersArray.Append(bordersArray.First()).ToArray();
+
+        return factory.CreatePolygon(Array.ConvertAll(bordersArray, b =>
+            new Coordinate { X = b.Latitude, Y = b.Longitude }));
+    }
 
     private static Point CreateAssetPoint(Domain.Models.Coordinate coordinates, GeometryFactory factory)
         => factory.CreatePoint(new Coordinate { X = coordinates.Latitude, Y = coordinates.Longitude });

@@ -14,15 +14,18 @@ public class TrailerService : ITrailerService
     private readonly IMapper _mapper;
     private readonly IFleetLocateService _fleetLocateService;
     private readonly IRoadReadyService _roadReadyService;
+    private readonly ILandmarkService _landmarkService;
 
     public TrailerService(IUnitOfWork unitOfWork, IMapper mapper,
                           IFleetLocateService fleetLocateService,
-                          IRoadReadyService roadReadyService)
+                          IRoadReadyService roadReadyService,
+                          ILandmarkService landmarkService)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _fleetLocateService = fleetLocateService;
         _roadReadyService = roadReadyService;
+        _landmarkService = landmarkService;
     }
 
     public async Task<TrailerResultDto> CreateAsync(TrailerCreationDto dto)
@@ -92,11 +95,13 @@ public class TrailerService : ITrailerService
             if (trailer is not null)
             {
                 _mapper.Map(state, trailer);
+                trailer.LandmarkId = await _landmarkService.GetLandmarkIdOrDefaultAsync(trailer.Address.State, trailer.Coordinates);
                 _unitOfWork.TrailerRepository.Update(trailer);
             }
             else
             {
                 var newTrailer = _mapper.Map<Trailer>(state);
+                newTrailer.LandmarkId = await _landmarkService.GetLandmarkIdOrDefaultAsync(newTrailer.Address.State, newTrailer.Coordinates);
                 await _unitOfWork.TrailerRepository.CreateAsync(newTrailer);
             }
             await _unitOfWork.SaveAsync();

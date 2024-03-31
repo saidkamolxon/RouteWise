@@ -14,13 +14,25 @@ public class AppDbContext : DbContext
 
         trailers.OwnsOne(t => t.Address);
         trailers.OwnsOne(t => t.Coordinates);
-        trailers.HasIndex(t => t.Name).IsUnique();
-        trailers.HasIndex(t => t.Vin).IsUnique();
-        trailers.HasIndex(t => t.License).IsUnique();
+        trailers
+            .HasIndex(t => t.Name)
+            .IsUnique();
+        trailers
+            .HasIndex(t => t.Vin)
+            .IsUnique();
+        trailers
+            .HasIndex(t => t.License)
+            .IsUnique();
 
         landmarks.OwnsOne(l => l.Address);
         landmarks.OwnsOne(l => l.Coordinates);
-        landmarks.HasIndex(l => l.Name).IsUnique();
+        landmarks
+            .HasMany(l => l.Trailers)
+            .WithOne(t => t.Landmark)
+            .HasForeignKey(t => t.LandmarkId);
+        landmarks
+            .HasIndex(l => l.Name)
+            .IsUnique();
     }
 
     public DbSet<Driver> Drivers { get; set; }

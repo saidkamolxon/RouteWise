@@ -1,4 +1,6 @@
-﻿namespace RouteWise.Service.DTOs.Landmark;
+﻿using RouteWise.Service.DTOs.Trailer;
+
+namespace RouteWise.Service.DTOs.Landmark;
 
 public class LandmarkResultDto
 {
@@ -7,4 +9,5 @@ public class LandmarkResultDto
     public string Address { get; set; }
     public string Coordinates { get; set; }
     public IEnumerable<string> BorderPoints { get; set; }
+    public IEnumerable<TrailerResultDto> Trailers { get; set; }
 }
