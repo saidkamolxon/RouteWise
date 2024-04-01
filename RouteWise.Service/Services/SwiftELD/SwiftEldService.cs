@@ -36,6 +36,7 @@ public class SwiftEldService : ISwiftEldService
     public async Task<IEnumerable<TruckStateDto>> GetAllTrucksStatesAsync()
     {
         var content = await GetDataAsync("asset-position/truck-list");
+        throw new NotImplementedException();
     }
 
     public Task<TruckStateDto> GetTruckStateByNameAsync()
