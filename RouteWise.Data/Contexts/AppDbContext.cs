@@ -10,8 +10,6 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         var trailers = modelBuilder.Entity<Trailer>();
-        var landmarks = modelBuilder.Entity<Landmark>();
-
         trailers.OwnsOne(t => t.Address);
         trailers.OwnsOne(t => t.Coordinates);
         trailers
@@ -24,6 +22,14 @@ public class AppDbContext : DbContext
             .HasIndex(t => t.License)
             .IsUnique();
 
+        
+        var trucks = modelBuilder.Entity<Truck>();
+        trucks.OwnsOne(t => t.Address);
+        trucks.OwnsOne(t => t.Coordinates);
+
+
+
+        var landmarks = modelBuilder.Entity<Landmark>();
         landmarks.OwnsOne(l => l.Address);
         landmarks.OwnsOne(l => l.Coordinates);
         landmarks

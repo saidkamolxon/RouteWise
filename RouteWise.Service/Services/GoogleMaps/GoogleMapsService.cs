@@ -1,5 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using NetTopologySuite.Geometries;
+using Newtonsoft.Json.Linq;
 using RestSharp;
+using RouteWise.Domain.Models;
 using RouteWise.Service.Interfaces;
 
 namespace RouteWise.Service.Services.GoogleMaps;
@@ -61,6 +63,14 @@ public class GoogleMapsService : IGoogleMapsService
     {
         var parameters = new Dictionary<string, string>{{ reverse ? "address" : "latlng", location }};
         return await this.GetResultAsync("geocode/json", parameters);
+    }
+
+    public async Task<string> GetReverseGeocodingAsync(string coordinates)
+    {
+        var parameters = new Dictionary<string, string> {{ "latlng", coordinates }};
+        var response = await this.GetResultAsync("geocode/json", parameters);
+        var formattedAddress = response["results"][0]["formatted_address"].ToString();
+        return formattedAddress;
     }
 
     public async Task<object> GetStaticMapAsync(string coordinates)

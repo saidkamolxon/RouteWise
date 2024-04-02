@@ -1,10 +1,12 @@
-﻿using RouteWise.Data.IRepositories;
+﻿using Microsoft.Extensions.DependencyInjection;
+using RouteWise.Data.IRepositories;
 using RouteWise.Data.Repositories;
 using RouteWise.Service.Interfaces;
 using RouteWise.Service.Services;
 using RouteWise.Service.Services.FleetLocate;
 using RouteWise.Service.Services.GoogleMaps;
 using RouteWise.Service.Services.RoadReady;
+using RouteWise.Service.Services.SwiftELD;
 
 namespace RouteWise.Bot.Extensions;
 
@@ -21,6 +23,10 @@ public static class ServiceCollection
         AddFleetLocate(services, configuration);
         AddGoogleMaps(services, configuration);
         AddRoadReady(services, configuration);
+        services.AddScoped<ISwiftEldService, SwiftEldService>(provider =>
+            new SwiftEldService(provider.GetService<IGoogleMapsService>(),
+            configuration.GetSection("AccessToExternalAPIs:SwiftELD").Get<SwiftEldApiCredentials>())
+        );
     }
 
     private static void AddGoogleMaps(IServiceCollection services, IConfiguration configuration)

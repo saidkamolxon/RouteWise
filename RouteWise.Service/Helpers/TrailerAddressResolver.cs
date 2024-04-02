@@ -20,8 +20,6 @@ public class TrailerAddressResolver : IValueResolver<JToken, TrailerStateDto, Ad
         else
         {
             var addressArray = source.Value<string>("location").Split(',');
-            if (addressArray.Length < 3)
-                Console.WriteLine($"this is the thing: {source.Value<string>("trailerName")}");
             return new Address
             {
                 Street = addressArray[0].Trim(),

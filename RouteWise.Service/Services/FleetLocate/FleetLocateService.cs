@@ -34,7 +34,7 @@ public class FleetLocateService : IFleetLocateService
               .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Value<string>("name")))
               .ForMember(dest => dest.Address, opt => opt.MapFrom<TrailerAddressResolver>())
               .ForMember(dest => dest.Coordinates, opt => opt.MapFrom<TrailerCoordinatesResolver>())
-              .ForMember(dest => dest.LastEventAt, opt => opt.MapFrom<TrailerDateTimeResolver>())
+              .ForMember(dest => dest.LastEventAt, opt => opt.MapFrom<TrailerLastEventAtResolver>())
               .ForMember(dest => dest.IsMoving, opt => opt.MapFrom(src => src.Value<bool>("moving")));
         });
         return config.CreateMapper();
