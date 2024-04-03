@@ -5,5 +5,5 @@ namespace RouteWise.Service.Interfaces;
 public interface ISwiftEldService
 {
     Task<IEnumerable<TruckStateDto>> GetAllTrucksStatesAsync();
-    Task<TruckStateDto> GetTruckStateByNameAsync();
+    Task<TruckStateDto> GetTruckStateByNameAsync(string name);
 }

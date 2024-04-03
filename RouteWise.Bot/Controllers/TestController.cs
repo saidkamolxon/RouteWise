@@ -7,14 +7,14 @@ public class TestController : BaseController
 {
     private readonly ITrailerService _trailerService;
     private readonly ILandmarkService _landmarkService;
-    private readonly ISwiftEldService _swiftEldService;
+    private readonly ITruckService _truckService;
 
     public TestController(ITrailerService trailerService, ILandmarkService landmarkService,
-        ISwiftEldService swiftEldService)
+        ITruckService truckService)
     {
         _trailerService = trailerService;
         _landmarkService = landmarkService;
-        _swiftEldService = swiftEldService;
+        _truckService = truckService;
     }
 
     [HttpGet]
@@ -49,9 +49,9 @@ public class TestController : BaseController
         return Ok(await _trailerService.GetAllAsync());
     }
 
-    [HttpGet("Trucks")]
-    public async Task<IActionResult> GetAllTrucks()
+    [HttpGet("trucks/{name}")]
+    public async Task<IActionResult> GetAllTrucks(string name)
     {
-        return Ok(await _swiftEldService.GetAllTrucksStatesAsync());
+        return Ok(await _truckService.GetAsync(name));
     }
 }

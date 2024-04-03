@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using RouteWise.Data.IRepositories;
+﻿using RouteWise.Data.IRepositories;
 using RouteWise.Data.Repositories;
 using RouteWise.Service.Interfaces;
 using RouteWise.Service.Services;
@@ -18,14 +17,20 @@ public static class ServiceCollection
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<ILandmarkService, LandmarkService>();
         services.AddScoped<ITrailerService, TrailerService>();
+        services.AddScoped<ITruckService, TruckService>();
         services.AddScoped<ITrailerRepository, TrailerRepository>();
         services.AddScoped<ILandmarkRepository, LandmarkRepository>();
         AddFleetLocate(services, configuration);
         AddGoogleMaps(services, configuration);
         AddRoadReady(services, configuration);
+        AddSwiftEld(services, configuration);
+    }
+
+    private static void AddSwiftEld(IServiceCollection services, IConfiguration configuration)
+    {
         services.AddScoped<ISwiftEldService, SwiftEldService>(provider =>
-            new SwiftEldService(provider.GetService<IGoogleMapsService>(),
-            configuration.GetSection("AccessToExternalAPIs:SwiftELD").Get<SwiftEldApiCredentials>())
+            new SwiftEldService(configuration.GetSection("AccessToExternalAPIs:SwiftELD")
+                                             .Get<SwiftEldApiCredentials>())
         );
     }
 

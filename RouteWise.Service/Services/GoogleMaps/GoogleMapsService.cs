@@ -1,7 +1,5 @@
-﻿using NetTopologySuite.Geometries;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using RestSharp;
-using RouteWise.Domain.Models;
 using RouteWise.Service.Interfaces;
 
 namespace RouteWise.Service.Services.GoogleMaps;

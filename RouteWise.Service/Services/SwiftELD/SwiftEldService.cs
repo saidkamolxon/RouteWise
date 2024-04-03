@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using RouteWise.Service.DTOs.Truck;
@@ -9,13 +10,11 @@ namespace RouteWise.Service.Services.SwiftELD;
 
 public class SwiftEldService : ISwiftEldService
 {
-    private readonly IGoogleMapsService _googleMapsService;
     private readonly IRestClient _client;
     private readonly IMapper _mapper;
 
-    public SwiftEldService(IGoogleMapsService googleMapsService, SwiftEldApiCredentials credentials)
+    public SwiftEldService(SwiftEldApiCredentials credentials)
     {
-        _googleMapsService = googleMapsService;
         _client = new RestClient(credentials.BaseUrl);
         _client.AddDefaultParameter("token", credentials.Token);
         _mapper = CreateAndConfigureMapper();
@@ -41,13 +40,13 @@ public class SwiftEldService : ISwiftEldService
     public async Task<IEnumerable<TruckStateDto>> GetAllTrucksStatesAsync()
     {
         var content = await GetDataAsync("asset-position/truck-list");
-        var result = await MapAsync(content);
-        return result;
+        return Map(content);
     }
 
-    public Task<TruckStateDto> GetTruckStateByNameAsync()
+    public async Task<TruckStateDto> GetTruckStateByNameAsync(string name)
     {
-        throw new NotImplementedException();
+        return (await GetAllTrucksStatesAsync())
+            .FirstOrDefault(t => t.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
     }
 
     private async Task<JArray> GetDataAsync(string source)
@@ -58,16 +57,6 @@ public class SwiftEldService : ISwiftEldService
         throw new Exception("A bad request...");
     }
 
-    private async Task<IEnumerable<TruckStateDto>> MapAsync(JArray trucks)
-    {
-        var result = new List<TruckStateDto>();
-        
-        foreach (var truck in trucks.Where(t => t.Value<string>("signalTime") is not null))
-        {
-            var dto = _mapper.Map<TruckStateDto>(truck);
-            dto.Address = await _googleMapsService.GetReverseGeocodingAsync(dto.Coordinates.ToString());
-            result.Add(dto);
-        }
-        return result;
-    }
+    private IEnumerable<TruckStateDto> Map(JArray trucks)
+        => _mapper.Map<List<TruckStateDto>>(trucks.Where(t => t.Value<string>("signalTime") != null));
 }

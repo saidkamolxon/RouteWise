@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore.Sqlite.Storage.Internal;
-using Newtonsoft.Json.Linq;
 using RouteWise.Domain.Entities;
 using RouteWise.Service.DTOs;
 using RouteWise.Service.DTOs.Landmark;
@@ -19,6 +17,7 @@ public class MappingProfile : Profile
         CreateMap<TrailerCreationDto, Trailer>();
         CreateMap<TrailerStateDto, Trailer>();
         CreateMap<TruckStateDto, Truck>();
+        CreateMap<TruckStateDto, TruckResultDto>();
         CreateMap<LandmarkUpdateDto, Landmark>();
         CreateMap<Landmark, LandmarkResultDto>();
     }
