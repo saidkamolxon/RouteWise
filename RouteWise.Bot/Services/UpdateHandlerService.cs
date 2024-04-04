@@ -67,8 +67,26 @@ public class UpdateHandlerService
     {
         _logger.LogInformation($"Message received: {message.Type}");
 
-        await _botClient.SendTextMessageAsync(
-            chatId: message.Chat.Id,
-            text: "Received a message");
+        var reply = message.Type switch
+        {
+            MessageType.Text => _botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: message.Text,
+                replyToMessageId: message.MessageId),
+
+            _ => _botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: "I'm not configured for that type, sorry",
+                replyToMessageId: message.MessageId)
+        };
+
+        try
+        {
+            await reply;
+        }
+        catch(Exception ex)
+        {
+            await HandlerErrorAsync(ex);
+        }
     }
 }
