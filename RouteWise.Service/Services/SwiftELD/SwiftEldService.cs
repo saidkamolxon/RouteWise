@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using RouteWise.Service.DTOs.Truck;

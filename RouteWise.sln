@@ -9,11 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RouteWise.Service", "RouteW
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RouteWise.Domain", "RouteWise.Domain\RouteWise.Domain.csproj", "{29BBEADB-90CD-4342-A440-D8BA5903264E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RouteWise.TelegramBot", "RouteWise.TelegramBot\RouteWise.TelegramBot.csproj", "{10516A26-4D78-424E-AE2C-EF1023D6683D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RouteWise.Bot", "RouteWise.Bot\RouteWise.Bot.csproj", "{7989DE69-4D9B-4034-BC46-02BBB6060081}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{5D581372-842C-4AC0-AD1B-65CC517AAC49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{5D581372-842C-4AC0-AD1B-65CC517AAC49}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +31,6 @@ Global
 		{29BBEADB-90CD-4342-A440-D8BA5903264E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29BBEADB-90CD-4342-A440-D8BA5903264E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29BBEADB-90CD-4342-A440-D8BA5903264E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{10516A26-4D78-424E-AE2C-EF1023D6683D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{10516A26-4D78-424E-AE2C-EF1023D6683D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{10516A26-4D78-424E-AE2C-EF1023D6683D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{10516A26-4D78-424E-AE2C-EF1023D6683D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7989DE69-4D9B-4034-BC46-02BBB6060081}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7989DE69-4D9B-4034-BC46-02BBB6060081}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7989DE69-4D9B-4034-BC46-02BBB6060081}.Release|Any CPU.ActiveCfg = Release|Any CPU

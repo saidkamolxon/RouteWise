@@ -2,7 +2,6 @@
 using RouteWise.Service.DTOs.Truck;
 using RouteWise.Service.Helpers;
 using RouteWise.Service.Interfaces;
-using RouteWise.Service.Services.GoogleMaps;
 
 namespace RouteWise.Service.Services;
 
