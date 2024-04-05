@@ -13,6 +13,12 @@ public class TrailerResultDto
     public string Address { get; set; }
     public bool IsMoving { get; set; }
     public DateTime LastEventAt { get; set; }
-
+    public string PhotoUrl { get; set; }
     public string Landmark { get; set; }
+
+    public override string ToString()
+    {
+        string movingSymbol = IsMoving ? "🔴" : "🟢";
+        return $"Trailer#: <b>{Name}</b> {movingSymbol}\n\nCoordinates: <code>{Coordinates}</code>\nLocation: <b>{Address}</b>";
+    }
 }

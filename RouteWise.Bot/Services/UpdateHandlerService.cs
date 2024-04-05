@@ -1,4 +1,7 @@
-﻿using Telegram.Bot;
+﻿using RouteWise.Domain.Entities;
+using RouteWise.Service.Interfaces;
+using System.Data.SqlTypes;
+using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
@@ -9,11 +12,15 @@ public class UpdateHandlerService
 {
     private ILogger<ConfigureWebhook> _logger;
     private ITelegramBotClient _botClient;
+    private ITrailerService _trailerService;
 
-    public UpdateHandlerService(ILogger<ConfigureWebhook> logger, ITelegramBotClient botClient)
+    public UpdateHandlerService(ILogger<ConfigureWebhook> logger,
+        ITelegramBotClient botClient,
+        ITrailerService trailerService)
     {
         _logger = logger;
         _botClient = botClient;
+        _trailerService = trailerService;
     }
 
     public async Task EchoAsync(Update update)
@@ -69,10 +76,7 @@ public class UpdateHandlerService
 
         var reply = message.Type switch
         {
-            MessageType.Text => _botClient.SendTextMessageAsync(
-                chatId: message.Chat.Id,
-                text: message.Text,
-                replyToMessageId: message.MessageId),
+            MessageType.Text => BotOnTextMessageReceived(message),
 
             _ => _botClient.SendTextMessageAsync(
                 chatId: message.Chat.Id,
@@ -88,5 +92,20 @@ public class UpdateHandlerService
         {
             await HandlerErrorAsync(ex);
         }
+    }
+
+    private async Task BotOnTextMessageReceived(Message message)
+    {
+        if (message.Text.Contains("/g"))
+        {
+            var trailerName = message.Text.Split()[1].Trim();
+            var trailer = await _trailerService.GetByNameAsync(trailerName);
+            await _botClient.SendPhotoAsync(
+                chatId: message.Chat.Id, 
+                caption: trailer.ToString(),
+                photo: InputFile.FromString(trailer.PhotoUrl),
+                parseMode: ParseMode.Html);
+        }
+        return;
     }
 }

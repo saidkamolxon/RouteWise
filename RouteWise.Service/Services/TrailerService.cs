@@ -15,17 +15,20 @@ public class TrailerService : ITrailerService
     private readonly IFleetLocateService _fleetLocateService;
     private readonly IRoadReadyService _roadReadyService;
     private readonly ILandmarkService _landmarkService;
+    private readonly IGoogleMapsService _googleMapsService;
 
     public TrailerService(IUnitOfWork unitOfWork, IMapper mapper,
                           IFleetLocateService fleetLocateService,
                           IRoadReadyService roadReadyService,
-                          ILandmarkService landmarkService)
+                          ILandmarkService landmarkService,
+                          IGoogleMapsService googleMapsService)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _fleetLocateService = fleetLocateService;
         _roadReadyService = roadReadyService;
         _landmarkService = landmarkService;
+        _googleMapsService = googleMapsService;
     }
 
     public async Task<TrailerResultDto> CreateAsync(TrailerCreationDto dto)
@@ -66,10 +69,12 @@ public class TrailerService : ITrailerService
     public async Task<TrailerResultDto> GetByNameAsync(string name)
     {
         var trailer = await _unitOfWork.TrailerRepository
-            .SelectAsync(t => t.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
+            .SelectAsync(t => t.Name.ToLower().Contains(name.ToLower()))
                 ?? throw new NotFoundException("Trailer with such name is not found.");
 
-        return _mapper.Map<TrailerResultDto>(trailer);
+        var dto = _mapper.Map<TrailerResultDto>(trailer);
+        dto.PhotoUrl = await _googleMapsService.GetStaticMapAsync(dto.Coordinates);
+        return dto;
     }
 
     public async Task<TrailerResultDto> UpdateAsync(TrailerStateDto dto)

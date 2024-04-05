@@ -71,12 +71,12 @@ public class GoogleMapsService : IGoogleMapsService
         return formattedAddress;
     }
 
-    public async Task<object> GetStaticMapAsync(string coordinates)
+    public async Task<string> GetStaticMapAsync(string coordinates)
     {
         var parameters = GetStaticMapsDefaultParameters();
         parameters.Add("center", coordinates);
         parameters.Add("markers", coordinates);
-        return _client.BuildUri(CreateNewRestRequest("staticmap", parameters));
+        return _client.BuildUri(CreateNewRestRequest("staticmap", parameters)).ToString();
     }
 
     public async Task<object> GetStaticMapAsync(string center, string[] objects)
