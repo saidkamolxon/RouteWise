@@ -31,7 +31,7 @@ public class ConfigureWebhook : IHostedService
         _logger.LogInformation("Setting webhook...");
 
         await botClient.SendTextMessageAsync(
-            chatId: 5885255512,
+            chatId: _botConfig.OwnerId,
             text: "Bot has been started."
         );
 
