@@ -1,6 +1,6 @@
-﻿using RouteWise.Domain.Entities;
+﻿using RouteWise.Bot.Enums;
 using RouteWise.Service.Interfaces;
-using System.Data.SqlTypes;
+using Stateless;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
@@ -12,15 +12,32 @@ public class UpdateHandlerService
 {
     private ILogger<ConfigureWebhook> _logger;
     private ITelegramBotClient _botClient;
+    private StateMachine<BotState, BotTrigger> _stateMachine;
     private ITrailerService _trailerService;
+    private readonly IGoogleMapsService _googleMapsService;
+    private string _origin;
+    private string _destination;
 
     public UpdateHandlerService(ILogger<ConfigureWebhook> logger,
         ITelegramBotClient botClient,
-        ITrailerService trailerService)
+        ITrailerService trailerService,
+        IGoogleMapsService googleMapsService)
     {
         _logger = logger;
         _botClient = botClient;
         _trailerService = trailerService;
+        _googleMapsService = googleMapsService;
+        _stateMachine = new StateMachine<BotState, BotTrigger>(BotState.Finished);
+
+        _stateMachine.Configure(BotState.Start)
+            .Permit(BotTrigger.InputReceived, BotState.WaitingForOrigin);
+
+        _stateMachine.Configure(BotState.WaitingForOrigin)
+            .Permit(BotTrigger.OriginReceived, BotState.WaitingForDestination);
+
+        _stateMachine.Configure(BotState.WaitingForDestination)
+            .Permit(BotTrigger.DestinationReceived, BotState.Finished);
+
     }
 
     public async Task EchoAsync(Update update)
@@ -96,16 +113,55 @@ public class UpdateHandlerService
 
     private async Task BotOnTextMessageReceived(Message message)
     {
-        if (message.Text.Contains("/g"))
+        string command = message.Text.Split()[0];
+
+        if (command == "/distance")
         {
-            var trailerName = message.Text.Split()[1].Trim();
-            var trailer = await _trailerService.GetByNameAsync(trailerName);
-            await _botClient.SendPhotoAsync(
-                chatId: message.Chat.Id, 
-                caption: trailer.ToString(),
-                photo: InputFile.FromString(trailer.PhotoUrl),
-                parseMode: ParseMode.Html);
+            while (_stateMachine.State != BotState.Finished)
+            {
+                await MeasureDistanceAsync(message);
+            }
         }
-        return;
+
+        
+        
+
+
+        
+        //if (message.Text.Contains("/g"))
+        //{
+        //    var trailerName = message.Text.Split()[1].Trim();
+        //    var trailer = await _trailerService.GetByNameAsync(trailerName);
+        //    await _botClient.SendPhotoAsync(
+        //        chatId: message.Chat.Id, 
+        //        caption: trailer.ToString(),
+        //        photo: InputFile.FromString(trailer.PhotoUrl),
+        //        parseMode: ParseMode.Html);
+        //}
+        //return;
+    }
+
+    private async Task MeasureDistanceAsync(Message message)
+    {
+        switch (_stateMachine.State)
+        {
+            case BotState.Start:
+                await _botClient.SendTextMessageAsync(message.Chat.Id, "Origin");
+                _stateMachine.Fire(BotTrigger.InputReceived);
+                break;
+
+            case BotState.WaitingForOrigin:
+                _origin = message.Text;
+                await _botClient.SendTextMessageAsync(message.Chat.Id, "Destination");
+                _stateMachine.Fire(BotTrigger.OriginReceived);
+                break;
+
+            case BotState.WaitingForDestination:
+                _destination = message.Text;
+                string distance = await _googleMapsService.GetDistanceAsync(_origin, _destination);
+                await _botClient.SendTextMessageAsync(message.Chat.Id, distance);
+                _stateMachine.Fire(BotTrigger.DestinationReceived);
+                break;
+        };
     }
 }
