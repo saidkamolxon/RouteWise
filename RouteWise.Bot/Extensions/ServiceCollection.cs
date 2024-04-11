@@ -20,6 +20,8 @@ public static class ServiceCollection
         services.AddScoped<ITruckService, TruckService>();
         services.AddScoped<ITrailerRepository, TrailerRepository>();
         services.AddScoped<ILandmarkRepository, LandmarkRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUserService, UserService>();
         AddFleetLocate(services, configuration);
         AddGoogleMaps(services, configuration);
         AddRoadReady(services, configuration);

@@ -20,9 +20,17 @@ public class GoogleMapsService : IGoogleMapsService
            {{ "origins", origin },
             { "destinations", destination }};
 
-        var result = await GetDistanceMatrixResult(parameters);
-        return $"From: {result.Origin}\nTo: {result.Destination}\nDistance: {result.Distance}\n" +
-               $"Duration: {result.Duration}\n\nSource: Google Maps©️";
+        try
+        {
+            var result = await GetDistanceMatrixResult(parameters);
+            return $"From: {result.Origin}\nTo: {result.Destination}\nDistance: {result.Distance}\n" +
+                   $"Duration: {result.Duration}\n\nSource: Google Maps©️";
+
+        }
+        catch
+        {
+            return "An unexpected error occured";
+        }
     }
 
     private async Task<DistanceMatrixResult> GetDistanceMatrixResult(Dictionary<string, string> parameters)

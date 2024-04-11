@@ -11,8 +11,8 @@ using RouteWise.Data.Contexts;
 namespace RouteWise.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240331013002_initialSetup")]
-    partial class initialSetup
+    [Migration("20240411200821_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -153,29 +153,37 @@ namespace RouteWise.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("DriverId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
+
+                    b.Property<int?>("LandmarkId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("LastEventAt")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("License")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<long?>("Odometer")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("VIN")
-                        .HasMaxLength(17)
+                    b.Property<string>("Vin")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Year")
+                    b.Property<int?>("Year")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LandmarkId");
 
                     b.ToTable("Trucks");
                 });
@@ -188,6 +196,9 @@ namespace RouteWise.Data.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("CurrentStep")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("TEXT");
@@ -213,6 +224,19 @@ namespace RouteWise.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2024, 4, 11, 20, 8, 21, 858, DateTimeKind.Utc).AddTicks(8796),
+                            CurrentStep = 0,
+                            FirstName = "Saidkamol",
+                            IsDeleted = false,
+                            LastName = "Saidjamolov",
+                            Role = 2,
+                            TelegramId = 5885255512L
+                        });
                 });
 
             modelBuilder.Entity("RouteWise.Domain.Entities.Landmark", b =>
@@ -325,6 +349,90 @@ namespace RouteWise.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Landmark");
+                });
+
+            modelBuilder.Entity("RouteWise.Domain.Entities.Truck", b =>
+                {
+                    b.HasOne("RouteWise.Domain.Entities.Landmark", "Landmark")
+                        .WithMany()
+                        .HasForeignKey("LandmarkId");
+
+                    b.OwnsOne("RouteWise.Domain.Models.Address", "Address", b1 =>
+                        {
+                            b1.Property<int>("TruckId")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<string>("City")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("State")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("Street")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("ZipCode")
+                                .HasColumnType("TEXT");
+
+                            b1.HasKey("TruckId");
+
+                            b1.ToTable("Trucks");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TruckId");
+                        });
+
+                    b.OwnsOne("RouteWise.Domain.Models.Coordinate", "Coordinates", b1 =>
+                        {
+                            b1.Property<int>("TruckId")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<double>("Latitude")
+                                .HasColumnType("REAL");
+
+                            b1.Property<double>("Longitude")
+                                .HasColumnType("REAL");
+
+                            b1.HasKey("TruckId");
+
+                            b1.ToTable("Trucks");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TruckId");
+                        });
+
+                    b.Navigation("Address")
+                        .IsRequired();
+
+                    b.Navigation("Coordinates")
+                        .IsRequired();
+
+                    b.Navigation("Landmark");
+                });
+
+            modelBuilder.Entity("RouteWise.Domain.Entities.User", b =>
+                {
+                    b.OwnsOne("RouteWise.Domain.Models.StepValue", "StepValue", b1 =>
+                        {
+                            b1.Property<int>("UserId")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<string>("Destination")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("Origin")
+                                .HasColumnType("TEXT");
+
+                            b1.HasKey("UserId");
+
+                            b1.ToTable("Users");
+
+                            b1.WithOwner()
+                                .HasForeignKey("UserId");
+                        });
+
+                    b.Navigation("StepValue")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RouteWise.Domain.Entities.Landmark", b =>

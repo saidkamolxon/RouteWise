@@ -20,5 +20,9 @@ public class MappingProfile : Profile
         CreateMap<TruckStateDto, TruckResultDto>();
         CreateMap<LandmarkUpdateDto, Landmark>();
         CreateMap<Landmark, LandmarkResultDto>();
+        CreateMap<UserCreationDto, User>();
+        CreateMap<User, UserResultDto>();
+        CreateMap<UserResultDto, UserUpdateDto>();
+        CreateMap<UserUpdateDto, User>();
     }
 }

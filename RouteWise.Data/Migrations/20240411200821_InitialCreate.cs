@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RouteWise.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class initialSetup : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -54,27 +54,6 @@ namespace RouteWise.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Trucks",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    License = table.Column<string>(type: "TEXT", nullable: true),
-                    VIN = table.Column<string>(type: "TEXT", maxLength: 17, nullable: true),
-                    Color = table.Column<string>(type: "TEXT", nullable: true),
-                    Year = table.Column<int>(type: "INTEGER", nullable: false),
-                    DriverId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Trucks", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -85,6 +64,9 @@ namespace RouteWise.Data.Migrations
                     UserName = table.Column<string>(type: "TEXT", nullable: true),
                     TelegramId = table.Column<long>(type: "INTEGER", nullable: false),
                     Role = table.Column<int>(type: "INTEGER", nullable: false),
+                    CurrentStep = table.Column<int>(type: "INTEGER", nullable: false),
+                    StepValue_Origin = table.Column<string>(type: "TEXT", nullable: true),
+                    StepValue_Destination = table.Column<string>(type: "TEXT", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
@@ -129,6 +111,45 @@ namespace RouteWise.Data.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Trucks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    License = table.Column<string>(type: "TEXT", nullable: true),
+                    Vin = table.Column<string>(type: "TEXT", nullable: true),
+                    Color = table.Column<string>(type: "TEXT", nullable: true),
+                    Year = table.Column<int>(type: "INTEGER", nullable: true),
+                    Address_Street = table.Column<string>(type: "TEXT", nullable: true),
+                    Address_City = table.Column<string>(type: "TEXT", nullable: true),
+                    Address_State = table.Column<string>(type: "TEXT", nullable: true),
+                    Address_ZipCode = table.Column<string>(type: "TEXT", nullable: true),
+                    LastEventAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Coordinates_Latitude = table.Column<double>(type: "REAL", nullable: false),
+                    Coordinates_Longitude = table.Column<double>(type: "REAL", nullable: false),
+                    Odometer = table.Column<long>(type: "INTEGER", nullable: true),
+                    LandmarkId = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Trucks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Trucks_Landmarks_LandmarkId",
+                        column: x => x.LandmarkId,
+                        principalTable: "Landmarks",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "CreatedAt", "CurrentStep", "FirstName", "IsDeleted", "LastName", "Role", "TelegramId", "UpdatedAt", "UserName" },
+                values: new object[] { 1, new DateTime(2024, 4, 11, 20, 8, 21, 858, DateTimeKind.Utc).AddTicks(8796), 0, "Saidkamol", false, "Saidjamolov", 2, 5885255512L, null, null });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Landmarks_Name",
                 table: "Landmarks",
@@ -157,6 +178,11 @@ namespace RouteWise.Data.Migrations
                 table: "Trailers",
                 column: "Vin",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trucks_LandmarkId",
+                table: "Trucks",
+                column: "LandmarkId");
         }
 
         /// <inheritdoc />

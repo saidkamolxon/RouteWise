@@ -1,7 +1,8 @@
-﻿using RouteWise.Bot.Constants;
-using RouteWise.Bot.Enums;
+﻿using AutoMapper;
+using RouteWise.Bot.Constants;
+using RouteWise.Domain.Enums;
+using RouteWise.Service.DTOs.User;
 using RouteWise.Service.Interfaces;
-using Stateless;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
@@ -11,36 +12,26 @@ namespace RouteWise.Bot.Services;
 
 public class UpdateHandlerService
 {
-    private ILogger<ConfigureWebhook> _logger;
-    private ITelegramBotClient _botClient;
-    private StateMachine<BotState, BotTrigger> _stateMachine;
-    private ITrailerService _trailerService;
+    private readonly ILogger<ConfigureWebhook> _logger;
+    private readonly ITelegramBotClient _botClient;
     private readonly IGoogleMapsService _googleMapsService;
-    private string _origin;
-    private string _destination;
+    private readonly IUserService _userService;
+    private readonly ILandmarkService _landmarkService;
+    private readonly IMapper _mapper;
 
     public UpdateHandlerService(ILogger<ConfigureWebhook> logger,
         ITelegramBotClient botClient,
-        ITrailerService trailerService,
-        IGoogleMapsService googleMapsService)
+        IGoogleMapsService googleMapsService,
+        IUserService userService,
+        ILandmarkService landmarkService,
+        IMapper mapper)
     {
         _logger = logger;
         _botClient = botClient;
-        _trailerService = trailerService;
         _googleMapsService = googleMapsService;
-        
-        
-        _stateMachine = new StateMachine<BotState, BotTrigger>(BotState.InitialState);
-
-        _stateMachine.Configure(BotState.InitialState)
-            .Permit(BotTrigger.MeasureDistance, BotState.WaitingForOrigin);
-
-        _stateMachine.Configure(BotState.WaitingForOrigin)
-            .Permit(BotTrigger.OriginReceived, BotState.WaitingForDestination);
-
-        _stateMachine.Configure(BotState.WaitingForDestination)
-            .Permit(BotTrigger.DestinationReceived, BotState.InitialState);
-
+        _userService = userService;
+        _landmarkService = landmarkService;
+        _mapper = mapper;
     }
 
     public async Task HandleUpdateAsync(Update update)
@@ -92,6 +83,12 @@ public class UpdateHandlerService
 
     private async Task BotOnMessageReceived(Message message)
     {
+        if (!_userService.IsPermittedUser(message.From.Id))
+        {
+            //TODO Request an access
+            return;
+        }
+
         _logger.LogInformation($"Message received: {message.Type}");
 
         var reply = message.Type switch
@@ -116,41 +113,93 @@ public class UpdateHandlerService
 
     private async Task BotOnTextMessageReceived(Message message)
     {
-        string messageText = message.Text.Split()[0];
-        if (!BotCommands.Contains(messageText))
+        var msg = message.Text ?? "";
+        var user = await _userService.GetByTelegramIdAsync(message.From.Id);
+        var command = msg.Split()[0];
+
+        if (!BotCommands.Contains(command))
         {
-            switch (_stateMachine.State)
+            switch (user.CurrentStep)
             {
-                case BotState.InitialState:
-                    await _botClient.SendTextMessageAsync(message.Chat.Id, "Originsss");
-                    _stateMachine.Fire(BotTrigger.MeasureDistance);
+                case Step.Initial:
+                    //TODO implement  method for sending messages to groups
                     break;
 
-                case BotState.WaitingForOrigin:
-                    _origin = messageText;
+                case Step.DistanceOrigin:
+                    SetOrigin(user, msg);
                     await _botClient.SendTextMessageAsync(message.Chat.Id, "Destination");
-                    _stateMachine.Fire(BotTrigger.OriginReceived);
                     break;
 
-                case BotState.WaitingForDestination:
-                    _destination = messageText;
-                    string distance = await _googleMapsService.GetDistanceAsync(_origin, _destination);
-                    await _botClient.SendTextMessageAsync(message.Chat.Id, distance);
-                    _stateMachine.Fire(BotTrigger.DestinationReceived);
+                case Step.DistanceDestination:
+                    SetDistance(user, msg);
+                    await _botClient.SendTextMessageAsync(message.Chat.Id, await GetDistanceResult(user));
                     break;
+
+                case Step.LandmarkStatus:
+                    ReturnToInitialStep(user);
+                    await _botClient.SendTextMessageAsync(message.Chat.Id, await GetLandmarkStatusResult(msg));
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             };
         }
         else
         {
-            switch(messageText)
+            ReturnToInitialStep(user);
+
+            switch(command)
             {
+                case BotCommands.Start:
+                    await _botClient.SendTextMessageAsync(message.Chat.Id, "Assalamu alaykum.");
+                    break;
+
                 case BotCommands.MeasureDistance:
-                    _stateMachine.Fire(BotTrigger.MeasureDistance);
+                    user.CurrentStep = Step.DistanceOrigin;
                     await _botClient.SendTextMessageAsync(message.Chat.Id, "Origin");
                     break;
+
+                case BotCommands.GetLandmarkStatus:
+                    user.CurrentStep = Step.LandmarkStatus;
+                    await _botClient.SendTextMessageAsync(message.Chat.Id, "Enter the landmark name");
+                    break;
+
                 default:
                     break;
             }
         }
+
+        await _userService.UpdateAsync(_mapper.Map<UserUpdateDto>(user));
+    }
+
+    private async Task<string> GetLandmarkStatusResult(string name)
+    {
+        var status = await _landmarkService.GetLandmarksByNameAsync(name);
+        return status.ToString();
+    }
+
+    private static void ReturnToInitialStep(UserResultDto user)
+    {
+        user.CurrentStep = Step.Initial;
+        user.StepValue.Origin = null;
+        user.StepValue.Destination = null;
+    }
+
+    private async Task<string> GetDistanceResult(UserResultDto user)
+    {
+        var distance = await _googleMapsService.GetDistanceAsync(user.StepValue.Origin, user.StepValue.Destination);
+        return distance;
+    }
+
+    private static void SetDistance(UserResultDto user, string destination)
+    {
+        user.StepValue.Destination = destination;
+        user.CurrentStep = Step.Initial;
+    }
+
+    private static void SetOrigin(UserResultDto user, string origin)
+    {
+        user.StepValue.Origin = origin;
+        user.CurrentStep = Step.DistanceDestination;
     }
 }

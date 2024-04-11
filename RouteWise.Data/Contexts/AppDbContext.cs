@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RouteWise.Domain.Entities;
+using RouteWise.Domain.Enums;
 
 namespace RouteWise.Data.Contexts;
 
@@ -28,7 +29,6 @@ public class AppDbContext : DbContext
         trucks.OwnsOne(t => t.Coordinates);
 
 
-
         var landmarks = modelBuilder.Entity<Landmark>();
         landmarks.OwnsOne(l => l.Address);
         landmarks.OwnsOne(l => l.Coordinates);
@@ -39,6 +39,25 @@ public class AppDbContext : DbContext
         landmarks
             .HasIndex(l => l.Name)
             .IsUnique();
+
+
+        var users = modelBuilder.Entity<User>();
+        users.OwnsOne(u => u.StepValue);
+
+
+        #region SeedData
+        users.HasData(new List<User>
+        {
+            new User
+            {
+                Id = 1,
+                FirstName = "Saidkamol",
+                LastName = "Saidjamolov",
+                TelegramId = 5885255512,
+                Role = UserRole.SuperAdmin
+            }
+        });
+        #endregion
     }
 
     public DbSet<Driver> Drivers { get; set; }

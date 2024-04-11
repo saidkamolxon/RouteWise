@@ -2,6 +2,7 @@
 
 public class BotCommands
 {
+    public const string GetLandmarkStatus = "/lane_info";
     public const string MeasureDistance = "/distance";
     public const string Start = "/start";
     public const string Help  = "/help";
@@ -11,10 +12,6 @@ public class BotCommands
         var fields = typeof(BotCommands)
             .GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static);
 
-        foreach (var field in fields)
-            if (field.GetValue(null) as string == command)
-                return true;
-
-        return false;
+        return fields.Any(field => field.GetValue(null) as string == command);
     }
 }

@@ -4,5 +4,7 @@ namespace RouteWise.Service.Interfaces;
 
 public interface IUserService
 {
-    Task<UserResultDto> GetByTelegramId(long id);
+    bool IsPermittedUser(long id);
+    Task<UserResultDto> GetByTelegramIdAsync(long id);
+    Task<UserResultDto> UpdateAsync(UserUpdateDto dto);
 }

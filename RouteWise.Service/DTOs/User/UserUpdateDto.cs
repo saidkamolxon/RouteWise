@@ -3,9 +3,9 @@ using RouteWise.Domain.Models;
 
 namespace RouteWise.Service.DTOs.User;
 
-public class UserResultDto
+public class UserUpdateDto
 {
-    public int Id { get; set; } 
+    public int Id { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string UserName { get; set; }
