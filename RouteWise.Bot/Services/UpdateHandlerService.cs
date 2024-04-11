@@ -2,7 +2,6 @@
 using RouteWise.Bot.Enums;
 using RouteWise.Service.Interfaces;
 using Stateless;
-using System.Runtime.CompilerServices;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
@@ -29,7 +28,8 @@ public class UpdateHandlerService
         _botClient = botClient;
         _trailerService = trailerService;
         _googleMapsService = googleMapsService;
-
+        
+        
         _stateMachine = new StateMachine<BotState, BotTrigger>(BotState.InitialState);
 
         _stateMachine.Configure(BotState.InitialState)

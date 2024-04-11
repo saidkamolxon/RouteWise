@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using RouteWise.Domain.Entities;
-using RouteWise.Service.DTOs;
 using RouteWise.Service.DTOs.Landmark;
 using RouteWise.Service.DTOs.Trailer;
 using RouteWise.Service.DTOs.Truck;
+using RouteWise.Service.DTOs.User;
 
 namespace RouteWise.Service.Mappers;
 
