@@ -2,7 +2,7 @@
 
 public enum BotTrigger
 {
-    InputReceived,
+    MeasureDistance,
     OriginReceived,
     DestinationReceived,
     InputProcessed

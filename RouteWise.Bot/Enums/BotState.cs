@@ -2,8 +2,7 @@
 
 public enum BotState
 {
-    Start,
+    InitialState,
     WaitingForOrigin,
     WaitingForDestination,
-    Finished
 }

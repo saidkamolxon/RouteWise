@@ -1,6 +1,8 @@
-﻿using RouteWise.Bot.Enums;
+﻿using RouteWise.Bot.Constants;
+using RouteWise.Bot.Enums;
 using RouteWise.Service.Interfaces;
 using Stateless;
+using System.Runtime.CompilerServices;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
@@ -27,16 +29,17 @@ public class UpdateHandlerService
         _botClient = botClient;
         _trailerService = trailerService;
         _googleMapsService = googleMapsService;
-        _stateMachine = new StateMachine<BotState, BotTrigger>(BotState.Start);
 
-        _stateMachine.Configure(BotState.Start)
-            .Permit(BotTrigger.InputReceived, BotState.WaitingForOrigin);
+        _stateMachine = new StateMachine<BotState, BotTrigger>(BotState.InitialState);
+
+        _stateMachine.Configure(BotState.InitialState)
+            .Permit(BotTrigger.MeasureDistance, BotState.WaitingForOrigin);
 
         _stateMachine.Configure(BotState.WaitingForOrigin)
             .Permit(BotTrigger.OriginReceived, BotState.WaitingForDestination);
 
         _stateMachine.Configure(BotState.WaitingForDestination)
-            .Permit(BotTrigger.DestinationReceived, BotState.Finished);
+            .Permit(BotTrigger.DestinationReceived, BotState.InitialState);
 
     }
 
@@ -105,7 +108,7 @@ public class UpdateHandlerService
         {
             await reply;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             await HandlerErrorAsync(ex);
         }
@@ -113,53 +116,41 @@ public class UpdateHandlerService
 
     private async Task BotOnTextMessageReceived(Message message)
     {
-        string command = message.Text.Split()[0];
-
-        if (command == "/distance")
+        string messageText = message.Text.Split()[0];
+        if (!BotCommands.Contains(messageText))
         {
-            await MeasureDistanceAsync(message);
+            switch (_stateMachine.State)
+            {
+                case BotState.InitialState:
+                    await _botClient.SendTextMessageAsync(message.Chat.Id, "Originsss");
+                    _stateMachine.Fire(BotTrigger.MeasureDistance);
+                    break;
+
+                case BotState.WaitingForOrigin:
+                    _origin = messageText;
+                    await _botClient.SendTextMessageAsync(message.Chat.Id, "Destination");
+                    _stateMachine.Fire(BotTrigger.OriginReceived);
+                    break;
+
+                case BotState.WaitingForDestination:
+                    _destination = messageText;
+                    string distance = await _googleMapsService.GetDistanceAsync(_origin, _destination);
+                    await _botClient.SendTextMessageAsync(message.Chat.Id, distance);
+                    _stateMachine.Fire(BotTrigger.DestinationReceived);
+                    break;
+            };
         }
-
-        Console.WriteLine($"Origin: {_origin}, Destination: {_destination}");
-
-        if (_stateMachine.State == BotState.WaitingForOrigin ||
-            _stateMachine.State == BotState.WaitingForDestination)
-            await MeasureDistanceAsync(message);
-
-        //if (message.Text.Contains("/g"))
-        //{
-        //    var trailerName = message.Text.Split()[1].Trim();
-        //    var trailer = await _trailerService.GetByNameAsync(trailerName);
-        //    await _botClient.SendPhotoAsync(
-        //        chatId: message.Chat.Id, 
-        //        caption: trailer.ToString(),
-        //        photo: InputFile.FromString(trailer.PhotoUrl),
-        //        parseMode: ParseMode.Html);
-        //}
-        //return;
-    }
-
-    private async Task MeasureDistanceAsync(Message message)
-    {
-        switch (_stateMachine.State)
+        else
         {
-            case BotState.Start:
-                await _botClient.SendTextMessageAsync(message.Chat.Id, "Origin");
-                _stateMachine.Fire(BotTrigger.InputReceived);
-                break;
-
-            case BotState.WaitingForOrigin:
-                _origin = message.Text;
-                await _botClient.SendTextMessageAsync(message.Chat.Id, "Destination");
-                _stateMachine.Fire(BotTrigger.OriginReceived);
-                break;
-
-            case BotState.WaitingForDestination:
-                _destination = message.Text;
-                string distance = await _googleMapsService.GetDistanceAsync(_origin, _destination);
-                await _botClient.SendTextMessageAsync(message.Chat.Id, distance);
-                _stateMachine.Fire(BotTrigger.DestinationReceived);
-                break;
-        };
+            switch(messageText)
+            {
+                case BotCommands.MeasureDistance:
+                    _stateMachine.Fire(BotTrigger.MeasureDistance);
+                    await _botClient.SendTextMessageAsync(message.Chat.Id, "Origin");
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
