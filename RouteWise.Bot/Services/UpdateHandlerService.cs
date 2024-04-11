@@ -27,7 +27,7 @@ public class UpdateHandlerService
         _botClient = botClient;
         _trailerService = trailerService;
         _googleMapsService = googleMapsService;
-        _stateMachine = new StateMachine<BotState, BotTrigger>(BotState.Finished);
+        _stateMachine = new StateMachine<BotState, BotTrigger>(BotState.Start);
 
         _stateMachine.Configure(BotState.Start)
             .Permit(BotTrigger.InputReceived, BotState.WaitingForOrigin);
@@ -40,7 +40,7 @@ public class UpdateHandlerService
 
     }
 
-    public async Task EchoAsync(Update update)
+    public async Task HandleUpdateAsync(Update update)
     {
         var handler = update.Type switch
         {
@@ -117,17 +117,15 @@ public class UpdateHandlerService
 
         if (command == "/distance")
         {
-            while (_stateMachine.State != BotState.Finished)
-            {
-                await MeasureDistanceAsync(message);
-            }
+            await MeasureDistanceAsync(message);
         }
 
-        
-        
+        Console.WriteLine($"Origin: {_origin}, Destination: {_destination}");
 
+        if (_stateMachine.State == BotState.WaitingForOrigin ||
+            _stateMachine.State == BotState.WaitingForDestination)
+            await MeasureDistanceAsync(message);
 
-        
         //if (message.Text.Contains("/g"))
         //{
         //    var trailerName = message.Text.Split()[1].Trim();

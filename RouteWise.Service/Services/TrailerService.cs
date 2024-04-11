@@ -125,4 +125,16 @@ public class TrailerService : ITrailerService
                 .First())
             .ToList();
     }
+
+    public async Task<IEnumerable<TrailerResultDto>> GetByCityAndStateAsync(string city = null, string state = null)
+    {
+        var trailers = _unitOfWork.TrailerRepository.SelectAll();
+
+        if (!string.IsNullOrEmpty(city))
+            trailers = trailers.Where(t => t.Address.City.ToLower().Contains(city.ToLower()));
+        if (!string.IsNullOrEmpty(state))
+            trailers = trailers.Where(t => t.Address.State.ToLower().Contains(state.ToLower()));
+
+        return _mapper.Map<List<TrailerResultDto>>(trailers);
+    }
 }

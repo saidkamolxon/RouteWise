@@ -24,11 +24,11 @@ public class TestController : BaseController
         return Ok();
     }
 
-    //[HttpGet("landmarks")]
-    //public async Task<IActionResult> GetLandmarks()
-    //{
-    //    return Ok(await _landmarkService.GetAllLandmarksAsync());
-    //}
+    [HttpGet("trailersf")]
+    public async Task<IActionResult> GetLandmarks(string city, string state)
+    {
+        return Ok(await _trailerService.GetByCityAndStateAsync(city, state));
+    }
 
     [HttpGet("landmarks")]
     public async Task<IActionResult> GetLandmarks(string name)

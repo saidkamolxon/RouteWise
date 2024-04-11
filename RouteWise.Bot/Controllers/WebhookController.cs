@@ -10,8 +10,8 @@ public class WebhookController : ControllerBase
     public async Task<IActionResult> Post([FromServices] UpdateHandlerService service,
         [FromBody] Update update)
     {
-        await service.EchoAsync(update);
-
+        await service.HandleUpdateAsync(update);
+        
         return Ok();
     }
 }
