@@ -5,6 +5,7 @@ using RouteWise.Service.DTOs.User;
 using RouteWise.Service.Interfaces;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
+using Telegram.Bot.Requests;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
@@ -58,7 +59,7 @@ public class UpdateHandlerService
         var ErrorMessage = ex switch
         {
             ApiRequestException exception => $"Telegram API Error:\n{exception.ErrorCode}",
-            _ => ex.ToString(),
+            _ => ex.ToString()
         };
 
         _logger.LogInformation(ErrorMessage);
@@ -76,9 +77,11 @@ public class UpdateHandlerService
     {
         _logger.LogInformation($"CallbackQuery received: {callbackQuery}");
 
-        await _botClient.SendTextMessageAsync(
-            chatId: callbackQuery.Message.Chat.Id,
-            text: $"CallbackQuery received: {callbackQuery.Data}");
+        await _botClient.AnswerCallbackQueryAsync(new AnswerCallbackQueryRequest()
+        {
+            CallbackQueryId = callbackQuery.Id,
+            Text = "Hey you ... "
+        });
     }
 
     private async Task BotOnMessageReceived(Message message)
@@ -95,10 +98,12 @@ public class UpdateHandlerService
         {
             MessageType.Text => BotOnTextMessageReceived(message),
 
-            _ => _botClient.SendTextMessageAsync(
-                chatId: message.Chat.Id,
-                text: "I'm not configured for that type, sorry",
-                replyToMessageId: message.MessageId)
+            _ => _botClient.SendMessageAsync(new()
+                    {
+                        ChatId = message.Chat.Id,
+                        Text = "something else",
+                        ReplyParameters = { MessageId = message.MessageId }
+                    })
         };
 
         try
@@ -127,17 +132,29 @@ public class UpdateHandlerService
 
                 case Step.DistanceOrigin:
                     SetOrigin(user, msg);
-                    await _botClient.SendTextMessageAsync(message.Chat.Id, "Destination");
+                    await _botClient.SendMessageAsync(new()
+                    {
+                        ChatId = message.Chat.Id,
+                        Text = "Destination"
+                    });
                     break;
 
                 case Step.DistanceDestination:
                     SetDistance(user, msg);
-                    await _botClient.SendTextMessageAsync(message.Chat.Id, await GetDistanceResult(user));
+                    await _botClient.SendMessageAsync(new()
+                    {
+                        ChatId = message.Chat.Id,
+                        Text = await GetDistanceResult(user)
+                    });
                     break;
 
                 case Step.LandmarkStatus:
                     ReturnToInitialStep(user);
-                    await _botClient.SendTextMessageAsync(message.Chat.Id, await GetLandmarkStatusResult(msg));
+                    await _botClient.SendMessageAsync(new()
+                    {
+                        ChatId = message.Chat.Id,
+                        Text = await GetLandmarkStatusResult(msg)
+                    });
                     break;
 
                 default:
@@ -151,17 +168,29 @@ public class UpdateHandlerService
             switch(command)
             {
                 case BotCommands.Start:
-                    await _botClient.SendTextMessageAsync(message.Chat.Id, "Assalamu alaykum.");
+                    await _botClient.SendMessageAsync(new()
+                    {
+                        ChatId = message.Chat.Id,
+                        Text = "Assalamu alaykum"
+                    });
                     break;
 
                 case BotCommands.MeasureDistance:
                     user.CurrentStep = Step.DistanceOrigin;
-                    await _botClient.SendTextMessageAsync(message.Chat.Id, "Origin");
+                    await _botClient.SendMessageAsync(new()
+                    {
+                        ChatId = message.Chat.Id,
+                        Text = "Origin"
+                    });
                     break;
 
                 case BotCommands.GetLandmarkStatus:
                     user.CurrentStep = Step.LandmarkStatus;
-                    await _botClient.SendTextMessageAsync(message.Chat.Id, "Enter the landmark name");
+                    await _botClient.SendMessageAsync(new()
+                    {
+                        ChatId = message.Chat.Id,
+                        Text = "Enter the landmark name"
+                    });
                     break;
 
                 default:

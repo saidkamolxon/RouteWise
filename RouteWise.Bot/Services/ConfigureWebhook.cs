@@ -1,6 +1,6 @@
-﻿
-using RouteWise.Bot.Models;
+﻿using RouteWise.Bot.Models;
 using Telegram.Bot;
+using Telegram.Bot.Requests;
 using Telegram.Bot.Types.Enums;
 
 namespace RouteWise.Bot.Services;
@@ -30,16 +30,17 @@ public class ConfigureWebhook : IHostedService
 
         _logger.LogInformation("Setting webhook...");
 
-        await botClient.SendTextMessageAsync(
-            chatId: _botConfig.OwnerId,
-            text: "Bot has been started."
-        );
+        await botClient.SendMessageAsync(new() {
+            ChatId = _botConfig.OwnerId,
+            Text = "Bot has been started."
+        });
 
-        await botClient.SetWebhookAsync(
-            url: webhookAddress,
-            allowedUpdates: Array.Empty<UpdateType>(),
-            cancellationToken: cancellationToken
-        );
+        await botClient.SetWebhookAsync(new SetWebhookRequest()
+        {
+            Url = webhookAddress,
+            AllowedUpdates = Array.Empty<UpdateType>(),
+            DropPendingUpdates = true
+        }, cancellationToken: cancellationToken);
     }
 
     public async Task StopAsync(CancellationToken cancellationToken)
@@ -50,9 +51,10 @@ public class ConfigureWebhook : IHostedService
 
         _logger.LogInformation("Webhook removing...");
 
-        await botClient.SendTextMessageAsync(
-            chatId: 5885255512,
-            text: "Bot has been stopped."
-        );
+        await botClient.SendMessageAsync(new()
+        {
+            ChatId = _botConfig.OwnerId,
+            Text = "Bot has been stopped."
+        });
     }
 }
