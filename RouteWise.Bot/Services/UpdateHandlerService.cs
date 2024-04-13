@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
-using RouteWise.Bot.Constants;
+using RouteWise.Bot.Interfaces;
+using RouteWise.Bot.Models;
+using RouteWise.Bot.States;
+using RouteWise.Data.Contexts;
 using RouteWise.Domain.Enums;
 using RouteWise.Service.DTOs.User;
 using RouteWise.Service.Interfaces;
@@ -19,13 +22,15 @@ public class UpdateHandlerService
     private readonly IUserService _userService;
     private readonly ILandmarkService _landmarkService;
     private readonly IMapper _mapper;
+    private static IStateMachine _stateMachine;
 
     public UpdateHandlerService(ILogger<ConfigureWebhook> logger,
         ITelegramBotClient botClient,
         IGoogleMapsService googleMapsService,
         IUserService userService,
         ILandmarkService landmarkService,
-        IMapper mapper)
+        IMapper mapper,
+        AppDbContext appDbContext)
     {
         _logger = logger;
         _botClient = botClient;
@@ -33,7 +38,11 @@ public class UpdateHandlerService
         _userService = userService;
         _landmarkService = landmarkService;
         _mapper = mapper;
+        _stateMachine = new StateMachine(CreateInitialState, appDbContext);
     }
+
+    private static IState CreateInitialState()
+        => new InitialState(_stateMachine);
 
     public async Task HandleUpdateAsync(Update update)
     {
@@ -98,8 +107,8 @@ public class UpdateHandlerService
         {
             MessageType.Text => BotOnTextMessageReceived(message),
 
-            _ => _botClient.SendMessageAsync(new()
-                    {
+            _ => _botClient.SendMessageAsync(new SendMessageRequest
+            {
                         ChatId = message.Chat.Id,
                         Text = "something else",
                         ReplyParameters = { MessageId = message.MessageId }
@@ -118,87 +127,99 @@ public class UpdateHandlerService
 
     private async Task BotOnTextMessageReceived(Message message)
     {
-        var msg = message.Text ?? "";
-        var user = await _userService.GetByTelegramIdAsync(message.From.Id);
-        var command = msg.Split()[0];
-
-        if (!BotCommands.Contains(command))
+        var data = new MessageEvent
         {
-            switch (user.CurrentStep)
-            {
-                case Step.Initial:
-                    //TODO implement  method for sending messages to groups
-                    break;
+            ChatId = message.Chat.Id,
+            Message = message
+        };
 
-                case Step.DistanceOrigin:
-                    SetOrigin(user, msg);
-                    await _botClient.SendMessageAsync(new()
-                    {
-                        ChatId = message.Chat.Id,
-                        Text = "Destination"
-                    });
-                    break;
-
-                case Step.DistanceDestination:
-                    SetDistance(user, msg);
-                    await _botClient.SendMessageAsync(new()
-                    {
-                        ChatId = message.Chat.Id,
-                        Text = await GetDistanceResult(user)
-                    });
-                    break;
-
-                case Step.LandmarkStatus:
-                    ReturnToInitialStep(user);
-                    await _botClient.SendMessageAsync(new()
-                    {
-                        ChatId = message.Chat.Id,
-                        Text = await GetLandmarkStatusResult(msg)
-                    });
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            };
-        }
-        else
+        var result = await _stateMachine.FireEvent(data);
+        await _botClient.SendMessageAsync(new SendMessageRequest
         {
-            ReturnToInitialStep(user);
+            ChatId = message.Chat.Id,
+            Text = result.AnswerMessage
+        });
 
-            switch(command)
-            {
-                case BotCommands.Start:
-                    await _botClient.SendMessageAsync(new()
-                    {
-                        ChatId = message.Chat.Id,
-                        Text = "Assalamu alaykum"
-                    });
-                    break;
+        //var msg = message.Text ?? "";
+        //var user = await _userService.GetByTelegramIdAsync(message.From.Id);
+        //var command = msg.Split()[0];
+        //if (!BotCommands.Contains(command))
+        //{
+        //    switch (user.CurrentStep)
+        //    {
+        //        case Step.Initial:
+        //            //TODO implement  method for sending messages to groups
+        //            break;
 
-                case BotCommands.MeasureDistance:
-                    user.CurrentStep = Step.DistanceOrigin;
-                    await _botClient.SendMessageAsync(new()
-                    {
-                        ChatId = message.Chat.Id,
-                        Text = "Origin"
-                    });
-                    break;
+        //        case Step.DistanceOrigin:
+        //            SetOrigin(user, msg);
+        //            await _botClient.SendMessageAsync(new SendMessageRequest
+        //            {
+        //                ChatId = message.Chat.Id,
+        //                Text = "Destination"
+        //            });
+        //            break;
 
-                case BotCommands.GetLandmarkStatus:
-                    user.CurrentStep = Step.LandmarkStatus;
-                    await _botClient.SendMessageAsync(new()
-                    {
-                        ChatId = message.Chat.Id,
-                        Text = "Enter the landmark name"
-                    });
-                    break;
+        //        case Step.DistanceDestination:
+        //            SetDistance(user, msg);
+        //            await _botClient.SendMessageAsync(new SendMessageRequest
+        //            {
+        //                ChatId = message.Chat.Id,
+        //                Text = await GetDistanceResult(user)
+        //            });
+        //            break;
 
-                default:
-                    break;
-            }
-        }
+        //        case Step.LandmarkStatus:
+        //            ReturnToInitialStep(user);
+        //            await _botClient.SendMessageAsync(new SendMessageRequest
+        //            {
+        //                ChatId = message.Chat.Id,
+        //                Text = await GetLandmarkStatusResult(msg)
+        //            });
+        //            break;
 
-        await _userService.UpdateAsync(_mapper.Map<UserUpdateDto>(user));
+        //        default:
+        //            throw new ArgumentOutOfRangeException();
+        //    };
+        //}
+        //else
+        //{
+        //    ReturnToInitialStep(user);
+
+        //    switch(command)
+        //    {
+        //        case BotCommands.Start:
+        //            await _botClient.SendMessageAsync(new SendMessageRequest
+        //            {
+        //                ChatId = message.Chat.Id,
+        //                Text = "Assalamu alaykum"
+        //            });
+        //            break;
+
+        //        case BotCommands.MeasureDistance:
+        //            user.CurrentStep = Step.DistanceOrigin;
+        //            await _botClient.SendMessageAsync(new SendMessageRequest
+        //            {
+        //                ChatId = message.Chat.Id,
+        //                Text = "Origin"
+        //            });
+        //            break;
+
+        //        case BotCommands.GetLandmarkStatus:
+        //            user.CurrentStep = Step.LandmarkStatus;
+        //            await _botClient.SendMessageAsync(new SendMessageRequest
+        //            {
+        //                ChatId = message.Chat.Id,
+        //                Text = "Enter the landmark name"
+        //            });
+        //            break;
+
+        //        default:
+        //            break;
+        //    }
+        //}
+
+        //await _userService.UpdateAsync(_mapper.Map<UserUpdateDto>(user));
     }
 
     private async Task<string> GetLandmarkStatusResult(string name)

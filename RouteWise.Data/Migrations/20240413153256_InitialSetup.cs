@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RouteWise.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialSetup : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -51,6 +51,18 @@ namespace RouteWise.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Landmarks", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "States",
+                columns: table => new
+                {
+                    ChatId = table.Column<long>(type: "INTEGER", nullable: false),
+                    SerializedState = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_States", x => x.ChatId);
                 });
 
             migrationBuilder.CreateTable(
@@ -148,7 +160,7 @@ namespace RouteWise.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreatedAt", "CurrentStep", "FirstName", "IsDeleted", "LastName", "Role", "TelegramId", "UpdatedAt", "UserName" },
-                values: new object[] { 1, new DateTime(2024, 4, 11, 20, 8, 21, 858, DateTimeKind.Utc).AddTicks(8796), 0, "Saidkamol", false, "Saidjamolov", 2, 5885255512L, null, null });
+                values: new object[] { 1, new DateTime(2024, 4, 13, 15, 32, 56, 677, DateTimeKind.Utc).AddTicks(9606), 0, "Saidkamol", false, "Saidjamolov", 2, 5885255512L, null, null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Landmarks_Name",
@@ -190,6 +202,9 @@ namespace RouteWise.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Drivers");
+
+            migrationBuilder.DropTable(
+                name: "States");
 
             migrationBuilder.DropTable(
                 name: "Trailers");

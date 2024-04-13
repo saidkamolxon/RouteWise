@@ -79,6 +79,19 @@ namespace RouteWise.Data.Migrations
                     b.ToTable("Landmarks");
                 });
 
+            modelBuilder.Entity("RouteWise.Domain.Entities.State", b =>
+                {
+                    b.Property<long>("ChatId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SerializedState")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ChatId");
+
+                    b.ToTable("States");
+                });
+
             modelBuilder.Entity("RouteWise.Domain.Entities.Trailer", b =>
                 {
                     b.Property<int>("Id")
@@ -226,7 +239,7 @@ namespace RouteWise.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 11, 20, 8, 21, 858, DateTimeKind.Utc).AddTicks(8796),
+                            CreatedAt = new DateTime(2024, 4, 13, 15, 32, 56, 677, DateTimeKind.Utc).AddTicks(9606),
                             CurrentStep = 0,
                             FirstName = "Saidkamol",
                             IsDeleted = false,

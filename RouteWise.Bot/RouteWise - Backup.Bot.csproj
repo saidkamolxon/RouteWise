@@ -15,13 +15,17 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RestSharp" Version="110.2.0" />
+    <PackageReference Include="Stateless" Version="5.15.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Telegram.Bot" Version="20.0.0-alpha.6.stj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RouteWise.Domain\RouteWise.Domain.csproj" />
     <ProjectReference Include="..\RouteWise.Service\RouteWise.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="States\" />
   </ItemGroup>
 
 </Project>

@@ -30,10 +30,11 @@ public class ConfigureWebhook : IHostedService
 
         _logger.LogInformation("Setting webhook...");
 
-        await botClient.SendMessageAsync(new() {
+        await botClient.SendMessageAsync(new SendMessageRequest
+        {
             ChatId = _botConfig.OwnerId,
             Text = "Bot has been started."
-        });
+        }, cancellationToken: cancellationToken);
 
         await botClient.SetWebhookAsync(new SetWebhookRequest()
         {
@@ -51,10 +52,10 @@ public class ConfigureWebhook : IHostedService
 
         _logger.LogInformation("Webhook removing...");
 
-        await botClient.SendMessageAsync(new()
+        await botClient.SendMessageAsync(new SendMessageRequest
         {
             ChatId = _botConfig.OwnerId,
             Text = "Bot has been stopped."
-        });
+        }, cancellationToken: cancellationToken);
     }
 }
