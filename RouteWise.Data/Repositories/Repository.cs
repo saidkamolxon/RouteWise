@@ -32,19 +32,20 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Auditabl
         _appDbContext.Entry(entity).State = EntityState.Modified;
     }
 
-    public async Task<TEntity?> SelectAsync(Expression<Func<TEntity, bool>> expression, string[]? includes = null)
+    public async Task<TEntity?> SelectAsync(Expression<Func<TEntity, bool>> expression,
+        bool asNoTracking = false, string[]? includes = null)
     {
-        IQueryable<TEntity> query = _dbSet.Where(e => !e.IsDeleted);
+        var query = _dbSet.Where(e => !e.IsDeleted);
 
-        if (includes is not null)
-            foreach (var include in includes)
-                query = query.Include(include);
+        if (asNoTracking) query = query.AsNoTracking();
+
+        if (includes is not null) query = includes.Aggregate(query, (current, include) => current.Include(include));
 
         return await query.FirstOrDefaultAsync(expression);
     }
 
-    public async Task<TEntity?> SelectAsync(int id, string[]? includes = null)
-        => await this.SelectAsync(e => e.Id.Equals(id), includes);
+    public async Task<TEntity?> SelectAsync(int id, bool asNoTracking = false, string[]? includes = null)
+        => await this.SelectAsync(e => e.Id.Equals(id), asNoTracking, includes);
 
     public IQueryable<TEntity> SelectAll(Expression<Func<TEntity, bool>>? expression = null, bool asNoTracking = true, string[]? includes = null)
     {

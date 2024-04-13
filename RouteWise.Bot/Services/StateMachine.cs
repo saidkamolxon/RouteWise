@@ -1,49 +1,69 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Newtonsoft.Json;
 using RouteWise.Bot.Interfaces;
 using RouteWise.Bot.Models;
-using RouteWise.Data.Contexts;
-using Newtonsoft.Json;
+using RouteWise.Data.IRepositories;
 using RouteWise.Domain.Entities;
-using JsonSerializer = System.Text.Json.JsonSerializer;
+using Telegram.Bot.Types;
 
 namespace RouteWise.Bot.Services;
 
 public class StateMachine : IStateMachine
 {
     private readonly Func<IState> _initialStateFactory;
-    private readonly AppDbContext _appDbContext;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public StateMachine(Func<IState> initialStateFactory, AppDbContext appDbContext)
+    public StateMachine(Func<IState> initialStateFactory, IUnitOfWork unitOfWork)
     {
         _initialStateFactory = initialStateFactory;
-        _appDbContext = appDbContext;
+        _unitOfWork = unitOfWork;
     }
 
-    public async Task<MessageEventResult> FireEvent(MessageEvent data)
+    public async Task<MessageEventResult> FireEvent(Message message)
     {
-        var stateEntity = await _appDbContext.States.AsNoTracking().FirstOrDefaultAsync(s => s.ChatId.Equals(data.ChatId));
+        var stateEntity = await _unitOfWork.StateRepository
+            .SelectAsync(s => 
+                s.ChatId.Equals(message.Chat.Id) &&
+                s.UserId.Equals(message.From.Id),
+            asNoTracking: true);
 
         if (stateEntity is not null)
         {
             var currentState = DeserializeState(stateEntity.SerializedState);
-            return await currentState.Update(data);
+            return await currentState.Update(message);
         }
 
         var state = _initialStateFactory();
-        await SetState(data.ChatId, state);
-        return await state.Update(data);
+        await SetState(new StateValuesDto
+        {
+            ChatId = message.Chat.Id,
+            UserId = message.From.Id,
+        }, state);
+        return await state.Update(message);
     }
 
-    public async Task SetState(long chatId, IState nextState)
+    public async Task SetState(StateValuesDto dto, IState nextState)
     {
-        var currentState = await _appDbContext.States.FirstOrDefaultAsync(s => s.ChatId.Equals(chatId));
+        var currentState = await _unitOfWork.StateRepository
+            .SelectAsync(s => s.ChatId.Equals(dto.ChatId) && s.UserId.Equals(dto.UserId));
 
         if (currentState is not null)
+        {
             currentState.SerializedState = SerializeState(nextState);
+            currentState.DistanceOrigin = dto.DistanceOrigin ?? currentState.DistanceOrigin;
+            currentState.DistanceDestination = dto.DistanceDestination ?? currentState.DistanceDestination;
+        }
         else
-            await _appDbContext.States.AddAsync(new State { ChatId = chatId, SerializedState = SerializeState(nextState) });
+            await _unitOfWork.StateRepository.CreateAsync(new State
+            {
+                ChatId = dto.ChatId,
+                UserId = dto.UserId,
+                DistanceOrigin = dto.DistanceOrigin,
+                DistanceDestination = dto.DistanceDestination,
+                SerializedState = SerializeState(nextState)
+            });
 
-        await _appDbContext.SaveChangesAsync();
+        await _unitOfWork.SaveAsync();
     }
 
     private string SerializeState(IState state)

@@ -11,7 +11,7 @@ using RouteWise.Data.Contexts;
 namespace RouteWise.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240413153256_InitialSetup")]
+    [Migration("20240413203504_InitialSetup")]
     partial class InitialSetup
     {
         /// <inheritdoc />
@@ -84,13 +84,35 @@ namespace RouteWise.Data.Migrations
 
             modelBuilder.Entity("RouteWise.Domain.Entities.State", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
                     b.Property<long>("ChatId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DistanceDestination")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DistanceOrigin")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("SerializedState")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("ChatId");
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
 
                     b.ToTable("States");
                 });
@@ -242,7 +264,7 @@ namespace RouteWise.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 13, 15, 32, 56, 677, DateTimeKind.Utc).AddTicks(9606),
+                            CreatedAt = new DateTime(2024, 4, 13, 20, 35, 4, 782, DateTimeKind.Utc).AddTicks(5318),
                             CurrentStep = 0,
                             FirstName = "Saidkamol",
                             IsDeleted = false,

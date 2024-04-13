@@ -59,8 +59,8 @@ public class TrailerService : ITrailerService
     }
 
     public async Task<TrailerResultDto> GetByIdAsync(int id)
-    {
-        var trailer = await _unitOfWork.TrailerRepository.SelectAsync(id, new [] { "Landmark" })
+    { 
+        var trailer = await _unitOfWork.TrailerRepository.SelectAsync(id, includes: new[] { "Landmark" })
             ?? throw new NotFoundException("Trailer with such id is not found.");
 
         return _mapper.Map<TrailerResultDto>(trailer);

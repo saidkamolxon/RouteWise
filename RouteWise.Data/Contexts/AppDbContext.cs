@@ -44,12 +44,6 @@ public class AppDbContext : DbContext
         var users = modelBuilder.Entity<User>();
         users.OwnsOne(u => u.StepValue);
 
-        var states = modelBuilder.Entity<State>();
-        states.HasKey(s => s.ChatId);
-        states
-            .Property(s => s.ChatId)
-            .ValueGeneratedNever();
-
         #region SeedData
         users.HasData(new List<User>
         {

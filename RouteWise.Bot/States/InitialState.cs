@@ -1,6 +1,7 @@
 ﻿using RouteWise.Bot.Constants;
 using RouteWise.Bot.Interfaces;
 using RouteWise.Bot.Models;
+using Telegram.Bot.Types;
 
 namespace RouteWise.Bot.States;
 
@@ -13,24 +14,23 @@ public class InitialState : IState
         _stateMachine = stateMachine;
     }
 
-    public async Task<MessageEventResult> Update(MessageEvent data)
+    public async Task<MessageEventResult> Update(Message message)
     {
-        if (data?.Message?.Text is null)
+        if (message?.Text is null)
             return "There is nothing I can do for you";
 
-        if (!BotCommands.Contains(data.Message.Text))
+        switch (message.Text)
         {
-            //TODO need to implement sending message to chats method
-            return data.Message.Text; // return the message itself
-        }
+            case BotCommands.Start:
+                await _stateMachine.SetState(new StateValuesDto { ChatId = message.Chat.Id, UserId = message.From.Id }, new InitialState(_stateMachine));
+                return "Assalamu alaykum.";
 
-        if (data.Message.Text.StartsWith(BotCommands.MeasureDistance))
-        {
-            var distanceOriginState = new DistanceOriginState(_stateMachine);
-            await _stateMachine.SetState(data.ChatId, distanceOriginState);
-            return "Enter the origin";
-        }
+            case BotCommands.MeasureDistance:
+                await _stateMachine.SetState(new StateValuesDto { ChatId = message.Chat.Id, UserId = message.From.Id }, new DistanceOriginState(_stateMachine));
+                return "Enter the origin";
 
-        return "Command is not found.";
+            default:
+                return message.Text;
+        }
     }
 }

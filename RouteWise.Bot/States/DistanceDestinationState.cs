@@ -1,5 +1,6 @@
 ﻿using RouteWise.Bot.Interfaces;
 using RouteWise.Bot.Models;
+using Telegram.Bot.Types;
 
 namespace RouteWise.Bot.States;
 
@@ -12,9 +13,9 @@ public class DistanceDestinationState : IState
         _stateMachine = stateMachine;
     }
 
-    public async Task<MessageEventResult> Update(MessageEvent data)
+    public async Task<MessageEventResult> Update(Message message)
     {
-        await _stateMachine.SetState(data.ChatId, new InitialState(_stateMachine));
-        return "The distance is about 1000 miles";
+        await _stateMachine.SetState(new StateValuesDto { ChatId = message.Chat.Id, UserId = message.From.Id, DistanceDestination = message.Text }, new InitialState(_stateMachine));
+        return "Distance is about 1000 miles";
     }
 }

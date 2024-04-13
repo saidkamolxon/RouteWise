@@ -57,12 +57,20 @@ namespace RouteWise.Data.Migrations
                 name: "States",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     ChatId = table.Column<long>(type: "INTEGER", nullable: false),
-                    SerializedState = table.Column<string>(type: "TEXT", nullable: true)
+                    UserId = table.Column<long>(type: "INTEGER", nullable: false),
+                    SerializedState = table.Column<string>(type: "TEXT", nullable: true),
+                    DistanceOrigin = table.Column<string>(type: "TEXT", nullable: true),
+                    DistanceDestination = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_States", x => x.ChatId);
+                    table.PrimaryKey("PK_States", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -160,7 +168,7 @@ namespace RouteWise.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreatedAt", "CurrentStep", "FirstName", "IsDeleted", "LastName", "Role", "TelegramId", "UpdatedAt", "UserName" },
-                values: new object[] { 1, new DateTime(2024, 4, 13, 15, 32, 56, 677, DateTimeKind.Utc).AddTicks(9606), 0, "Saidkamol", false, "Saidjamolov", 2, 5885255512L, null, null });
+                values: new object[] { 1, new DateTime(2024, 4, 13, 20, 35, 4, 782, DateTimeKind.Utc).AddTicks(5318), 0, "Saidkamol", false, "Saidjamolov", 2, 5885255512L, null, null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Landmarks_Name",
