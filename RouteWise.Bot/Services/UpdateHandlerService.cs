@@ -1,6 +1,4 @@
 ﻿using RouteWise.Bot.Interfaces;
-using RouteWise.Bot.States;
-using RouteWise.Data.IRepositories;
 using RouteWise.Service.Interfaces;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
@@ -20,7 +18,6 @@ public class UpdateHandlerService
     public UpdateHandlerService(ILogger<ConfigureWebhook> logger,
         ITelegramBotClient botClient,
         IUserService userService,
-        IUnitOfWork unitOfWork,
         IStateMachine stateMachine)
     {
         _logger = logger;
@@ -28,9 +25,6 @@ public class UpdateHandlerService
         _userService = userService;
         _stateMachine = stateMachine;
     }
-
-    //private static IState CreateInitialState()
-    //    => new InitialState(_stateMachine);
 
     public async Task HandleUpdateAsync(Update update)
     {
@@ -89,13 +83,51 @@ public class UpdateHandlerService
             return;
         }
 
-        _logger.LogInformation($"Message received: {message.Type}");
+        /*
+        
+        if message.GetBotCommand() is not null
+        {
+            CommandHandler.Handle(message);
+        }
+
+        var state = getuserState();
+
+        if state.step is not initialStep
+        {
+           StateHandler.Handle(message);
+        }
+
+        public class StateHandler
+        {
+            public Handle(Message message)
+            {
+                if step == distanceState
+                    DistanceOrigin(message)
+                
+
+            }
+        }
+
+        public 
+         
+         
+         
+         
+         */
+
+        //var command = message.GetBotCommand();
+        //if (command is not null)
+        //{
+        //TODO need to implement command handlers here
+        //}
 
         var result = await _stateMachine.FireEvent(message);
         await _botClient.SendMessageAsync(new SendMessageRequest
-        {
-            ChatId = message.Chat.Id,
-            Text = result.AnswerMessage
-        });
+            {
+                ChatId = message.Chat.Id,
+                Text = result.AnswerMessage
+            });
+
+        _logger.LogInformation($"Message received: {message.Type}");
     }
 }

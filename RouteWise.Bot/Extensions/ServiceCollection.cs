@@ -10,6 +10,7 @@ using RouteWise.Service.Services.FleetLocate;
 using RouteWise.Service.Services.GoogleMaps;
 using RouteWise.Service.Services.RoadReady;
 using RouteWise.Service.Services.SwiftELD;
+using System.Reflection.Metadata.Ecma335;
 
 namespace RouteWise.Bot.Extensions;
 
@@ -31,13 +32,7 @@ public static class ServiceCollection
         AddGoogleMaps(services, configuration);
         AddRoadReady(services, configuration);
         AddSwiftEld(services, configuration);
-
-        services.AddScoped<IStateMachine>(p =>
-        {
-            var unitOfWork = p.GetRequiredService<IUnitOfWork>();
-            Func<IState> initialStateFactory = () => new InitialState(p.GetService<IStateMachine>());
-            return new StateMachine(initialStateFactory, unitOfWork);
-        });
+        services.AddScoped<IStateMachine>(provider => new StateMachine(provider));
     }
 
     private static void AddSwiftEld(IServiceCollection services, IConfiguration configuration)

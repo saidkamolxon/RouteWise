@@ -1,7 +1,7 @@
-﻿using AutoMapper;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RouteWise.Bot.Interfaces;
 using RouteWise.Bot.Models;
+using RouteWise.Bot.States;
 using RouteWise.Data.IRepositories;
 using RouteWise.Domain.Entities;
 using Telegram.Bot.Types;
@@ -10,22 +10,24 @@ namespace RouteWise.Bot.Services;
 
 public class StateMachine : IStateMachine
 {
+    public IServiceProvider ServiceProvider { get; set; }
     private readonly Func<IState> _initialStateFactory;
     private readonly IUnitOfWork _unitOfWork;
 
-    public StateMachine(Func<IState> initialStateFactory, IUnitOfWork unitOfWork)
+    public StateMachine(IServiceProvider serviceProvider)
     {
-        _initialStateFactory = initialStateFactory;
-        _unitOfWork = unitOfWork;
+        ServiceProvider = serviceProvider;
+        _initialStateFactory = () => new InitialState(ServiceProvider.GetRequiredService<IStateMachine>());
+        _unitOfWork = ServiceProvider.GetRequiredService<IUnitOfWork>();
     }
 
     public async Task<MessageEventResult> FireEvent(Message message)
     {
         var stateEntity = await _unitOfWork.StateRepository
-            .SelectAsync(s => 
-                s.ChatId.Equals(message.Chat.Id) &&
-                s.UserId.Equals(message.From.Id),
-            asNoTracking: true);
+        .SelectAsync(s =>
+            s.ChatId.Equals(message.Chat.Id) &&
+            s.UserId.Equals(message.From.Id),
+        asNoTracking: true);
 
         if (stateEntity is not null)
         {

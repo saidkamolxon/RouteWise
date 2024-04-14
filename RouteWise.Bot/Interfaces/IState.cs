@@ -1,5 +1,4 @@
-﻿using RouteWise.Bot.Models;
-using Telegram.Bot.Types;
+﻿using Telegram.Bot.Types;
 
 namespace RouteWise.Bot.Interfaces;
 
