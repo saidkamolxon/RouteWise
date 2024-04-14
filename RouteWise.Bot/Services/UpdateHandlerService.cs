@@ -1,6 +1,5 @@
 ﻿using RouteWise.Bot.Interfaces;
 using RouteWise.Bot.States;
-using RouteWise.Data.Contexts;
 using RouteWise.Data.IRepositories;
 using RouteWise.Service.Interfaces;
 using Telegram.Bot;
@@ -21,16 +20,17 @@ public class UpdateHandlerService
     public UpdateHandlerService(ILogger<ConfigureWebhook> logger,
         ITelegramBotClient botClient,
         IUserService userService,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        IStateMachine stateMachine)
     {
         _logger = logger;
         _botClient = botClient;
         _userService = userService;
-        _stateMachine = new StateMachine(CreateInitialState, unitOfWork);
+        _stateMachine = stateMachine;
     }
 
-    private static IState CreateInitialState()
-        => new InitialState(_stateMachine);
+    //private static IState CreateInitialState()
+    //    => new InitialState(_stateMachine);
 
     public async Task HandleUpdateAsync(Update update)
     {

@@ -1,4 +1,8 @@
-﻿using RouteWise.Data.IRepositories;
+﻿using Microsoft.Extensions.DependencyInjection;
+using RouteWise.Bot.Interfaces;
+using RouteWise.Bot.Services;
+using RouteWise.Bot.States;
+using RouteWise.Data.IRepositories;
 using RouteWise.Data.Repositories;
 using RouteWise.Service.Interfaces;
 using RouteWise.Service.Services;
@@ -27,6 +31,13 @@ public static class ServiceCollection
         AddGoogleMaps(services, configuration);
         AddRoadReady(services, configuration);
         AddSwiftEld(services, configuration);
+
+        services.AddScoped<IStateMachine>(p =>
+        {
+            var unitOfWork = p.GetRequiredService<IUnitOfWork>();
+            Func<IState> initialStateFactory = () => new InitialState(p.GetService<IStateMachine>());
+            return new StateMachine(initialStateFactory, unitOfWork);
+        });
     }
 
     private static void AddSwiftEld(IServiceCollection services, IConfiguration configuration)
