@@ -97,6 +97,7 @@ public class UpdateHandlerService
            StateHandler.Handle(message);
         }
 
+        
         public class StateHandler
         {
             public Handle(Message message)
@@ -108,7 +109,7 @@ public class UpdateHandlerService
             }
         }
 
-        public 
+        
          
          
          
@@ -125,7 +126,8 @@ public class UpdateHandlerService
         await _botClient.SendMessageAsync(new SendMessageRequest
             {
                 ChatId = message.Chat.Id,
-                Text = result.AnswerMessage
+                Text = result.AnswerMessage,
+                ParseMode = ParseMode.Html
             });
 
         _logger.LogInformation($"Message received: {message.Type}");

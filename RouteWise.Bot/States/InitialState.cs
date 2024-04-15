@@ -22,7 +22,7 @@ public class InitialState : IState
 
         var command = message.GetBotCommand();
 
-        if (command == null) return message.Text;
+        if (command == null) return message.GetHtmlText(); 
 
         switch (command)
         {
