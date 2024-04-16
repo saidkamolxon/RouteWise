@@ -83,51 +83,13 @@ public class UpdateHandlerService
             return;
         }
 
-        /*
-        
-        if message.GetBotCommand() is not null
-        {
-            CommandHandler.Handle(message);
-        }
-
-        var state = getuserState();
-
-        if state.step is not initialStep
-        {
-           StateHandler.Handle(message);
-        }
-
-        
-        public class StateHandler
-        {
-            public Handle(Message message)
-            {
-                if step == distanceState
-                    DistanceOrigin(message)
-                
-
-            }
-        }
-
-        
-         
-         
-         
-         
-         */
-
-        //var command = message.GetBotCommand();
-        //if (command is not null)
-        //{
-        //TODO need to implement command handlers here
-        //}
-
         var result = await _stateMachine.FireEvent(message);
         await _botClient.SendMessageAsync(new SendMessageRequest
             {
                 ChatId = message.Chat.Id,
                 Text = result.AnswerMessage,
-                ParseMode = ParseMode.Html
+                ParseMode = ParseMode.Html,
+                ReplyParameters = new ReplyParameters { MessageId = message.MessageId }
             });
 
         _logger.LogInformation($"Message received: {message.Type}");

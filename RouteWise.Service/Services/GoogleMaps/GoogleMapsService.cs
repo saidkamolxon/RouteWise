@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using RestSharp;
+using RouteWise.Service.Helpers;
 using RouteWise.Service.Interfaces;
 
 namespace RouteWise.Service.Services.GoogleMaps;
@@ -23,9 +24,11 @@ public class GoogleMapsService : IGoogleMapsService
         try
         {
             var result = await GetDistanceMatrixResult(parameters);
-            return $"From: {result.Origin}\nTo: {result.Destination}\nDistance: {result.Distance}\n" +
-                   $"Duration: {result.Duration}\n\nSource: Google Maps©️";
-
+            return $"{HtmlDecoration.Bold("From:")} {HtmlDecoration.Italic(result.Origin)}\n" +
+                   $"{HtmlDecoration.Bold("To:")} {HtmlDecoration.Italic(result.Destination)}\n" +
+                   $"{HtmlDecoration.Bold("Distance:")} {HtmlDecoration.Italic(result.Distance)}\n" +
+                   $"{HtmlDecoration.Bold("Duration:")} {HtmlDecoration.Italic(result.Duration)}\n\n" +
+                   $"{HtmlDecoration.Bold("Source:")} {HtmlDecoration.Underline("Google Maps")}©️";
         }
         catch
         {
@@ -84,7 +87,7 @@ public class GoogleMapsService : IGoogleMapsService
         var parameters = GetStaticMapsDefaultParameters();
         parameters.Add("center", coordinates);
         parameters.Add("markers", coordinates);
-        return _client.BuildUri(CreateNewRestRequest("staticmap", parameters)).ToString();
+        return await Task.FromResult(_client.BuildUri(CreateNewRestRequest("staticmap", parameters)).ToString());
     }
 
     public async Task<object> GetStaticMapAsync(string center, string[] objects)
@@ -97,7 +100,7 @@ public class GoogleMapsService : IGoogleMapsService
         foreach (string obj in objects)
             url += $"&markers={obj}";
 
-        return url;
+        return await Task.FromResult(url);
     }
 
     private static Dictionary<string, string> GetStaticMapsDefaultParameters()

@@ -1,4 +1,4 @@
-﻿namespace RouteWise.Bot.Interfaces;
+﻿namespace RouteWise.Service.Interfaces;
 
 public interface ITextDecoration
 {

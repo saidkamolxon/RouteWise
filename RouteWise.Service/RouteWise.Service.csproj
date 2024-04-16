@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RouteWise.Data\RouteWise.Data.csproj" />
-    <ProjectReference Include="..\RouteWise.Domain\RouteWise.Domain.csproj" />
+	<ProjectReference Include="..\RouteWise.Domain\RouteWise.Domain.csproj" />
   </ItemGroup>
 
 </Project>

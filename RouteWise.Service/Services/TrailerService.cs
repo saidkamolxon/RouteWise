@@ -135,6 +135,6 @@ public class TrailerService : ITrailerService
         if (!string.IsNullOrEmpty(state))
             trailers = trailers.Where(t => t.Address.State.ToLower().Contains(state.ToLower()));
 
-        return _mapper.Map<List<TrailerResultDto>>(trailers);
+        return await Task.FromResult(_mapper.Map<List<TrailerResultDto>>(trailers));
     }
 }

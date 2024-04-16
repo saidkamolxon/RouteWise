@@ -2,6 +2,7 @@
 using RouteWise.Bot.Extensions;
 using RouteWise.Bot.Interfaces;
 using RouteWise.Bot.Models;
+using RouteWise.Service.Helpers;
 using Telegram.Bot.Types;
 
 namespace RouteWise.Bot.States;
@@ -26,6 +27,9 @@ public class InitialState : IState
 
         switch (command)
         {
+            case BotCommands.Start:
+                return $"Assalomu alaykum. {HtmlDecoration.BoldItalic(message.From.FirstName)}.";
+
             case BotCommands.MeasureDistance:
                 await _stateMachine.SetState(new StateValuesDto { ChatId = message.Chat.Id, UserId = message.From.Id }, new DistanceOriginState(_stateMachine));
                 return "Enter the origin";

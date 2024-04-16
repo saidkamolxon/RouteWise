@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
-using RouteWise.Bot.Interfaces;
+using RouteWise.Service.Interfaces;
 
-namespace RouteWise.Bot.Helpers;
+namespace RouteWise.Service.Helpers;
 
 public class MarkdownDecoration : ITextDecoration
 {

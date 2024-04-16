@@ -1,6 +1,6 @@
-﻿using RouteWise.Bot.Interfaces;
+﻿using RouteWise.Service.Interfaces;
 
-namespace RouteWise.Bot.Helpers;
+namespace RouteWise.Service.Helpers;
 
 public class HtmlDecoration : ITextDecoration
 {
@@ -26,6 +26,10 @@ public class HtmlDecoration : ITextDecoration
         => Escape(text, quote: false);
     public static string CustomEmoji(string text, string customEmojiId)
         => $"<tg-emoji emoji-id='{customEmojiId}'>{text}</tg-emoji>";
+    public static string BoldItalic(string text)
+        => Bold(Italic(text));
+
+    #region EncapsulatedMethods
     private static string Escape(string text, bool quote = true)
     {
         text = text.Replace("&", "&amp;");
@@ -38,4 +42,5 @@ public class HtmlDecoration : ITextDecoration
         }
         return text;
     }
+    #endregion
 }
