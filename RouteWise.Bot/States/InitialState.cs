@@ -34,6 +34,10 @@ public class InitialState : IState
                 await _stateMachine.SetState(new StateValuesDto { ChatId = message.Chat.Id, UserId = message.From.Id }, new DistanceOriginState(_stateMachine));
                 return "Enter the origin";
 
+            case BotCommands.GetLandmarkStatus:
+                await _stateMachine.SetState(new StateValuesDto { ChatId = message.Chat.Id, UserId = message.From.Id }, new LandmarkStatusState(_stateMachine));
+                return "Enter the name of the lane:";
+
             default: return "Unknown command";
         }
     }
