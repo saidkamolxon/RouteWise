@@ -1,5 +1,6 @@
 ﻿using RouteWise.Service.Helpers;
 using System.Text;
+using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
@@ -34,7 +35,7 @@ public static class CustomMessageExtensions
         return htmlText.ToString();
     }
 
-    public static string FormatText(this string text, MessageEntity entity)
+    private static string FormatText(this string text, MessageEntity entity)
     {
         string formattedText = entity.Type switch
         {
@@ -51,4 +52,5 @@ public static class CustomMessageExtensions
         };
         return formattedText;
     }
+
 }

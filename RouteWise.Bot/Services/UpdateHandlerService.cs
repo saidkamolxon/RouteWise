@@ -1,10 +1,17 @@
-﻿using RouteWise.Bot.Interfaces;
+﻿using RouteWise.Bot.Constants;
+using RouteWise.Bot.Constants.Keyboard;
+using RouteWise.Bot.Constants.Message;
+using RouteWise.Bot.Extensions;
+using RouteWise.Bot.Interfaces;
+using RouteWise.Bot.States;
+using RouteWise.Service.Helpers;
 using RouteWise.Service.Interfaces;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Requests;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace RouteWise.Bot.Services;
 
@@ -68,6 +75,17 @@ public class UpdateHandlerService
     {
         _logger.LogInformation($"CallbackQuery received: {callbackQuery}");
 
+        switch (callbackQuery.Data)
+        {
+            case "request_an_access":
+                await _botClient.AnswerCallbackQueryAsync(new AnswerCallbackQueryRequest { CallbackQueryId = callbackQuery.Id, Text = "Request has been sent" });
+                await _botClient.SendMessageAsync(TeplateMessages.RequestAccessMessage(callbackQuery.From));
+                break;
+
+            default:
+                break;
+        }
+
         await _botClient.AnswerCallbackQueryAsync(new AnswerCallbackQueryRequest()
         {
             CallbackQueryId = callbackQuery.Id,
@@ -79,8 +97,19 @@ public class UpdateHandlerService
     {
         if (!_userService.IsPermittedUser(message.From.Id))
         {
-            //TODO Request an access
+            await _botClient.SendMessageAsync(new SendMessageRequest
+            {
+                ChatId = message.Chat.Id,
+                Text = "You can't use the bot. Firstly, request an access from the admin 👇",
+                ReplyMarkup = InlineKeyboards.RequestKeyboard
+            });
+
             return;
+        }
+
+        if (message.Text.StartsWith(BotCommands.Start))
+        {
+            await _stateMachine.SetState(new Models.StateValuesDto { ChatId = message.Chat.Id, UserId = message.From.Id}, new InitialState(_stateMachine));
         }
 
         var result = await _stateMachine.FireEvent(message);

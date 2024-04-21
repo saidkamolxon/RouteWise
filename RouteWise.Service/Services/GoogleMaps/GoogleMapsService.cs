@@ -32,7 +32,7 @@ public class GoogleMapsService : IGoogleMapsService
         }
         catch
         {
-            return "An unexpected error occured";
+            return "Please enter valid addresses";
         }
     }
 
