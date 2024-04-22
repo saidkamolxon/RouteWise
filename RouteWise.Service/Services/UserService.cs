@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using RouteWise.Data.IRepositories;
+using RouteWise.Domain.Entities;
 using RouteWise.Service.DTOs.User;
 using RouteWise.Service.Exceptions;
 using RouteWise.Service.Interfaces;
@@ -40,6 +41,14 @@ public class UserService : IUserService
         _unitOfWork.UserRepository.Update(user);
         await _unitOfWork.SaveAsync();
 
+        return _mapper.Map<UserResultDto>(user);
+    }
+
+    public async Task<UserResultDto> AddAsync(UserCreationDto dto)
+    {
+        var user = _mapper.Map<User>(dto);
+        await _unitOfWork.UserRepository.CreateAsync(user);
+        await _unitOfWork.SaveAsync();
         return _mapper.Map<UserResultDto>(user);
     }
 }

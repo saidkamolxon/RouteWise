@@ -1,12 +1,11 @@
 ﻿using RouteWise.Service.Helpers;
 using System.Text;
-using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
 namespace RouteWise.Bot.Extensions;
 
-public static class CustomMessageExtensions
+public static class MessageExtensions
 {
     public static string GetBotCommand(this Message message)
     {
@@ -28,14 +27,14 @@ public static class CustomMessageExtensions
         for (int index = 0; index < message.Entities.Length; index++)
         {
             string currentSubString = message.EntityValues.ElementAt(index);
-            string decoratedSubString = currentSubString.FormatText(message.Entities[index]);
+            string decoratedSubString = FormatText(currentSubString, message.Entities[index]);
             htmlText.Replace(currentSubString, decoratedSubString);
         }
 
         return htmlText.ToString();
     }
 
-    private static string FormatText(this string text, MessageEntity entity)
+    private static string FormatText(string text, MessageEntity entity)
     {
         string formattedText = entity.Type switch
         {
@@ -52,5 +51,4 @@ public static class CustomMessageExtensions
         };
         return formattedText;
     }
-
 }

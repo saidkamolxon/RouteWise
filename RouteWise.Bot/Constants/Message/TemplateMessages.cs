@@ -6,7 +6,7 @@ using Telegram.Bot.Types;
 
 namespace RouteWise.Bot.Constants.Message;
 
-public static class TeplateMessages
+public static class TemplateMessages
 {
     public static SendMessageRequest RequestAccessMessage(User user)
     {
