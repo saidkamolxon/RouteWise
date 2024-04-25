@@ -1,4 +1,5 @@
 ﻿using RouteWise.Bot.Interfaces;
+using RouteWise.Bot.Models;
 using RouteWise.Service.Interfaces;
 using Telegram.Bot.Types;
 
@@ -15,6 +16,8 @@ public class LandmarkStatusState : IState
 
     public async Task<MessageEventResult> Update(Message message)
     {
+        await _stateMachine.SetState(new StateValuesDto { ChatId = message.Chat.Id, UserId = message.From.Id }, new InitialState(_stateMachine));
+
         using (var scope = _stateMachine.ServiceProvider.CreateScope())
         {
             var landmarkService = scope.ServiceProvider.GetRequiredService<ILandmarkService>();
