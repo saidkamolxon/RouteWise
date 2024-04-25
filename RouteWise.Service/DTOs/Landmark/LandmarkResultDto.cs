@@ -18,7 +18,7 @@ public class LandmarkResultDto
 
         int sn = 1;
         foreach(var trailer in Trailers)
-            result += $"{HtmlDecoration.Bold((sn++).ToString())}. {HtmlDecoration.Code(trailer.Name):10f} ➜ {HtmlDecoration.Code(trailer.Coordinates)}\n";
+            result += $"{HtmlDecoration.Bold((sn++).ToString())}. {HtmlDecoration.Code(trailer.Name)} ➜ {HtmlDecoration.Code(trailer.Coordinates)}\n";
 
         return result;
     }
