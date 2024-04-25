@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using RouteWise.Service.DTOs.Trailer;
@@ -34,27 +35,24 @@ public class RoadReadyService : IRoadReadyService
     public async Task<IEnumerable<TrailerStateDto>> GetTrailersStatesAsync()
     {
         var content = await GetDataAsync("fleet_trailer_states");
-        var mapped = Map(content.Value<JArray>("data"));
+        var mapped = MapToTrailerStateDto(content);
         return mapped;
     }
 
-    private async Task<JObject> GetDataAsync(string source)
+    private async Task<JArray> GetDataAsync(string source)
     {
         var response = await _client.GetAsync(new RestRequest(source));
         if (response.IsSuccessful && !string.IsNullOrEmpty(response.Content))
-            return JObject.Parse(response.Content);
+        {
+            var result = JsonConvert.DeserializeObject<JArray>(response.Content);
+            return result;
+        }
+        
         throw new Exception("A bad request...");
     }
 
-    private IEnumerable<TrailerStateDto> Map(JArray trailers)
+    private IEnumerable<TrailerStateDto> MapToTrailerStateDto(JArray trailers)
     {
-        var result = new List<TrailerStateDto>();
-        foreach (var trailer in trailers)
-        {
-            var attr = trailer["attributes"];
-            var dto = _mapper.Map<TrailerStateDto>(attr);
-            result.Add(dto);
-        }
-        return result;
+        return _mapper.Map<List<TrailerStateDto>>(trailers);
     }
 }

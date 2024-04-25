@@ -1,4 +1,5 @@
 ﻿using RouteWise.Domain.Models;
+using RouteWise.Service.Helpers;
 
 namespace RouteWise.Service.DTOs.Trailer;
 
@@ -19,6 +20,8 @@ public class TrailerResultDto
     public override string ToString()
     {
         string movingSymbol = IsMoving ? "🔴" : "🟢";
-        return $"Trailer#: <b>{Name}</b> {movingSymbol}\n\nCoordinates: <code>{Coordinates}</code>\nLocation: <b>{Address}</b>";
+        return $"Trailer#: {HtmlDecoration.Bold(Name)} {movingSymbol}\n\n" +
+               $"Coordinates:{HtmlDecoration.Code(Coordinates)}\n" +
+               $"Location: {HtmlDecoration.Bold(Address)}";
     }
 }

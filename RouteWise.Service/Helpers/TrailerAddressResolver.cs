@@ -22,10 +22,10 @@ public class TrailerAddressResolver : IValueResolver<JToken, TrailerStateDto, Ad
             var addressArray = source.Value<string>("location").Split(',');
             return new Address
             {
-                Street = addressArray[0].Trim(),
-                City = addressArray[1].Trim(),
-                State = addressArray[2].Trim()[..2],
-                ZipCode = addressArray[2].Trim()[3..],
+                Street = addressArray.ElementAt(0).Trim(),
+                City = addressArray.ElementAt(1).Trim(),
+                State = addressArray.ElementAt(2).Trim().Split().ElementAt(0),
+                ZipCode = addressArray.ElementAt(2).Trim().Split().ElementAt(1) ?? null
             };
         }
     }

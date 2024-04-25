@@ -12,12 +12,16 @@ public class LandmarkService : ILandmarkService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IFleetLocateService _service;
+    private readonly IGoogleMapsService _googleMapsService;
     private readonly IMapper _mapper;
 
-    public LandmarkService(IUnitOfWork unitOfWork, IFleetLocateService service, IMapper mapper)
+    public LandmarkService(IUnitOfWork unitOfWork, IMapper mapper,
+                           IFleetLocateService service,
+                           IGoogleMapsService googleMapsService)
     {
         _unitOfWork = unitOfWork;
         _service = service;
+        _googleMapsService = googleMapsService;
         _mapper = mapper;
     }
 
@@ -29,7 +33,12 @@ public class LandmarkService : ILandmarkService
             .OrderBy(l => l.Name)
             .ToListAsync();
 
-        return _mapper.Map<IEnumerable<LandmarkResultDto>>(landmarks);
+        var mappedLandmarks = _mapper.Map<IEnumerable<LandmarkResultDto>>(landmarks);
+        
+        foreach (var landmark in mappedLandmarks)
+            landmark.PhotoUrl = await _googleMapsService.GetStaticMapAsync(landmark.Coordinates, landmark.Trailers.Select(t => t.Coordinates).ToArray());
+
+        return mappedLandmarks;
     }
 
     public async Task<IEnumerable<LandmarkResultDto>> GetAllLandmarksAsync()

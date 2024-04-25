@@ -90,7 +90,7 @@ public class GoogleMapsService : IGoogleMapsService
         return await Task.FromResult(_client.BuildUri(CreateNewRestRequest("staticmap", parameters)).ToString());
     }
 
-    public async Task<object> GetStaticMapAsync(string center, string[] objects)
+    public async Task<string> GetStaticMapAsync(string center, string[] objects)
     {
         var parameters = GetStaticMapsDefaultParameters();
         parameters.Add("center", center);

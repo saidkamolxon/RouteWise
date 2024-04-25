@@ -3,6 +3,7 @@
 public class MessageEventResult
 {
     public string AnswerMessage { get; set; }
+    public string PhotoUrl { get; set; }
 
     public static implicit operator MessageEventResult(string answerMessage)
         => new() { AnswerMessage = answerMessage };

@@ -127,13 +127,16 @@ public class UpdateHandlerService
         }
 
         var result = await _stateMachine.FireEvent(message);
-        await _botClient.SendMessageAsync(new SendMessageRequest
-            {
-                ChatId = message.Chat.Id,
-                Text = result.AnswerMessage,
-                ParseMode = ParseMode.Html,
-                ReplyParameters = new ReplyParameters { MessageId = message.MessageId }
-            });
+        if(!string.IsNullOrEmpty(result.PhotoUrl))
+            await _botClient.SendPhotoAsync(new SendPhotoRequest { ChatId = message.Chat.Id, Photo = InputFile.FromString(result.PhotoUrl), Caption = result.AnswerMessage, ParseMode = ParseMode.Html });
+        else
+            await _botClient.SendMessageAsync(new SendMessageRequest
+                {
+                    ChatId = message.Chat.Id,
+                    Text = result.AnswerMessage,
+                    ParseMode = ParseMode.Html,
+                    ReplyParameters = new ReplyParameters { MessageId = message.MessageId }
+                });
 
         _logger.LogInformation($"Message received: {message.Type}");
     }

@@ -1,5 +1,6 @@
 ﻿using RouteWise.Bot.Interfaces;
 using RouteWise.Bot.Models;
+using RouteWise.Domain.Entities;
 using RouteWise.Service.Interfaces;
 using Telegram.Bot.Types;
 
@@ -22,9 +23,15 @@ public class LandmarkStatusState : IState
         {
             var landmarkService = scope.ServiceProvider.GetRequiredService<ILandmarkService>();
 
-            var landmark = await landmarkService.GetLandmarksByNameAsync(message.Text);
-
-            return landmark.FirstOrDefault().Address.ToString() ?? "Error";
+            var landmarks = await landmarkService.GetLandmarksByNameAsync(message.Text);
+            
+            foreach (var landmark in landmarks)
+            {
+                var trailersCoordinates = landmark.Trailers.Select(x => x.Coordinates.ToString()).ToArray();
+                return new MessageEventResult { AnswerMessage = landmark.ToString(), PhotoUrl = landmark.PhotoUrl };
+            }
+            
+            return landmarks.FirstOrDefault().ToString();
         }
     }
 }
