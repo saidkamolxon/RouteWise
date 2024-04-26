@@ -96,9 +96,11 @@ public class GoogleMapsService : IGoogleMapsService
         parameters.Add("center", center);
 
         var url = _client.BuildUri(CreateNewRestRequest("staticmap", parameters)).ToString();
-
+        var colors = new[] { "red", "blue", "green", "yellow", "orange", "black", "white", "pink", "gray", "purple", "brown"};
+        
+        var sn = 0;
         foreach (string obj in objects)
-            url += $"&markers={obj}";
+            url += $"&markers=color:{colors[sn % colors.Length]}%7Clabel:{++sn}%7C{obj}";
 
         return await Task.FromResult(url);
     }
