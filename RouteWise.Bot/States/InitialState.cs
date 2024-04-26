@@ -48,6 +48,9 @@ public class InitialState : IState
                     return new MessageEventResult { AnswerMessage = trailer.ToString(), PhotoUrl = trailer.PhotoUrl };
                 }
 
+            case BotCommands.GetAllTrailersInfo:
+                return "adad";
+
             default: return "Unknown command";
         }
     }
