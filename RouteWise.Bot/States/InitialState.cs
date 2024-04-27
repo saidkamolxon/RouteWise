@@ -3,6 +3,7 @@ using RouteWise.Bot.Extensions;
 using RouteWise.Bot.Interfaces;
 using RouteWise.Bot.Models;
 using RouteWise.Service.Helpers;
+using RouteWise.Service.Interfaces;
 using Telegram.Bot.Types;
 
 namespace RouteWise.Bot.States;
@@ -22,6 +23,7 @@ public class InitialState : IState
             return "There is nothing I can do for you";
 
         var command = message.GetBotCommand();
+        var commandArgs = message.GetBotCommandArgs();
 
         if (command == null) return message.GetHtmlText(); 
 
@@ -37,6 +39,14 @@ public class InitialState : IState
             case BotCommands.GetLandmarkStatus:
                 await _stateMachine.SetState(new StateValuesDto { ChatId = message.Chat.Id, UserId = message.From.Id }, new LandmarkStatusState(_stateMachine));
                 return "Enter the name of the lane:";
+
+            case BotCommands.GetTrailerStatus:
+                using (var scope = _stateMachine.ServiceProvider.CreateScope())
+                {
+                    var trailerService = scope.ServiceProvider.GetRequiredService<ITrailerService>();
+                    var trailer = await trailerService.GetByNameAsync(commandArgs.First());
+                    return new MessageEventResult { AnswerMessage = trailer.ToString(), PhotoUrl = trailer.PhotoUrl };
+                }
 
             default: return "Unknown command";
         }

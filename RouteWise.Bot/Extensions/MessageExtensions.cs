@@ -17,6 +17,16 @@ public static class MessageExtensions
         return null;
     }
 
+    public static string[] GetBotCommandArgs(this Message message)
+    {
+        if (message?.Entities is null) return null;
+
+        if (message.Entities.First().Type is MessageEntityType.BotCommand)
+            return message.Text.Split().Skip(1).ToArray();
+
+        return null;
+    }
+
     public static string GetHtmlText(this Message message)
     {
         var text = message.Text ?? message.Caption;

@@ -1,5 +1,4 @@
-﻿using RouteWise.Domain.Models;
-using RouteWise.Service.Helpers;
+﻿using RouteWise.Service.Helpers;
 
 namespace RouteWise.Service.DTOs.Trailer;
 
@@ -21,7 +20,8 @@ public class TrailerResultDto
     {
         string movingSymbol = IsMoving ? "🔴" : "🟢";
         return $"Trailer#: {HtmlDecoration.Bold(Name)} {movingSymbol}\n\n" +
-               $"Coordinates:{HtmlDecoration.Code(Coordinates)}\n" +
-               $"Location: {HtmlDecoration.Bold(Address)}";
+               $"Coordinates: {HtmlDecoration.Code(Coordinates)}\n" +
+               $"Location: {HtmlDecoration.Bold(Address)}\n\n" +
+               $"👉 {HtmlDecoration.Bold(HtmlDecoration.Link("LINK", "https://maps.google.com/maps?q=" + Coordinates))} 👈";
     }
 }
