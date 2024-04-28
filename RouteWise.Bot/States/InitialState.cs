@@ -49,7 +49,8 @@ public class InitialState : IState
                 }
 
             case BotCommands.GetAllTrailersInfo:
-                return "adad";
+                //TODO need to implement code for this case
+                return "This is gonna be all trailer info";
 
             default: return "Unknown command";
         }
