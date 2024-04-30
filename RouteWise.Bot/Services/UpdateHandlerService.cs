@@ -111,13 +111,9 @@ public class UpdateHandlerService
     {
         if (!_userService.IsPermittedUser(message.From.Id))
         {
-            await _botClient.SendMessageAsync(new SendMessageRequest
-            {
-                ChatId = message.Chat.Id,
-                Text = "You can't use the bot. Firstly, request an access from the admin 👇",
-                ReplyMarkup = InlineKeyboards.RequestKeyboard
-            });
-
+            await _botClient.AnswerMessageAsync(message,
+                text:"You can't use the bot. Firstly, request an access from the admin 👇",
+                replyMarkup: InlineKeyboards.RequestKeyboard);
             return;
         }
 
@@ -127,16 +123,15 @@ public class UpdateHandlerService
         }
 
         var result = await _stateMachine.FireEvent(message);
-        if(!string.IsNullOrEmpty(result.PhotoUrl))
-            await _botClient.SendPhotoAsync(new SendPhotoRequest { ChatId = message.Chat.Id, Photo = InputFile.FromString(result.PhotoUrl), Caption = result.AnswerMessage, ParseMode = ParseMode.Html });
+        
+        if (!string.IsNullOrEmpty(result.PhotoUrl))
+        {
+            await _botClient.AnswerMessageWithPhotoAsync(message, photoUrlOrFileId: result.PhotoUrl, caption: result.AnswerMessage, protectContent: true);
+        }
         else
-            await _botClient.SendMessageAsync(new SendMessageRequest
-                {
-                    ChatId = message.Chat.Id,
-                    Text = result.AnswerMessage,
-                    ParseMode = ParseMode.Html,
-                    ReplyParameters = new ReplyParameters { MessageId = message.MessageId }
-                });
+        {
+            await _botClient.AnswerMessageAsync(message, result.AnswerMessage);
+        }
 
         _logger.LogInformation($"Message received: {message.Type}");
     }
