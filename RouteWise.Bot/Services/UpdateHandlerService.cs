@@ -122,15 +122,29 @@ public class UpdateHandlerService
             await _stateMachine.SetState(new Models.StateValuesDto { ChatId = message.Chat.Id, UserId = message.From.Id}, new InitialState(_stateMachine));
         }
 
+        var truckNumbers = new List<string> { "706", "702", "111" };
+
+        var command = message.GetBotCommand();
+
+        if (command != null && truckNumbers.Contains(command[1..]))
+        {
+            using (var scope = _stateMachine.ServiceProvider.CreateScope())
+            {
+                var truckService = scope.ServiceProvider.GetRequiredService<ITruckService>();
+                var truck = await truckService.GetAsync(command[1..]);
+                await _botClient.AnswerMessageWithVenueAsync(message, (float)truck.Coordinates.Latitude, (float)truck.Coordinates.Longitude, $"{truck.Name} -> {truck.LastEventAt}", truck.Address);
+            }
+        }
+
         var result = await _stateMachine.FireEvent(message);
         
         if (!string.IsNullOrEmpty(result.PhotoUrl))
         {
-            await _botClient.AnswerMessageWithPhotoAsync(message, photoUrlOrFileId: result.PhotoUrl, caption: result.AnswerMessage, protectContent: true);
+            await _botClient.AnswerMessageWithPhotoAsync(message, photoUrlOrFileId: result.PhotoUrl, caption: result.AnswerMessage, isReply: true);
         }
         else
         {
-            await _botClient.AnswerMessageAsync(message, result.AnswerMessage);
+            await _botClient.AnswerMessageAsync(message, result.AnswerMessage, isReply: true);
         }
 
         _logger.LogInformation($"Message received: {message.Type}");

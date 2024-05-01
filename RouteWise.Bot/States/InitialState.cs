@@ -25,7 +25,7 @@ public class InitialState : IState
         var command = message.GetBotCommand();
         var commandArgs = message.GetBotCommandArgs();
 
-        if (command == null) return message.GetHtmlText(); 
+        if (command == null) return message.GetHtmlText();
 
         switch (command)
         {

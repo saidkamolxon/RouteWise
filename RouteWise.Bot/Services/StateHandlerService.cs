@@ -26,7 +26,7 @@ public class StateHandlerService
         //{
         //    case Step.Initial: return;
         //    case Step.DistanceOrigin:
-        //        await _distanceOriginState.Update(message);
+        //        await _distanceOriginState.UpdateReplyParameters(message);
         //        break;
         //}
 
