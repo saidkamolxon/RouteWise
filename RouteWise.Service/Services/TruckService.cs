@@ -27,4 +27,9 @@ public class TruckService : ITruckService
 
         return _mapper.Map<TruckResultDto>(truck);
     }
+
+    public async Task<IEnumerable<string>> GetTruckNumbersAsync()
+    {
+        return await _swiftEldService.GetAllTruckNumbersAsync();
+    }
 }

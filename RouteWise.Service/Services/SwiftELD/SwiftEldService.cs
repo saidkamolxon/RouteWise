@@ -36,6 +36,12 @@ public class SwiftEldService : ISwiftEldService
         return config.CreateMapper();
     }
 
+    public async Task<IEnumerable<string>> GetAllTruckNumbersAsync()
+    {
+        var content = await GetDataAsync("asset-position/truck-list");
+        return content.Select(x => x.Value<string>("truckNumber"));
+    }
+
     public async Task<IEnumerable<TruckStateDto>> GetAllTrucksStatesAsync()
     {
         var content = await GetDataAsync("asset-position/truck-list");

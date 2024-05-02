@@ -5,4 +5,5 @@ namespace RouteWise.Service.Interfaces;
 public interface ITruckService
 {
     Task<TruckResultDto> GetAsync(string name);
+    Task<IEnumerable<string>> GetTruckNumbersAsync();
 }

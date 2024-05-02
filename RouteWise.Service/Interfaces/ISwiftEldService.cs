@@ -6,4 +6,5 @@ public interface ISwiftEldService
 {
     Task<IEnumerable<TruckStateDto>> GetAllTrucksStatesAsync();
     Task<TruckStateDto> GetTruckStateByNameAsync(string name);
+    Task<IEnumerable<string>> GetAllTruckNumbersAsync();
 }

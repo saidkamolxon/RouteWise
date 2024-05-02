@@ -122,15 +122,15 @@ public class UpdateHandlerService
             await _stateMachine.SetState(new Models.StateValuesDto { ChatId = message.Chat.Id, UserId = message.From.Id}, new InitialState(_stateMachine));
         }
 
-        var truckNumbers = new List<string> { "706", "702", "111" };
-
-        var command = message.GetBotCommand();
-
-        if (command != null && truckNumbers.Contains(command[1..]))
+        using (var scope = _stateMachine.ServiceProvider.CreateScope())
         {
-            using (var scope = _stateMachine.ServiceProvider.CreateScope())
+            var truckService = scope.ServiceProvider.GetRequiredService<ITruckService>();
+            var truckNumbers = await truckService.GetTruckNumbersAsync();
+            
+            var command = message.GetBotCommand();
+            
+            if (command != null && truckNumbers.Contains(command[1..]))
             {
-                var truckService = scope.ServiceProvider.GetRequiredService<ITruckService>();
                 var truck = await truckService.GetAsync(command[1..]);
                 await _botClient.AnswerMessageWithVenueAsync(message, (float)truck.Coordinates.Latitude, (float)truck.Coordinates.Longitude, $"{truck.Name} -> {truck.LastEventAt}", truck.Address);
             }

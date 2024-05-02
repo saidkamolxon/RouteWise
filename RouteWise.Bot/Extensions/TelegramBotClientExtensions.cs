@@ -300,6 +300,76 @@ public static class TelegramBotClientExtensions
         });
     }
 
+    public static async Task<Message> AnswerMessageWithDocumentAsync(this ITelegramBotClient botClient,
+        Message message,
+        string documentUrlOrFileId,
+        string thumbnail = null,
+        string caption = null,
+        ParseMode parseMode = Defaults.DefaultParseMode,
+        IEnumerable<MessageEntity> captionEntities = null,
+        bool? disableContentTypeDetection = null,
+        bool? disableNotification = null,
+        bool? protectContent = null,
+        ReplyParameters replyParameters = null,
+        IReplyMarkup replyMarkup = null,
+        bool isReply = false
+        )
+    {
+        if (isReply)
+        {
+            replyParameters = UpdateReplyParameters(replyParameters, message.MessageId);
+        }
+
+        return await botClient.SendDocumentAsync(new SendDocumentRequest
+        {
+            ChatId = message.Chat.Id,
+            Document = InputFile.FromString(documentUrlOrFileId),
+            Thumbnail = InputFile.FromString(thumbnail),
+            Caption = caption,
+            ParseMode = parseMode,
+            CaptionEntities = captionEntities,
+            DisableContentTypeDetection = disableContentTypeDetection,
+            DisableNotification = disableNotification,
+            ProtectContent = protectContent,
+            ReplyParameters = replyParameters,
+            ReplyMarkup = replyMarkup
+        });
+    }
+
+    public static async Task<Message> AnswerMessageWithVoiceAsync(this ITelegramBotClient botClient,
+        Message message,
+        string voiceUrlOrFileId,
+        string caption = null,
+        ParseMode parseMode = Defaults.DefaultParseMode,
+        IEnumerable<MessageEntity> captionEntities = null,
+        int? duration = null,
+        bool? disableNotification = null,
+        bool? protectContent = null,
+        ReplyParameters replyParameters = null,
+        IReplyMarkup replyMarkup = null,
+        bool isReply = false
+        )
+    {
+        if (isReply)
+        {
+            replyParameters = UpdateReplyParameters(replyParameters, message.MessageId);
+        }
+
+        return await botClient.SendVoiceAsync(new SendVoiceRequest
+        {
+            ChatId = message.Chat.Id,
+            Voice = InputFile.FromString(voiceUrlOrFileId),
+            Caption = caption,
+            ParseMode = parseMode,
+            CaptionEntities = captionEntities,
+            Duration = duration,
+            DisableNotification = disableNotification,
+            ProtectContent = protectContent,
+            ReplyParameters = replyParameters,
+            ReplyMarkup = replyMarkup
+        });
+    }
+
     public static ReplyParameters UpdateReplyParameters(ReplyParameters replyParameters, int messageId)
     {
         replyParameters ??= new ReplyParameters();
