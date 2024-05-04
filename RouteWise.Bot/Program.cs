@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using RouteWise.Bot.Extensions;
 using RouteWise.Bot.Models;
@@ -48,6 +49,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseRateLimiter();
+
 //app.UseHttpsRedirection();
 
 app.UseRouting();
@@ -56,12 +59,6 @@ app.UseCors();
 
 app.MapControllerRoute(name: "tgwebhook", pattern: $"bot/{botConfig.Token}",
     defaults: new { controller = "Webhook", action = "Post" });
-
-//app.UseEndpoints(endpoints =>
-//{
-//    endpoints.MapControllerRoute(name: "tgwebhook", pattern: $"bot/{botConfig.Token}",
-//        new { controller = "Webhook", action = "Post" });
-//});
 
 app.UseAuthorization();
 

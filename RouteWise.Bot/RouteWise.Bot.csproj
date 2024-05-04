@@ -17,6 +17,8 @@
     <PackageReference Include="RestSharp" Version="110.2.0" />
     <PackageReference Include="Stateless" Version="5.15.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="System.Threading.RateLimiting" Version="7.0.1" />
+	  <PackageReference Include="Microsoft.AspNetCore.RateLimiting" Version="7.0.0-rc.2.22476.2"></PackageReference>
     <PackageReference Include="Telegram.Bot" Version="20.0.0-alpha.6.stj" />
   </ItemGroup>
 
