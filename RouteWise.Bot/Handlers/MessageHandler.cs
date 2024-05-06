@@ -14,7 +14,7 @@ public partial class UpdateHandlerService
         if (!_userService.IsPermittedUser(message.From.Id))
         {
             await _botClient.AnswerMessageAsync(message,
-                text: "You can't use the bot. Firstly, request an access from the admin 👇",
+                text: "You can't use the bot. Firstly, request an access from the owner 👇",
                 replyMarkup: InlineKeyboards.RequestKeyboard);
             return;
         }
@@ -41,14 +41,10 @@ public partial class UpdateHandlerService
         var result = await _stateMachine.FireEvent(message);
 
         if (!string.IsNullOrEmpty(result.PhotoUrl))
-        {
-            await _botClient.AnswerMessageWithPhotoAsync(message, photoUrlOrFileId: result.PhotoUrl, caption: result.AnswerMessage, isReply: true);
-        }
+            await _botClient.AnswerMessageWithPhotoAsync(message, result.PhotoUrl, result.AnswerMessage, isReply: true);
         else
-        {
             await _botClient.AnswerMessageAsync(message, result.AnswerMessage, isReply: true);
-        }
 
-        _logger.LogInformation($"Message received: {message.Type}");
+        _logger.LogInformation("Message received of type: {message.Type}", message.Type);
     }
 }

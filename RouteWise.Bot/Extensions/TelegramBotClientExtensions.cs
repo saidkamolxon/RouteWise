@@ -370,6 +370,34 @@ public static class TelegramBotClientExtensions
         });
     }
 
+    public static async Task<Message> EditMessageTextOrCaptionAsync(this ITelegramBotClient botClient,
+        Message message,
+        string textOrCaption,
+        ParseMode parseMode = Defaults.DefaultParseMode,
+        InlineKeyboardMarkup replyMarkup = null)
+    {
+        if (!string.IsNullOrEmpty(message.Text))
+        {
+            return await botClient.EditMessageTextAsync(new EditMessageTextRequest
+            {
+                ChatId = message.Chat.Id,
+                MessageId = message.MessageId,
+                Text = textOrCaption,
+                ParseMode = parseMode,
+                ReplyMarkup = replyMarkup
+            });
+        }
+        
+        return await botClient.EditMessageCaptionAsync(new EditMessageCaptionRequest
+        {
+            ChatId = message.Chat.Id,
+            MessageId = message.MessageId,
+            Caption = textOrCaption,
+            ParseMode = parseMode,
+            ReplyMarkup = replyMarkup
+        });
+    }
+
     public static ReplyParameters UpdateReplyParameters(ReplyParameters replyParameters, int messageId)
     {
         replyParameters ??= new ReplyParameters();

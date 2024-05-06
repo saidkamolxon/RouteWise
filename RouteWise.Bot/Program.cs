@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using RouteWise.Bot.Extensions;
 using RouteWise.Bot.Models;
@@ -48,8 +47,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseRateLimiter();
 
 //app.UseHttpsRedirection();
 

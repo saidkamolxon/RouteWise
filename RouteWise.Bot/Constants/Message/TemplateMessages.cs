@@ -11,9 +11,11 @@ public static class TemplateMessages
     public static SendMessageRequest RequestAccessMessage(User user)
     {
         return new SendMessageRequest {
-            ChatId = 5885255512,
-            Text = $"{HtmlDecoration.Bold(user.GetFullName())}\n{HtmlDecoration.Code(user.Id.ToString())}\nThe user is asking a permission to use the bot",
-            ParseMode = Telegram.Bot.Types.Enums.ParseMode.Html,
+            ChatId = Environment.GetEnvironmentVariable("OwnerId"),
+            Text = $"{HtmlDecoration.Bold(user.GetFullName())}\n" +
+                   $"{HtmlDecoration.Code(user.Id.ToString())}\n" +
+                    "The user is asking a permission to use the bot",
+            ParseMode = Defaults.DefaultParseMode,
             ReplyMarkup = InlineKeyboards.ResponseKeyboard
         };
     }
