@@ -36,27 +36,27 @@ public class SwiftEldService : ISwiftEldService
         return config.CreateMapper();
     }
 
-    public async Task<IEnumerable<string>> GetAllTruckNumbersAsync()
+    public async Task<IEnumerable<string>> GetAllTruckNumbersAsync(CancellationToken cancellationToken = default)
     {
         var content = await GetDataAsync("asset-position/truck-list");
         return content.Select(x => x.Value<string>("truckNumber"));
     }
 
-    public async Task<IEnumerable<TruckStateDto>> GetAllTrucksStatesAsync()
+    public async Task<IEnumerable<TruckStateDto>> GetAllTrucksStatesAsync(CancellationToken cancellationToken = default)
     {
         var content = await GetDataAsync("asset-position/truck-list");
         return Map(content);
     }
 
-    public async Task<TruckStateDto> GetTruckStateByNameAsync(string name)
+    public async Task<TruckStateDto> GetTruckStateByNameAsync(string name, CancellationToken cancellationToken = default)
     {
         return (await GetAllTrucksStatesAsync())
             .FirstOrDefault(t => t.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
     }
 
-    private async Task<JArray> GetDataAsync(string source)
+    private async Task<JArray> GetDataAsync(string source, CancellationToken cancellationToken = default)
     {
-        var response = await _client.GetAsync(new RestRequest(source));
+        var response = await _client.GetAsync(new RestRequest(source), cancellationToken);
         if (response.IsSuccessful && !string.IsNullOrEmpty(response.Content))
             return JArray.Parse(response.Content);
         throw new Exception("A bad request...");

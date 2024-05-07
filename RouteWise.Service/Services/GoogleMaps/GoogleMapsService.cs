@@ -15,7 +15,7 @@ public class GoogleMapsService : IGoogleMapsService
         _client.AddDefaultParameter("key", credentials.Token);
     }
 
-    public async Task<string> GetDistanceAsync(string origin, string destination)
+    public async Task<string> GetDistanceAsync(string origin, string destination, CancellationToken cancellationToken = default)
     {
         var parameters = new Dictionary<string, string>
            {{ "origins", origin },
@@ -23,7 +23,7 @@ public class GoogleMapsService : IGoogleMapsService
 
         try
         {
-            var result = await GetDistanceMatrixResult(parameters);
+            var result = await GetDistanceMatrixResult(parameters, cancellationToken);
             return $"{HtmlDecoration.Bold("From:")} {HtmlDecoration.Italic(result.Origin)}\n" +
                    $"{HtmlDecoration.Bold("To:")} {HtmlDecoration.Italic(result.Destination)}\n" +
                    $"{HtmlDecoration.Bold("Distance:")} {HtmlDecoration.Italic(result.Distance)}\n" +
@@ -36,11 +36,11 @@ public class GoogleMapsService : IGoogleMapsService
         }
     }
 
-    private async Task<DistanceMatrixResult> GetDistanceMatrixResult(Dictionary<string, string> parameters)
+    private async Task<DistanceMatrixResult> GetDistanceMatrixResult(Dictionary<string, string> parameters, CancellationToken cancellationToken = default)
     {
         parameters.Add("units", "imperial");
         
-        var data = await GetResultAsync("distancematrix/json", parameters);
+        var data = await GetResultAsync("distancematrix/json", parameters, cancellationToken);
         
         return new DistanceMatrixResult(){
                 Origin = data["origin_addresses"][0].ToString(),
@@ -49,10 +49,10 @@ public class GoogleMapsService : IGoogleMapsService
                 Duration = data["rows"][0]["elements"][0]["duration"]["text"].ToString()};
     }
 
-    private async Task<JObject> GetResultAsync(string resource, Dictionary<string, string> parameters = null)
+    private async Task<JObject> GetResultAsync(string resource, Dictionary<string, string> parameters = null, CancellationToken cancellationToken = default)
     {
         var request = CreateNewRestRequest(resource, parameters);
-        var response = await _client.GetAsync(request);
+        var response = await _client.GetAsync(request, cancellationToken);
         if (response.IsSuccessful && response.Content is not null)
             return JObject.Parse(response.Content);
         throw new Exception("Error occured while trying to get a result.");
@@ -68,21 +68,21 @@ public class GoogleMapsService : IGoogleMapsService
         return request;
     }
 
-    public async Task<object> GetGeocodingAsync(string location, bool reverse)
+    public async Task<object> GetGeocodingAsync(string location, bool reverse, CancellationToken cancellationToken = default)
     {
         var parameters = new Dictionary<string, string>{{ reverse ? "address" : "latlng", location }};
-        return await this.GetResultAsync("geocode/json", parameters);
+        return await this.GetResultAsync("geocode/json", parameters, cancellationToken);
     }
 
-    public async Task<string> GetReverseGeocodingAsync(string coordinates)
+    public async Task<string> GetReverseGeocodingAsync(string coordinates, CancellationToken cancellationToken = default)
     {
         var parameters = new Dictionary<string, string> {{ "latlng", coordinates }};
-        var response = await this.GetResultAsync("geocode/json", parameters);
+        var response = await this.GetResultAsync("geocode/json", parameters, cancellationToken);
         var formattedAddress = response["results"][0]["formatted_address"].ToString();
         return formattedAddress;
     }
 
-    public async Task<string> GetStaticMapAsync(string coordinates)
+    public async Task<string> GetStaticMapAsync(string coordinates, CancellationToken cancellationToken = default)
     {
         var parameters = GetStaticMapsDefaultParameters();
         parameters.Add("center", coordinates);
@@ -90,7 +90,7 @@ public class GoogleMapsService : IGoogleMapsService
         return await Task.FromResult(_client.BuildUri(CreateNewRestRequest("staticmap", parameters)).ToString());
     }
 
-    public async Task<string> GetStaticMapAsync(string center, string[] objects)
+    public async Task<string> GetStaticMapAsync(string center, string[] objects, CancellationToken cancellationToken = default)
     {
         var parameters = GetStaticMapsDefaultParameters();
         parameters.Add("center", center);

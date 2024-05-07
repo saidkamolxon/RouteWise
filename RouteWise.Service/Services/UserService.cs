@@ -23,7 +23,7 @@ public class UserService : IUserService
             .SelectAll()
             .Any(u => u.TelegramId == id);
 
-    public async Task<UserResultDto> GetByTelegramIdAsync(long id)
+    public async Task<UserResultDto> GetByTelegramIdAsync(long id,  CancellationToken cancellationToken = default)
     {
         var user = await _unitOfWork.UserRepository
             .SelectAsync(u => u.TelegramId == id) ??
@@ -32,7 +32,7 @@ public class UserService : IUserService
         return _mapper.Map<UserResultDto>(user);
     }
 
-    public async Task<UserResultDto> UpdateAsync(UserUpdateDto dto)
+    public async Task<UserResultDto> UpdateAsync(UserUpdateDto dto, CancellationToken cancellationToken = default)
     {
         var user = await _unitOfWork.UserRepository.SelectAsync(u => u.Id == dto.Id)
             ?? throw new NotFoundException($"User with such id={dto.Id} is not found");
@@ -44,7 +44,7 @@ public class UserService : IUserService
         return _mapper.Map<UserResultDto>(user);
     }
 
-    public async Task<UserResultDto> AddAsync(UserCreationDto dto)
+    public async Task<UserResultDto> AddAsync(UserCreationDto dto, CancellationToken cancellationToken = default)
     {
         var user = _mapper.Map<User>(dto);
         await _unitOfWork.UserRepository.CreateAsync(user);

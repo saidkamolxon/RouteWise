@@ -31,7 +31,7 @@ public class TrailerService : ITrailerService
         _googleMapsService = googleMapsService;
     }
 
-    public async Task<TrailerResultDto> CreateAsync(TrailerCreationDto dto)
+    public async Task<TrailerResultDto> CreateAsync(TrailerCreationDto dto, CancellationToken cancellationToken = default)
     {
         var newTrailer = _mapper.Map<Trailer>(dto);
         await _unitOfWork.TrailerRepository.CreateAsync(newTrailer);
@@ -39,7 +39,7 @@ public class TrailerService : ITrailerService
         return _mapper.Map<TrailerResultDto>(newTrailer);
     }
 
-    public async Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default)
     {
         var trailer = await _unitOfWork.TrailerRepository.SelectAsync(id)
              ?? throw new NotFoundException("Trailer with such id is not found.");
@@ -49,7 +49,7 @@ public class TrailerService : ITrailerService
         return true;
     }
 
-    public async Task<IReadOnlyList<TrailerResultDto>> GetAllAsync()
+    public async Task<IReadOnlyList<TrailerResultDto>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         var trailers = await _unitOfWork.TrailerRepository
                                 .SelectAll(asNoTracking: true, includes: new [] { "Landmark" })
@@ -58,7 +58,7 @@ public class TrailerService : ITrailerService
         return _mapper.Map<IReadOnlyList<TrailerResultDto>>(trailers);
     }
 
-    public async Task<TrailerResultDto> GetByIdAsync(int id)
+    public async Task<TrailerResultDto> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     { 
         var trailer = await _unitOfWork.TrailerRepository.SelectAsync(id, includes: new[] { "Landmark" })
             ?? throw new NotFoundException("Trailer with such id is not found.");
@@ -66,7 +66,7 @@ public class TrailerService : ITrailerService
         return _mapper.Map<TrailerResultDto>(trailer);
     }
 
-    public async Task<TrailerResultDto> GetByNameAsync(string name)
+    public async Task<TrailerResultDto> GetByNameAsync(string name, CancellationToken cancellationToken = default)
     {
         var trailer = await _unitOfWork.TrailerRepository
             .SelectAsync(t => t.Name.ToLower().Contains(name.ToLower()))
@@ -77,7 +77,7 @@ public class TrailerService : ITrailerService
         return dto;
     }
 
-    public async Task<TrailerResultDto> UpdateAsync(TrailerStateDto dto)
+    public async Task<TrailerResultDto> UpdateAsync(TrailerStateDto dto, CancellationToken cancellationToken = default)
     {
         var trailer = await _unitOfWork.TrailerRepository.SelectAsync(1);
         var mappedTrailer = _mapper.Map(dto, trailer);
@@ -89,7 +89,7 @@ public class TrailerService : ITrailerService
         return _mapper.Map<TrailerResultDto>(updatedTrailer);
     }
 
-    public async Task UpdateTrailersStatesAsync()
+    public async Task UpdateTrailersStatesAsync(CancellationToken cancellationToken = default)
     {
         var trailerStates = MergeData(await _fleetLocateService.GetTrailersStatesAsync(), 
                                       await _roadReadyService.GetTrailersStatesAsync());
@@ -126,7 +126,7 @@ public class TrailerService : ITrailerService
             .ToList();
     }
 
-    public async Task<IEnumerable<TrailerResultDto>> GetByCityAndStateAsync(string city = null, string state = null)
+    public async Task<IEnumerable<TrailerResultDto>> GetByCityAndStateAsync(string city = null, string state = null, CancellationToken cancellationToken = default)
     {
         var trailers = _unitOfWork.TrailerRepository.SelectAll();
 

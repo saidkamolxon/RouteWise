@@ -19,17 +19,17 @@ public class TruckService : ITruckService
         _mapper = mapper;
     }
 
-    public async Task<TruckResultDto> GetAsync(string name)
+    public async Task<TruckResultDto> GetAsync(string name, CancellationToken cancellationToken = default)
     {
-        var truck = await _swiftEldService.GetTruckStateByNameAsync(name);
-        truck.Address = await _googleMapsService.GetReverseGeocodingAsync(truck.Coordinates.ToString());
+        var truck = await _swiftEldService.GetTruckStateByNameAsync(name, cancellationToken);
+        truck.Address = await _googleMapsService.GetReverseGeocodingAsync(truck.Coordinates.ToString(), cancellationToken);
         truck.LastEventAt = truck.LastEventAt.ConvertUtcToDefaultTime();
 
         return _mapper.Map<TruckResultDto>(truck);
     }
 
-    public async Task<IEnumerable<string>> GetTruckNumbersAsync()
+    public async Task<IEnumerable<string>> GetTruckNumbersAsync(CancellationToken cancellationToken = default)
     {
-        return await _swiftEldService.GetAllTruckNumbersAsync();
+        return await _swiftEldService.GetAllTruckNumbersAsync(cancellationToken);
     }
 }

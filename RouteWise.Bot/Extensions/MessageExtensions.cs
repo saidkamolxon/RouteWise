@@ -1,7 +1,5 @@
 ﻿using RouteWise.Service.Helpers;
 using System.Text;
-using Telegram.Bot;
-using Telegram.Bot.Requests;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 

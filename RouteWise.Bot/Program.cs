@@ -4,11 +4,33 @@ using RouteWise.Bot.Models;
 using RouteWise.Bot.Services;
 using RouteWise.Data.Contexts;
 using RouteWise.Service.Mappers;
+using Serilog;
+using Serilog.Events;
+using Serilog.Sinks.PostgreSQL;
+using System.Collections.ObjectModel;
 using Telegram.Bot;
 using Telegram.Bot.Serialization;
 
 
+
+
 var builder = WebApplication.CreateBuilder(args);
+
+#region SerilogConfiguration
+var connectionString = "Host=my_host;Port=5432;Database=my_db;Username=my_user;Password=my_password";
+
+// Define the column options for the PostgreSQL sink
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+    .WriteTo.File("C:\\Users\\99894\\Source\\Repos\\saidkamolxon\\RouteWise\\RouteWise.Bot\\Logs\\log.txt", rollingInterval: RollingInterval.Minute)
+    .WriteTo.Console()
+    .CreateLogger();
+
+Log.Information("Bismillahir Rohmanir Rohiym");
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog();
+#endregion
+
 BotConfiguration botConfig = builder.Configuration.GetSection("BotConfiguration").Get<BotConfiguration>();
 
 // Add services to the container.
@@ -62,3 +84,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+Log.CloseAndFlush();
