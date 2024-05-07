@@ -1,0 +1,9 @@
+version: '3.4'
+
+services:
+  bot.api:
+    image: $"{DOCKER_REGISTRY-}webapi"
+    container_name: bot-api
+    build:
+        context: .
+        dockerfile: .
