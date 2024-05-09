@@ -5,15 +5,15 @@ using RouteWise.Service.Interfaces;
 using Telegram.Bot.Types;
 using RouteWise.Bot.Extensions;
 
-namespace RouteWise.Bot.Services;
+namespace RouteWise.Bot.Handlers;
 
-public partial class UpdateHandlerService
+public partial class UpdateHandler
 {
     private async Task BotOnMessageReceived(Message message)
     {
-        if (!_userService.IsPermittedUser(message.From.Id))
+        if (!userService.IsPermittedUser(message.From.Id))
         {
-            await _botClient.AnswerMessageAsync(message,
+            await botClient.AnswerMessageAsync(message,
                 text: "You can't use the bot. Firstly, request an access from the owner 👇",
                 replyMarkup: InlineKeyboards.RequestKeyboard);
             return;
@@ -21,10 +21,10 @@ public partial class UpdateHandlerService
 
         if (message.Text.StartsWith(BotCommands.Start))
         {
-            await _stateMachine.SetState(new Models.StateValuesDto { ChatId = message.Chat.Id, UserId = message.From.Id }, new InitialState(_stateMachine));
+            await stateMachine.SetState(new Models.StateValuesDto { ChatId = message.Chat.Id, UserId = message.From.Id }, new InitialState(stateMachine));
         }
 
-        using (var scope = _stateMachine.ServiceProvider.CreateScope())
+        using (var scope = stateMachine.ServiceProvider.CreateScope())
         {
             var truckService = scope.ServiceProvider.GetRequiredService<ITruckService>();
             var truckNumbers = await truckService.GetTruckNumbersAsync();
@@ -34,17 +34,17 @@ public partial class UpdateHandlerService
             if (command != null && truckNumbers.Contains(command[1..]))
             {
                 var truck = await truckService.GetAsync(command[1..]);
-                await _botClient.AnswerMessageWithVenueAsync(message, (float)truck.Coordinates.Latitude, (float)truck.Coordinates.Longitude, $"{truck.Name} -> {truck.LastEventAt}", truck.Address);
+                await botClient.AnswerMessageWithVenueAsync(message, (float)truck.Coordinates.Latitude, (float)truck.Coordinates.Longitude, $"{truck.Name} -> {truck.LastEventAt}", truck.Address, isReply: true);
             }
         }
 
-        var result = await _stateMachine.FireEvent(message);
+        var result = await stateMachine.FireEvent(message);
 
         if (!string.IsNullOrEmpty(result.PhotoUrl))
-            await _botClient.AnswerMessageWithPhotoAsync(message, result.PhotoUrl, result.AnswerMessage, isReply: true);
+            await botClient.AnswerMessageWithPhotoAsync(message, result.PhotoUrl, result.AnswerMessage, isReply: true);
         else
-            await _botClient.AnswerMessageAsync(message, result.AnswerMessage, isReply: true);
+            await botClient.AnswerMessageAsync(message, result.AnswerMessage, isReply: true);
 
-        _logger.LogInformation("Message received of type: {message.Type}", message.Type);
+        logger.LogInformation("Message received of type: {message.Type}", message.Type);
     }
 }

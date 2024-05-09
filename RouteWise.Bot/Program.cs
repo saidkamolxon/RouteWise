@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RouteWise.Bot.Extensions;
+using RouteWise.Bot.Handlers;
 using RouteWise.Bot.Models;
 using RouteWise.Bot.Services;
 using RouteWise.Data.Contexts;
@@ -35,7 +36,7 @@ builder.Services.AddHttpClient("tgwebhook")
     .AddTypedClient<ITelegramBotClient>(httpClient => 
         new TelegramBotClient(botConfig.Token, httpClient));
 
-builder.Services.AddScoped<UpdateHandlerService>();
+builder.Services.AddScoped<UpdateHandler>();
 
 builder.Services.AddSwaggerGen();
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RouteWise.Bot.Services;
+using RouteWise.Bot.Handlers;
 using Telegram.Bot.Types;
 
 namespace RouteWise.Bot.Controllers;
@@ -7,11 +7,9 @@ namespace RouteWise.Bot.Controllers;
 public class WebhookController : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> Post([FromServices] UpdateHandlerService service,
-        [FromBody] Update update)
+    public async Task<IActionResult> Post([FromServices] UpdateHandler handler, [FromBody] Update update)
     {
-        await service.HandleUpdateAsync(update);
-        
+        await handler.HandleUpdateAsync(update);
         return Ok();
     }
 }
