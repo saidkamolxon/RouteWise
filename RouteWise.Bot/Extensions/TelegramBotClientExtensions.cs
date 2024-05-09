@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Primitives;
-using RouteWise.Bot.Constants;
+﻿using RouteWise.Bot.Constants;
 using Telegram.Bot;
 using Telegram.Bot.Requests;
 using Telegram.Bot.Types;
@@ -23,12 +22,7 @@ public static class TelegramBotClientExtensions
         bool isReply = false
         )
     {
-        if (message == null) return null;
-
-        if(isReply)
-        {
-            replyParameters = UpdateReplyParameters(replyParameters, message.MessageId);
-        }
+        if(isReply) replyParameters = GetUpdatedReplyParameters(replyParameters, message.MessageId);
 
         return await botClient.SendMessageAsync(new SendMessageRequest
         {
@@ -57,10 +51,7 @@ public static class TelegramBotClientExtensions
         IReplyMarkup replyMarkup = null,
         bool isReply = false)
     {
-        if (isReply)
-        {
-            replyParameters = UpdateReplyParameters(replyParameters, message.MessageId);
-        }
+        if (isReply) replyParameters = GetUpdatedReplyParameters(replyParameters, message.MessageId);
 
         return await botClient.SendPhotoAsync(new SendPhotoRequest
         {
@@ -93,10 +84,7 @@ public static class TelegramBotClientExtensions
         IReplyMarkup replyMarkup = null,
         bool isReply = false)
     {
-        if (isReply)
-        {
-            replyParameters = UpdateReplyParameters(replyParameters, message.MessageId);
-        }
+        if (isReply) replyParameters = GetUpdatedReplyParameters(replyParameters, message.MessageId);
 
         return await botClient.SendVenueAsync(new SendVenueRequest
         {
@@ -126,10 +114,7 @@ public static class TelegramBotClientExtensions
         bool isReply = false
         )
     {
-        if (isReply)
-        {
-            replyParameters = UpdateReplyParameters(replyParameters, message.MessageId);
-        }
+        if (isReply) replyParameters = GetUpdatedReplyParameters(replyParameters, message.MessageId);
 
         return await botClient.SendMediaGroupAsync(new SendMediaGroupRequest
         {
@@ -153,10 +138,7 @@ public static class TelegramBotClientExtensions
         bool isReply = false
         )
     {
-        if (isReply)
-        {
-            replyParameters = UpdateReplyParameters(replyParameters, message.MessageId);
-        }
+        if (isReply) replyParameters = GetUpdatedReplyParameters(replyParameters, message.MessageId);
 
         return await botClient.SendStickerAsync(new SendStickerRequest
         {
@@ -189,10 +171,7 @@ public static class TelegramBotClientExtensions
         bool isReply = false
         )
     {
-        if (isReply)
-        {
-            replyParameters = UpdateReplyParameters(replyParameters, message.MessageId);
-        }
+        if (isReply) replyParameters = GetUpdatedReplyParameters(replyParameters, message.MessageId);
 
         return await botClient.SendAnimationAsync(new SendAnimationRequest
         {
@@ -233,10 +212,7 @@ public static class TelegramBotClientExtensions
         bool isReply = false
         )
     {
-        if (isReply)
-        {
-            replyParameters = UpdateReplyParameters(replyParameters, message.MessageId);
-        }
+        if (isReply) replyParameters = GetUpdatedReplyParameters(replyParameters, message.MessageId);
 
         return await botClient.SendVideoAsync(new SendVideoRequest
         {
@@ -276,10 +252,7 @@ public static class TelegramBotClientExtensions
         bool isReply = false
         )
     {
-        if (isReply)
-        {
-            replyParameters = UpdateReplyParameters(replyParameters, message.MessageId);
-        }
+        if (isReply) replyParameters = GetUpdatedReplyParameters(replyParameters, message.MessageId);
 
         return await botClient.SendAudioAsync(new SendAudioRequest
         {
@@ -315,10 +288,7 @@ public static class TelegramBotClientExtensions
         bool isReply = false
         )
     {
-        if (isReply)
-        {
-            replyParameters = UpdateReplyParameters(replyParameters, message.MessageId);
-        }
+        if (isReply) replyParameters = GetUpdatedReplyParameters(replyParameters, message.MessageId);
 
         return await botClient.SendDocumentAsync(new SendDocumentRequest
         {
@@ -350,10 +320,7 @@ public static class TelegramBotClientExtensions
         bool isReply = false
         )
     {
-        if (isReply)
-        {
-            replyParameters = UpdateReplyParameters(replyParameters, message.MessageId);
-        }
+        if (isReply) replyParameters = GetUpdatedReplyParameters(replyParameters, message.MessageId);
 
         return await botClient.SendVoiceAsync(new SendVoiceRequest
         {
@@ -398,7 +365,7 @@ public static class TelegramBotClientExtensions
         });
     }
 
-    public static ReplyParameters UpdateReplyParameters(ReplyParameters replyParameters, int messageId)
+    public static ReplyParameters GetUpdatedReplyParameters(ReplyParameters replyParameters, int messageId)
     {
         replyParameters ??= new ReplyParameters();
         replyParameters.MessageId = messageId;
