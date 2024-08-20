@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RouteWise.Domain", "RouteWi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RouteWise.Bot", "RouteWise.Bot\RouteWise.Bot.csproj", "{7989DE69-4D9B-4034-BC46-02BBB6060081}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{5D581372-842C-4AC0-AD1B-65CC517AAC49}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{7989DE69-4D9B-4034-BC46-02BBB6060081}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7989DE69-4D9B-4034-BC46-02BBB6060081}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7989DE69-4D9B-4034-BC46-02BBB6060081}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5D581372-842C-4AC0-AD1B-65CC517AAC49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5D581372-842C-4AC0-AD1B-65CC517AAC49}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5D581372-842C-4AC0-AD1B-65CC517AAC49}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5D581372-842C-4AC0-AD1B-65CC517AAC49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

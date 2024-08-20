@@ -8,15 +8,10 @@ namespace RouteWise.Bot.Constants.Message;
 
 public static class TemplateMessages
 {
-    public static SendMessageRequest RequestAccessMessage(User user)
+    public static string RequestAccessMessage(User user)
     {
-        return new SendMessageRequest {
-            ChatId = Environment.GetEnvironmentVariable("OwnerId"),
-            Text = $"{HtmlDecoration.Bold(user.GetFullName())}\n" +
-                   $"{HtmlDecoration.Code(user.Id.ToString())}\n" +
-                    "The user is asking a permission to use the bot",
-            ParseMode = Defaults.DefaultParseMode,
-            ReplyMarkup = InlineKeyboards.ResponseKeyboard
-        };
+        return $"{HtmlDecoration.Bold(user.GetFullName())}\n" +
+               $"{HtmlDecoration.Code(user.Id.ToString())}\n" +
+               "The user is asking a permission to use the bot";
     }
 }

@@ -30,18 +30,16 @@ public class ConfigureWebhook : IHostedService
 
         _logger.LogInformation("Setting webhook...");
 
-        await botClient.SendMessageAsync(new SendMessageRequest
-        {
-            ChatId = _botConfig.OwnerId,
-            Text = "Bot has been started."
-        }, cancellationToken: cancellationToken);
+        await botClient.SendTextMessageAsync(
+            chatId: _botConfig.OwnerId,
+            text: "Bot has been started.",
+            cancellationToken: cancellationToken);
 
-        await botClient.SetWebhookAsync(new SetWebhookRequest()
-        {
-            Url = webhookAddress,
-            AllowedUpdates = Array.Empty<UpdateType>(),
-            DropPendingUpdates = true
-        }, cancellationToken: cancellationToken);
+        await botClient.SetWebhookAsync(
+            url: webhookAddress,
+            allowedUpdates: [],
+            dropPendingUpdates: true,
+            cancellationToken: cancellationToken);
     }
 
     public async Task StopAsync(CancellationToken cancellationToken)
@@ -52,10 +50,9 @@ public class ConfigureWebhook : IHostedService
 
         _logger.LogInformation("Webhook removing...");
 
-        await botClient.SendMessageAsync(new SendMessageRequest
-        {
-            ChatId = _botConfig.OwnerId,
-            Text = "Bot has been stopped."
-        }, cancellationToken: cancellationToken);
+        await botClient.SendTextMessageAsync(
+            chatId: _botConfig.OwnerId,
+            text: "Bot has been stopped.",
+            cancellationToken: cancellationToken);
     }
 }

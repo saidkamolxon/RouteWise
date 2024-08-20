@@ -7,9 +7,6 @@ using RouteWise.Data.Contexts;
 using RouteWise.Service.Mappers;
 using Serilog;
 using Telegram.Bot;
-using Telegram.Bot.Serialization;
-
-
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,9 +20,7 @@ BotConfiguration botConfig = builder.Configuration.GetSection("BotConfiguration"
 // Add services to the container.
 
 builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    JsonSerializerOptionsProvider.Configure(options.JsonSerializerOptions);
-});
+    JsonBotAPI.Configure(options.JsonSerializerOptions));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
