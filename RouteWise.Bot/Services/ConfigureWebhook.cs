@@ -1,7 +1,5 @@
 ﻿using RouteWise.Bot.Models;
 using Telegram.Bot;
-using Telegram.Bot.Requests;
-using Telegram.Bot.Types.Enums;
 
 namespace RouteWise.Bot.Services;
 

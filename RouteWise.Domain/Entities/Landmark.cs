@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using RouteWise.Domain.Models;
+﻿using RouteWise.Domain.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json;
 
 namespace RouteWise.Domain.Entities;
 
@@ -22,12 +22,9 @@ public class Landmark : Auditable
 
     public string BorderPointsJson
     {
-        get => JsonConvert.SerializeObject(BorderPoints);
-        set => BorderPoints = JsonConvert.DeserializeObject<IEnumerable<Coordinate>>(value);
+        get => JsonSerializer.Serialize(BorderPoints);
+        set => BorderPoints = JsonSerializer.Deserialize<IEnumerable<Coordinate>>(value);
     }
 
-    public override string ToString()
-    {
-        return Name;
-    }
+    public override string ToString() => string.Format("{0} -> {1}", Name, Address);
 }
