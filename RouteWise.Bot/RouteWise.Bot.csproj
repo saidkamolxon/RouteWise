@@ -1,21 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-	<UserSecretsId>8a1f6e2d-7d95-4bb0-a0sd-5c8c865cf3d7</UserSecretsId>
+    <UserSecretsId>8a1f6e2d-7d95-4bb0-a0sd-5c8c865cf3d7</UserSecretsId>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="masstransit" Version="8.2.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.11" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RestSharp" Version="110.2.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
     <PackageReference Include="Serilog.Sinks.Postgresql.Alternative" Version="4.0.3" />
@@ -23,18 +14,21 @@
     <PackageReference Include="Serilog.Sinks.SQLite" Version="6.0.0" />
     <PackageReference Include="Stateless" Version="5.15.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-    <PackageReference Include="System.Threading.RateLimiting" Version="7.0.1" />
-	  <PackageReference Include="Microsoft.AspNetCore.RateLimiting" Version="7.0.0-rc.2.22476.2"></PackageReference>
-    <PackageReference Include="Telegram.Bot" Version="20.0.0-alpha.6.stj" />
+    <PackageReference Include="Microsoft.AspNetCore.RateLimiting" Version="7.0.0-rc.2.22476.2">
+    </PackageReference>
+    <PackageReference Include="Telegram.Bot" Version="21.10.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Threading.RateLimiting" Version="8.0.0" />
   </ItemGroup>
-
   <ItemGroup>
+    <ProjectReference Include="..\RouteWise.Data\RouteWise.Data.csproj" />
     <ProjectReference Include="..\RouteWise.Domain\RouteWise.Domain.csproj" />
     <ProjectReference Include="..\RouteWise.Service\RouteWise.Service.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Logs\" />
   </ItemGroup>
-
 </Project>
