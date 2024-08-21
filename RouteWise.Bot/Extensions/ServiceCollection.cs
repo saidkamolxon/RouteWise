@@ -1,16 +1,14 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using RouteWise.Bot.Interfaces;
+﻿using RouteWise.Bot.Interfaces;
 using RouteWise.Bot.Services;
-using RouteWise.Bot.States;
 using RouteWise.Data.IRepositories;
 using RouteWise.Data.Repositories;
 using RouteWise.Service.Interfaces;
 using RouteWise.Service.Services;
+using RouteWise.Service.Services.DitatTms;
 using RouteWise.Service.Services.FleetLocate;
 using RouteWise.Service.Services.GoogleMaps;
 using RouteWise.Service.Services.RoadReady;
-using RouteWise.Service.Services.SwiftELD;
-using System.Reflection.Metadata.Ecma335;
+using RouteWise.Service.Services.SwiftEld;
 
 namespace RouteWise.Bot.Extensions;
 
@@ -32,6 +30,7 @@ public static class ServiceCollection
         AddGoogleMaps(services, configuration);
         AddRoadReady(services, configuration);
         AddSwiftEld(services, configuration);
+        AddDitatTms(services, configuration);
         services.AddScoped<IStateMachine>(provider => new StateMachine(provider));
     }
 
@@ -64,6 +63,14 @@ public static class ServiceCollection
         services.AddScoped<IRoadReadyService, RoadReadyService>(provider =>
             new RoadReadyService(configuration.GetSection("AccessToExternalAPIs:RoadReady")
                                               .Get<RoadReadyApiCredentials>())
+        );
+    }
+
+    private static void AddDitatTms(IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddScoped<IDitatTmsService, DitatTmsService>(provider =>
+            new DitatTmsService(configuration.GetSection("AccessToExternalAPIs:DitatTMS")
+                                             .Get<DitatTmsApiCredentials>()) 
         );
     }
 }

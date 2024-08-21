@@ -8,13 +8,15 @@ public class TestController : BaseController
     private readonly ITrailerService _trailerService;
     private readonly ILandmarkService _landmarkService;
     private readonly ITruckService _truckService;
+    private readonly IDitatTmsService _ditatTmsService;
 
     public TestController(ITrailerService trailerService, ILandmarkService landmarkService,
-        ITruckService truckService)
+        ITruckService truckService, IDitatTmsService ditatTmsService)
     {
         _trailerService = trailerService;
         _landmarkService = landmarkService;
         _truckService = truckService;
+        _ditatTmsService = ditatTmsService;
     }
 
     [HttpGet]
@@ -53,5 +55,11 @@ public class TestController : BaseController
     public async Task<IActionResult> GetAllTrucks(string name)
     {
         return Ok(await _truckService.GetAsync(name));
+    }
+
+    [HttpGet("trucklist")]
+    public async Task<IActionResult> GetAvailableTrucks()
+    {
+        return Ok(await _ditatTmsService.GetAvailableTrucksAsync());
     }
 }

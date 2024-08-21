@@ -5,7 +5,7 @@ using RouteWise.Service.DTOs.Truck;
 using RouteWise.Service.Helpers;
 using RouteWise.Service.Interfaces;
 
-namespace RouteWise.Service.Services.SwiftELD;
+namespace RouteWise.Service.Services.SwiftEld;
 
 public class SwiftEldService : ISwiftEldService
 {

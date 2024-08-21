@@ -1,4 +1,4 @@
-﻿namespace RouteWise.Service.Services.SwiftELD;
+﻿namespace RouteWise.Service.Services.SwiftEld;
 
 public class SwiftEldApiCredentials
 {
