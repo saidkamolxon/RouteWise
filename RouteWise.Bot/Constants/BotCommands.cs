@@ -8,6 +8,8 @@ public class BotCommands
     public const string GetAllTrailersInfo = "/all_trl_info";
     public const string Start = "/start";
     public const string Help  = "/help";
+    public const string GetTruckList = "/truck_list";
+    public const string GetTruckListWithoutDrivers = "/truck_list_driverless";
 
     public static bool Contains(string command)
     {

@@ -3,9 +3,12 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
+    <UserSecretsId>b063015c-ab4b-4543-9051-db72cea351d4</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Microsoft.Configuration.ConfigurationBuilders.UserSecrets" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
     <PackageReference Include="NetTopologySuite" Version="2.5.0" />
     <PackageReference Include="RestSharp" Version="110.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

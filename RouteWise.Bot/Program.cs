@@ -40,7 +40,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
-
+builder.Services.AddMemoryCache();
 builder.Services.AddServices(builder.Configuration);
 
 var app = builder.Build();

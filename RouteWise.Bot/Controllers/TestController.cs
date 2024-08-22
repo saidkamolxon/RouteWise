@@ -62,4 +62,10 @@ public class TestController : BaseController
     {
         return Ok(await _ditatTmsService.GetAvailableTrucksAsync());
     }
+
+    [HttpGet("trucklist-driverless")]
+    public async Task<IActionResult> GetAvailableTrucksDriverless()
+    {
+        return Ok(await _ditatTmsService.GetAvailableTrucksAsync(false));
+    }
 }

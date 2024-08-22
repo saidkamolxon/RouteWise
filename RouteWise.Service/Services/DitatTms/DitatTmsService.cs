@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using RouteWise.Service.Interfaces;
+using System.Net;
 using System.Text;
 
 namespace RouteWise.Service.Services.DitatTms;
@@ -10,101 +12,133 @@ public class DitatTmsService : IDitatTmsService
 {
     private readonly RestClient _client;
     private readonly IMapper _mapper;
+    private readonly DitatTmsApiCredentials _credentials;
+    private readonly IMemoryCache _cache;
 
-    public DitatTmsService(DitatTmsApiCredentials credentials)
+    private const string _tokenCacheKey = "Ditat-token";
+
+    public DitatTmsService(DitatTmsApiCredentials credentials, IMemoryCache cache)
     {
         _client = new RestClient(credentials.BaseUrl);
-        _client.AddDefaultHeader("Authorization", credentials.Token);
+        _credentials = credentials;
+        _cache = cache;
     }
 
-    public async Task<string> GetAvailableTrucksAsync(CancellationToken cancellationToken = default)
+    public async Task<string> GetAvailableTrucksAsync(bool withDrivers = true, CancellationToken cancellationToken = default)
     {
-        var request = new RestRequest("planning-board");
-        request.AddParameter("truckSummaryUpdateCounter", 0);
-        request.AddParameter("pendingLoadSummaryUpdateCounter", 0);
-        request.AddParameter("truckDriverRealTimeUpdateCounter", 0);
-        var response = await _client.GetAsync(request, cancellationToken);
-        if (response.IsSuccessful && !string.IsNullOrEmpty(response.Content))
+        var request = new RestRequest("planning-board")
+            .AddParameter("truckSummaryUpdateCounter", 0)
+            .AddParameter("pendingLoadSummaryUpdateCounter", 0)
+            .AddParameter("truckDriverRealTimeUpdateCounter", 0);
+        
+        var data = await this.getDataAsync(request, cancellationToken: cancellationToken);
+
+        var truckSummaries = data.Value<IEnumerable<dynamic>>("truckSummaries");
+            
+        var sortedSummaries = new List<TruckSummary>();
+            
+        foreach (var ts in truckSummaries)
         {
-            var data = JObject.Parse(response.Content)
-                              .Value<JObject>("data");
-
-            var truckSummaries = data.Value<IEnumerable<dynamic>>("truckSummaries");
-            
-            var sortedSummaries = new List<TruckSummary>();
-            
-            
-            foreach (var ts in truckSummaries)
+            try
             {
-                try
+                sortedSummaries.Add(new()
                 {
-                    sortedSummaries.Add(new()
-                    {
-                        Driver = ts.primaryDriverFullName,
-                        City = ts.readyAddress.municipality,
-                        State = ts.readyAddress.administrativeArea,
-                        Time = ts.readyOnLocal
-                    });
-                }
-                catch
-                {
-                    continue;
-                }
+                    Driver = ts.primaryDriverFullName,
+                    City = ts.readyAddress.municipality,
+                    State = ts.readyAddress.administrativeArea,
+                    Time = ts.readyOnLocal
+                });
             }
-
-            var builder = new StringBuilder();
-            builder.AppendLine($"Truck list {DateTime.Today:MM/dd}");
-
-            var city = "";
-            sortedSummaries.Sort();
-            foreach (var summary  in sortedSummaries)
+            catch
             {
-                if (summary.Time.Date > DateTime.Today.Date) continue;
+                continue;
+            }
+        }
 
-                if (summary.City != city)
-                    builder.AppendLine();
+        var builder = new StringBuilder();
+        builder.AppendLine($"Truck list {DateTime.Today:MM/dd}");
 
-                city = summary.City;
+        var currentState = "";
+        sortedSummaries.Sort();
+        foreach (var summary  in sortedSummaries)
+        {
+            if (summary.Time.Date > DateTime.Today.Date) continue;
+
+            if (summary.State != currentState)
+                builder.AppendLine();
+            currentState = summary.State;
+                
+            builder.Append($"{summary.City}, {summary.State}");
+            
+            if (withDrivers)
+            {
                 var driver = summary.Driver.Split();
-                if (summary.Time.Date == DateTime.Today.Date)
-                    builder.AppendLine($"{summary.City}, {summary.State} - {driver[0]} {driver[1][0]}. - {summary.Time:t}");
-                else if (summary.Time.Date < DateTime.Today.Date)
-                    builder.AppendLine($"{summary.City}, {summary.State} - {driver[0]} {driver[1][0]}.");
+                builder.Append($" - {driver[0]} {driver[1][0]}.");
             }
-            
-            var result = Convert.ToString(builder);
-            return result;
+                
+            if (summary.Time.Date == DateTime.Today.Date)
+                builder.Append($" - {summary.Time:t}");
+
+            builder.AppendLine();
         }
-        throw new Exception("A bad request from ditat tms");
+            
+        var result = Convert.ToString(builder);
+        return result;
     }
 
-    private async Task<IEnumerable<JToken>> GetDataAsync(string source, string param = "data", CancellationToken cancellationToken = default)
+    private async Task<JObject> getDataAsync(RestRequest request, string param = "data", CancellationToken cancellationToken = default)
     {
-        var jsonResponse = await GetJsonResponseAsync(source, cancellationToken);
-        return jsonResponse.Value<IEnumerable<JToken>>(param);
+        ensureAuthenticated();
+
+        var response = await _client.GetAsync(request, cancellationToken);
+        
+        if (response.StatusCode == HttpStatusCode.Unauthorized)
+        {
+            authenticate();
+            response = await _client.GetAsync(request, cancellationToken);
+        }
+
+        if (response.IsSuccessful && !string.IsNullOrEmpty(response.Content))
+            return JObject.Parse(response.Content).Value<JObject>(param);
+        
+        throw response.ErrorException;
     }
-    private async Task<JObject> GetJsonResponseAsync(string source, CancellationToken cancellationToken = default)
+
+    #region Auth --->>>
+    private void authenticate()
     {
-        var response = await _client.GetAsync(new RestRequest(source), cancellationToken);
+        var request = new RestRequest("auth/login");
+        request.AddHeader("ditat-account-id", _credentials.AccountId);
+        request.AddHeader("ditat-application-role", _credentials.ApplicationRole);
+        
+        var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{_credentials.Username}:{_credentials.Password}"));
+        request.AddHeader("authorization", $"Basic {encoded}");
+        
+        var response = _client.Post(request);
         if (response.IsSuccessful && !string.IsNullOrEmpty(response.Content))
         {
-            return JObject.Parse(response.Content);
+            var token = response.Content;
+            var expiration = TimeSpan.FromHours(12);
+            _cache.Set(_tokenCacheKey, token, expiration);
+            authorize(token);
+            return;
         }
-        throw new Exception("A bad request...");
+        throw response.ErrorException;
     }
-}
 
-public record TruckSummary : IComparable<TruckSummary>
-{
-    public string Driver { get; set; }
-    public string City { get;  set; }
-    public string State { get; set; }
-    public DateTime Time { get; set; }
-
-    public int CompareTo(TruckSummary other)
+    private void ensureAuthenticated()
     {
-        if (State.Equals(other.State))
-            return City.CompareTo(other.City);
-        return State.CompareTo(other.State);
+        if (!_cache.TryGetValue(_tokenCacheKey, out string token))
+        {
+            authenticate();
+        }
+        else
+        {
+            authorize(token);
+        }
     }
+
+    private void authorize(string token)
+        => _client.AddDefaultHeader("Authorization", $"Ditat-token {token}");
+    #endregion
 }

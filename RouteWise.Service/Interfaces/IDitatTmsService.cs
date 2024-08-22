@@ -2,5 +2,5 @@
 
 public interface IDitatTmsService
 {
-    Task<string> GetAvailableTrucksAsync(CancellationToken cancellationToken = default);
+    Task<string> GetAvailableTrucksAsync(bool withDrivers = true, CancellationToken cancellationToken = default);
 }

@@ -1,4 +1,5 @@
-﻿using RouteWise.Bot.Interfaces;
+﻿using Microsoft.Extensions.Caching.Memory;
+using RouteWise.Bot.Interfaces;
 using RouteWise.Bot.Services;
 using RouteWise.Data.IRepositories;
 using RouteWise.Data.Repositories;
@@ -70,7 +71,8 @@ public static class ServiceCollection
     {
         services.AddScoped<IDitatTmsService, DitatTmsService>(provider =>
             new DitatTmsService(configuration.GetSection("AccessToExternalAPIs:DitatTMS")
-                                             .Get<DitatTmsApiCredentials>()) 
+                                             .Get<DitatTmsApiCredentials>(),
+            provider.GetRequiredService<IMemoryCache>()) 
         );
     }
 }

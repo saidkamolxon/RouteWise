@@ -1,10 +1,11 @@
 ﻿namespace RouteWise.Service.Services.DitatTms;
 
-public record DitatTmsApiCredentials(
-    string BaseUrl,
-    string AccountId,
-    string ApplicationRole,
-    string Username,
-    string Password,
-    string Token
-);
+public record DitatTmsApiCredentials
+{
+    public string BaseUrl { get; set; }
+    public string AccountId { get; set; }
+    public string ApplicationRole { get; set; }
+    public string Username { get; set; }
+    public string Password { get; set; }
+    public string Token { get; set; }
+}

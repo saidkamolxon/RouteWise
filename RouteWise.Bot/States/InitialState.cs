@@ -48,6 +48,20 @@ public class InitialState : IState
                     return new MessageEventResult { AnswerMessage = trailer.ToString(), PhotoUrl = trailer.PhotoUrl };
                 }
 
+            case BotCommands.GetTruckList:
+                using (var scope = _stateMachine.ServiceProvider.CreateScope())
+                {
+                    var service = scope.ServiceProvider.GetRequiredService<IDitatTmsService>();
+                    return await service.GetAvailableTrucksAsync();
+                }
+
+            case BotCommands.GetTruckListWithoutDrivers:
+                using (var scope = _stateMachine.ServiceProvider.CreateScope())
+                {
+                    var service = scope.ServiceProvider.GetRequiredService<IDitatTmsService>();
+                    return await service.GetAvailableTrucksAsync(withDrivers: false);
+                }
+
             case BotCommands.GetAllTrailersInfo:
                 //TODO need to implement code for this case
                 return "This is gonna be all trailer info";
