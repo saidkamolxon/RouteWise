@@ -1,8 +1,10 @@
-﻿using RouteWise.Bot.Constants.Message;
+﻿using RouteWise.Bot.Constants.Keyboard;
+using RouteWise.Bot.Constants.Message;
 using RouteWise.Bot.Extensions;
 using RouteWise.Service.Helpers;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 
 namespace RouteWise.Bot.Handlers;
 
@@ -11,14 +13,14 @@ public partial class UpdateHandler
     private async Task BotOnCallBackQueryReceived(CallbackQuery callbackQuery)
     {
         logger.LogInformation("CallbackQuery received: {callbackQuery}", callbackQuery);
-
+        
         var message = callbackQuery.GetMessage();
 
         switch (callbackQuery.Data)
         {
             case "request_an_access":
                 await botClient.AnswerCallbackQueryAsync(callbackQuery.Id, "Request has been sent");
-                await botClient.SendTextMessageAsync(callbackQuery.From.Id, TemplateMessages.RequestAccessMessage(callbackQuery.From));
+                await botClient.SendTextMessageAsync(6877143602, TemplateMessages.RequestAccessMessage(callbackQuery.From), replyMarkup: InlineKeyboards.ResponseKeyboard, parseMode: ParseMode.Html);
                 await botClient.EditMessageTextOrCaptionAsync(message, "Request has been sent.");
                 break;
 

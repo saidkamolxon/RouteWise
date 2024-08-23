@@ -10,6 +10,8 @@ public class BotCommands
     public const string Help  = "/help";
     public const string GetTruckList = "/truck_list";
     public const string GetTruckListWithoutDrivers = "/truck_list_driverless";
+    public const string GetAssetDocuments = "/docs";
+    public const string GetEtaToDestination = "/eta";
 
     public static bool Contains(string command)
     {

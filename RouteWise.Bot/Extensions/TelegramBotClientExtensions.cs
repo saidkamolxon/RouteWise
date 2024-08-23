@@ -67,8 +67,8 @@ public static class TelegramBotClientExtensions
 
     public static async Task<Message> AnswerMessageWithVenueAsync(this ITelegramBotClient botClient,
         Message message,
-        float latitude,
-        float longitude,
+        double latitude,
+        double longitude,
         string title,
         string address,
         string fourSquareId = null,

@@ -52,7 +52,8 @@ public class InitialState : IState
                 using (var scope = _stateMachine.ServiceProvider.CreateScope())
                 {
                     var service = scope.ServiceProvider.GetRequiredService<IDitatTmsService>();
-                    return await service.GetAvailableTrucksAsync();
+                    var result = await service.GetAvailableTrucksAsync();
+                    return result;
                 }
 
             case BotCommands.GetTruckListWithoutDrivers:
@@ -60,6 +61,25 @@ public class InitialState : IState
                 {
                     var service = scope.ServiceProvider.GetRequiredService<IDitatTmsService>();
                     return await service.GetAvailableTrucksAsync(withDrivers: false);
+                }
+
+            case BotCommands.GetAssetDocuments:
+                using (var scope = _stateMachine.ServiceProvider.CreateScope())
+                {
+                    var service = scope.ServiceProvider.GetRequiredService<IDitatTmsService>();
+                    var result = new MessageEventResult {
+                        FileUrls = await service.GetTrailerDocsAsync(commandArgs.First())
+                    };
+                    return result;
+                }
+
+            case BotCommands.GetEtaToDestination:
+                using (var scope = _stateMachine.ServiceProvider.CreateScope())
+                {
+                    var service = scope.ServiceProvider.GetRequiredService<ITruckService>();
+                    var origin = (await service.GetAsync(commandArgs.First())).Coordinates;
+                    await _stateMachine.SetState(new StateValuesDto { ChatId = message.Chat.Id, UserId = message.From.Id, DistanceOrigin = origin.ToString() }, new DistanceDestinationState(_stateMachine));
+                    return "Enter the destination";
                 }
 
             case BotCommands.GetAllTrailersInfo:

@@ -69,12 +69,17 @@ public class DitatTmsService : IDitatTmsService
             currentState = summary.State;
                 
             builder.Append($"{summary.City}, {summary.State}");
-            
-            if (withDrivers)
-            {
-                var driver = summary.Driver.Split();
-                builder.Append($" - {driver[0]} {driver[1][0]}.");
-            }
+
+            //try
+            //{
+            //    var driver = summary.Driver.Split();
+            //    builder.Append($" - {driver[0]} {driver[1][0]}.");
+            //}
+            //catch
+            //{
+            //    continue;
+            //}
+            ////}
                 
             if (summary.Time.Date == DateTime.Today.Date)
                 builder.Append($" - {summary.Time:t}");
@@ -84,6 +89,27 @@ public class DitatTmsService : IDitatTmsService
             
         var result = Convert.ToString(builder);
         return result;
+    }
+
+    public async Task<IEnumerable<Uri>> GetTrailerDocsAsync(string trailer, CancellationToken cancellationToken = default)
+    {
+        var request = new RestRequest("data/trailer")
+            .AddParameter("id", trailer)
+            .AddParameter("includeDocuments", true);
+
+        var data = await this.getDataAsync(request, cancellationToken: cancellationToken);
+        string trailerKey = data.Value<dynamic>("entityGraph").trailerKey;
+            
+        var documents = data.Value<IEnumerable<dynamic>>("documents");
+
+        if (!documents.Any())
+            return [];
+
+        return documents
+            .Select(d =>
+                _client.BuildUri(
+                    new RestRequest($"data/trailer/{trailerKey}/document/{d.documentKey}/file")
+                        .AddParameter("ditat-token", _cache.Get<string>(_tokenCacheKey))));
     }
 
     private async Task<JObject> getDataAsync(RestRequest request, string param = "data", CancellationToken cancellationToken = default)

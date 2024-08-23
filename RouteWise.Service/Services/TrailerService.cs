@@ -131,9 +131,9 @@ public class TrailerService : ITrailerService
         var trailers = _unitOfWork.TrailerRepository.SelectAll();
 
         if (!string.IsNullOrEmpty(city))
-            trailers = trailers.Where(t => t.Address.City.ToLower().Contains(city.ToLower()));
+            trailers = trailers.Where(t => t.Address.City.Contains(city, StringComparison.CurrentCultureIgnoreCase));
         if (!string.IsNullOrEmpty(state))
-            trailers = trailers.Where(t => t.Address.State.ToLower().Contains(state.ToLower()));
+            trailers = trailers.Where(t => t.Address.State.Contains(state, StringComparison.CurrentCultureIgnoreCase));
 
         return await Task.FromResult(_mapper.Map<List<TrailerResultDto>>(trailers));
     }

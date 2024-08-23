@@ -4,6 +4,7 @@ using RouteWise.Bot.States;
 using RouteWise.Service.Interfaces;
 using Telegram.Bot.Types;
 using RouteWise.Bot.Extensions;
+using Telegram.Bot;
 
 namespace RouteWise.Bot.Handlers;
 
@@ -34,11 +35,19 @@ public partial class UpdateHandler
             if (command != null && truckNumbers.Contains(command[1..]))
             {
                 var truck = await truckService.GetAsync(command[1..]);
-                await botClient.AnswerMessageWithVenueAsync(message, (float)truck.Coordinates.Latitude, (float)truck.Coordinates.Longitude, $"{truck.Name} -> {truck.LastEventAt}", truck.Address, isReply: true);
+                await botClient.AnswerMessageWithVenueAsync(message, truck.Coordinates.Latitude, truck.Coordinates.Longitude, $"{truck.Name} -> {truck.LastEventAt} | {truck.Speed}", truck.Address, isReply: true);
+                return;
             }
         }
 
         var result = await stateMachine.FireEvent(message);
+
+        if (result.FileUrls is not null && result.FileUrls.Any())
+        {
+            var documents = result.FileUrls.Select(u => new InputMediaDocument(InputFile.FromUri(u)));
+            await botClient.SendMediaGroupAsync(message.Chat.Id, documents);
+            return;
+        }
 
         if (!string.IsNullOrEmpty(result.PhotoUrl))
             await botClient.AnswerMessageWithPhotoAsync(message, result.PhotoUrl, result.AnswerMessage, isReply: true);
