@@ -2,6 +2,7 @@
 using RouteWise.Bot.Extensions;
 using RouteWise.Bot.Interfaces;
 using RouteWise.Bot.Models;
+using RouteWise.Domain.Enums;
 using RouteWise.Service.Helpers;
 using RouteWise.Service.Interfaces;
 using Telegram.Bot.Types;
@@ -63,12 +64,15 @@ public class InitialState : IState
                     return await service.GetAvailableTrucksAsync(withDrivers: false);
                 }
 
-            case BotCommands.GetAssetDocuments:
+            case BotCommands.GetUnitDocuments:
                 using (var scope = _stateMachine.ServiceProvider.CreateScope())
                 {
                     var service = scope.ServiceProvider.GetRequiredService<IDitatTmsService>();
+                    
+                    
+
                     var result = new MessageEventResult {
-                        FileUrls = await service.GetTrailerDocsAsync(commandArgs.First())
+                        FileUrls = await service.GetUnitDocumentsAsync(string.Join(' ', commandArgs), UnitType.Driver)
                     };
                     return result;
                 }

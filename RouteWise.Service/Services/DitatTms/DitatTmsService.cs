@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json.Linq;
 using RestSharp;
+using RouteWise.Domain.Enums;
 using RouteWise.Service.Interfaces;
 using System.Net;
 using System.Text;
@@ -70,17 +71,12 @@ public class DitatTmsService : IDitatTmsService
                 
             builder.Append($"{summary.City}, {summary.State}");
 
-            //try
-            //{
-            //    var driver = summary.Driver.Split();
-            //    builder.Append($" - {driver[0]} {driver[1][0]}.");
-            //}
-            //catch
-            //{
-            //    continue;
-            //}
-            ////}
-                
+            if (withDrivers)
+            {
+                var driver = summary.Driver.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                builder.Append($" - {driver[0]} {driver[1][0]}.");
+            }
+            
             if (summary.Time.Date == DateTime.Today.Date)
                 builder.Append($" - {summary.Time:t}");
 
@@ -91,14 +87,22 @@ public class DitatTmsService : IDitatTmsService
         return result;
     }
 
-    public async Task<IEnumerable<Uri>> GetTrailerDocsAsync(string trailer, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Uri>> GetUnitDocumentsAsync(string unitId, UnitType unitType, CancellationToken cancellationToken = default)
     {
-        var request = new RestRequest("data/trailer")
-            .AddParameter("id", trailer)
+        string source = unitType switch
+        {
+            UnitType.Driver => "driver",
+            UnitType.Truck => "truck",
+            UnitType.Trailer => "trailer",
+            _ => throw new Exception("UnitType is not selected.")
+        };
+
+        var request = new RestRequest($"data/{source}")
+            .AddParameter("id", unitId)
             .AddParameter("includeDocuments", true);
 
         var data = await this.getDataAsync(request, cancellationToken: cancellationToken);
-        string trailerKey = data.Value<dynamic>("entityGraph").trailerKey;
+        string unitKey = data.Value<dynamic>("entityGraph")[$"{source}Key"];
             
         var documents = data.Value<IEnumerable<dynamic>>("documents");
 
@@ -108,7 +112,7 @@ public class DitatTmsService : IDitatTmsService
         return documents
             .Select(d =>
                 _client.BuildUri(
-                    new RestRequest($"data/trailer/{trailerKey}/document/{d.documentKey}/file")
+                    new RestRequest($"data/{source}/{unitKey}/document/{d.documentKey}/file")
                         .AddParameter("ditat-token", _cache.Get<string>(_tokenCacheKey))));
     }
 
