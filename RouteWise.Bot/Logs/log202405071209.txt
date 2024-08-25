@@ -1,0 +1,6 @@
+2024-05-07 12:09:52.857 +05:00 [INF] Application is shutting down...
+2024-05-07 12:09:52.870 +05:00 [INF] Webhook removing...
+2024-05-07 12:09:52.873 +05:00 [INF] Start processing HTTP request POST https://api.telegram.org/bot5992062527:AAH5bcHWiRbLvWdK1JXySeaT1yUvEWzuJPs/sendMessage
+2024-05-07 12:09:52.876 +05:00 [INF] Sending HTTP request POST https://api.telegram.org/bot5992062527:AAH5bcHWiRbLvWdK1JXySeaT1yUvEWzuJPs/sendMessage
+2024-05-07 12:09:53.205 +05:00 [INF] Received HTTP response headers after 325.2103ms - 200
+2024-05-07 12:09:53.209 +05:00 [INF] End processing HTTP request after 335.7413ms - 200

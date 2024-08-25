@@ -1,0 +1,28 @@
+2024-05-07 12:10:11.354 +05:00 [INF] Bismillahir Rohmanir Rohiym
+2024-05-07 12:10:11.516 +05:00 [INF] Setting webhook...
+2024-05-07 12:10:11.625 +05:00 [INF] Start processing HTTP request POST https://api.telegram.org/bot5992062527:AAH5bcHWiRbLvWdK1JXySeaT1yUvEWzuJPs/sendMessage
+2024-05-07 12:10:11.631 +05:00 [INF] Sending HTTP request POST https://api.telegram.org/bot5992062527:AAH5bcHWiRbLvWdK1JXySeaT1yUvEWzuJPs/sendMessage
+2024-05-07 12:10:12.147 +05:00 [INF] Received HTTP response headers after 511.3885ms - 200
+2024-05-07 12:10:12.153 +05:00 [INF] End processing HTTP request after 538.0965ms - 200
+2024-05-07 12:10:12.263 +05:00 [INF] Start processing HTTP request POST https://api.telegram.org/bot5992062527:AAH5bcHWiRbLvWdK1JXySeaT1yUvEWzuJPs/setWebhook
+2024-05-07 12:10:12.266 +05:00 [INF] Sending HTTP request POST https://api.telegram.org/bot5992062527:AAH5bcHWiRbLvWdK1JXySeaT1yUvEWzuJPs/setWebhook
+2024-05-07 12:10:12.437 +05:00 [INF] Received HTTP response headers after 169.7739ms - 200
+2024-05-07 12:10:12.440 +05:00 [INF] End processing HTTP request after 177.1541ms - 200
+2024-05-07 12:10:12.493 +05:00 [INF] Now listening on: http://localhost:47278
+2024-05-07 12:10:12.497 +05:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-07 12:10:12.499 +05:00 [INF] Hosting environment: Development
+2024-05-07 12:10:12.500 +05:00 [INF] Content root path: C:\Users\99894\Source\Repos\saidkamolxon\RouteWise\RouteWise.Bot
+2024-05-07 12:10:12.590 +05:00 [INF] Request starting HTTP/1.1 GET http://localhost:47278/swagger/index.html - -
+2024-05-07 12:10:12.674 +05:00 [INF] Request finished HTTP/1.1 GET http://localhost:47278/swagger/index.html - - - 200 - text/html;charset=utf-8 86.3059ms
+2024-05-07 12:10:12.696 +05:00 [INF] Request starting HTTP/1.1 GET http://localhost:47278/_vs/browserLink - -
+2024-05-07 12:10:12.699 +05:00 [INF] Request starting HTTP/1.1 GET http://localhost:47278/_framework/aspnetcore-browser-refresh.js - -
+2024-05-07 12:10:12.703 +05:00 [INF] Request finished HTTP/1.1 GET http://localhost:47278/_framework/aspnetcore-browser-refresh.js - - - 200 11996 application/javascript;+charset=utf-8 4.4190ms
+2024-05-07 12:10:12.729 +05:00 [INF] Request finished HTTP/1.1 GET http://localhost:47278/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 31.9179ms
+2024-05-07 12:10:12.769 +05:00 [INF] Request starting HTTP/1.1 GET http://localhost:47278/swagger/v1/swagger.json - -
+2024-05-07 12:10:12.854 +05:00 [INF] Request finished HTTP/1.1 GET http://localhost:47278/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 85.3582ms
+2024-05-07 12:10:25.495 +05:00 [INF] Application is shutting down...
+2024-05-07 12:10:25.517 +05:00 [INF] Webhook removing...
+2024-05-07 12:10:25.520 +05:00 [INF] Start processing HTTP request POST https://api.telegram.org/bot5992062527:AAH5bcHWiRbLvWdK1JXySeaT1yUvEWzuJPs/sendMessage
+2024-05-07 12:10:25.523 +05:00 [INF] Sending HTTP request POST https://api.telegram.org/bot5992062527:AAH5bcHWiRbLvWdK1JXySeaT1yUvEWzuJPs/sendMessage
+2024-05-07 12:10:25.654 +05:00 [INF] Received HTTP response headers after 129.9022ms - 200
+2024-05-07 12:10:25.657 +05:00 [INF] End processing HTTP request after 136.2279ms - 200

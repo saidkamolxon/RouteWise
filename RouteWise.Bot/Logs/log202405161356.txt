@@ -1,0 +1,22 @@
+2024-05-16 13:56:56.966 +05:00 [INF] Bismillahir Rohmanir Rohiym
+2024-05-16 13:56:57.136 +05:00 [INF] Setting webhook...
+2024-05-16 13:56:57.247 +05:00 [INF] Start processing HTTP request POST https://api.telegram.org/bot5992062527:AAH5bcHWiRbLvWdK1JXySeaT1yUvEWzuJPs/sendMessage
+2024-05-16 13:56:57.254 +05:00 [INF] Sending HTTP request POST https://api.telegram.org/bot5992062527:AAH5bcHWiRbLvWdK1JXySeaT1yUvEWzuJPs/sendMessage
+2024-05-16 13:56:57.712 +05:00 [INF] Received HTTP response headers after 452.019ms - 200
+2024-05-16 13:56:57.719 +05:00 [INF] End processing HTTP request after 481.4647ms - 200
+2024-05-16 13:56:57.822 +05:00 [INF] Start processing HTTP request POST https://api.telegram.org/bot5992062527:AAH5bcHWiRbLvWdK1JXySeaT1yUvEWzuJPs/setWebhook
+2024-05-16 13:56:57.824 +05:00 [INF] Sending HTTP request POST https://api.telegram.org/bot5992062527:AAH5bcHWiRbLvWdK1JXySeaT1yUvEWzuJPs/setWebhook
+2024-05-16 13:56:57.921 +05:00 [INF] Received HTTP response headers after 95.8899ms - 200
+2024-05-16 13:56:57.927 +05:00 [INF] End processing HTTP request after 104.9865ms - 200
+2024-05-16 13:56:57.971 +05:00 [INF] Now listening on: http://localhost:47278
+2024-05-16 13:56:57.974 +05:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-16 13:56:57.975 +05:00 [INF] Hosting environment: Development
+2024-05-16 13:56:57.976 +05:00 [INF] Content root path: C:\Users\99894\Source\Repos\saidkamolxon\RouteWise\RouteWise.Bot
+2024-05-16 13:56:58.432 +05:00 [INF] Request starting HTTP/1.1 GET http://localhost:47278/swagger/index.html - -
+2024-05-16 13:56:58.507 +05:00 [INF] Request finished HTTP/1.1 GET http://localhost:47278/swagger/index.html - - - 200 - text/html;charset=utf-8 76.6387ms
+2024-05-16 13:56:58.538 +05:00 [INF] Request starting HTTP/1.1 GET http://localhost:47278/_vs/browserLink - -
+2024-05-16 13:56:58.540 +05:00 [INF] Request starting HTTP/1.1 GET http://localhost:47278/_framework/aspnetcore-browser-refresh.js - -
+2024-05-16 13:56:58.544 +05:00 [INF] Request finished HTTP/1.1 GET http://localhost:47278/_framework/aspnetcore-browser-refresh.js - - - 200 11996 application/javascript;+charset=utf-8 4.5371ms
+2024-05-16 13:56:58.569 +05:00 [INF] Request finished HTTP/1.1 GET http://localhost:47278/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 30.1738ms
+2024-05-16 13:56:58.678 +05:00 [INF] Request starting HTTP/1.1 GET http://localhost:47278/swagger/v1/swagger.json - -
+2024-05-16 13:56:58.762 +05:00 [INF] Request finished HTTP/1.1 GET http://localhost:47278/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 83.6023ms

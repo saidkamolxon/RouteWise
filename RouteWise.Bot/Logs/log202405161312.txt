@@ -1,0 +1,35 @@
+2024-05-16 13:12:36.202 +05:00 [INF] Bismillahir Rohmanir Rohiym
+2024-05-16 13:12:36.367 +05:00 [INF] Setting webhook...
+2024-05-16 13:12:36.473 +05:00 [INF] Start processing HTTP request POST https://api.telegram.org/bot5992062527:AAH5bcHWiRbLvWdK1JXySeaT1yUvEWzuJPs/sendMessage
+2024-05-16 13:12:36.475 +05:00 [INF] Sending HTTP request POST https://api.telegram.org/bot5992062527:AAH5bcHWiRbLvWdK1JXySeaT1yUvEWzuJPs/sendMessage
+2024-05-16 13:12:36.917 +05:00 [INF] Received HTTP response headers after 435.9788ms - 200
+2024-05-16 13:12:36.921 +05:00 [INF] End processing HTTP request after 454.9507ms - 200
+2024-05-16 13:12:37.036 +05:00 [INF] Start processing HTTP request POST https://api.telegram.org/bot5992062527:AAH5bcHWiRbLvWdK1JXySeaT1yUvEWzuJPs/setWebhook
+2024-05-16 13:12:37.036 +05:00 [INF] Sending HTTP request POST https://api.telegram.org/bot5992062527:AAH5bcHWiRbLvWdK1JXySeaT1yUvEWzuJPs/setWebhook
+2024-05-16 13:12:37.162 +05:00 [INF] Received HTTP response headers after 125.915ms - 200
+2024-05-16 13:12:37.162 +05:00 [INF] End processing HTTP request after 126.2582ms - 200
+2024-05-16 13:12:37.204 +05:00 [INF] Now listening on: http://localhost:47278
+2024-05-16 13:12:37.204 +05:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-16 13:12:37.204 +05:00 [INF] Hosting environment: Development
+2024-05-16 13:12:37.204 +05:00 [INF] Content root path: C:\Users\99894\Source\Repos\saidkamolxon\RouteWise\RouteWise.Bot
+2024-05-16 13:12:37.574 +05:00 [INF] Request starting HTTP/1.1 GET http://localhost:47278/swagger/index.html - -
+2024-05-16 13:12:37.646 +05:00 [INF] Request finished HTTP/1.1 GET http://localhost:47278/swagger/index.html - - - 200 - text/html;charset=utf-8 72.8662ms
+2024-05-16 13:12:37.663 +05:00 [INF] Request starting HTTP/1.1 GET http://localhost:47278/_vs/browserLink - -
+2024-05-16 13:12:37.665 +05:00 [INF] Request starting HTTP/1.1 GET http://localhost:47278/_framework/aspnetcore-browser-refresh.js - -
+2024-05-16 13:12:37.667 +05:00 [INF] Request finished HTTP/1.1 GET http://localhost:47278/_framework/aspnetcore-browser-refresh.js - - - 200 11996 application/javascript;+charset=utf-8 2.4018ms
+2024-05-16 13:12:37.700 +05:00 [INF] Request finished HTTP/1.1 GET http://localhost:47278/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 36.5906ms
+2024-05-16 13:12:37.798 +05:00 [INF] Request starting HTTP/1.1 GET http://localhost:47278/swagger/v1/swagger.json - -
+2024-05-16 13:12:37.872 +05:00 [INF] Request finished HTTP/1.1 GET http://localhost:47278/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 73.7632ms
+2024-05-16 13:12:51.928 +05:00 [INF] Request starting HTTP/1.1 GET http://localhost:47278/api/Test/landmarks?name=ATL4 - -
+2024-05-16 13:12:51.947 +05:00 [INF] Executing endpoint 'RouteWise.Bot.Controllers.TestController.GetLandmarks (RouteWise.Bot)'
+2024-05-16 13:12:51.964 +05:00 [INF] Route matched with {action = "GetLandmarks", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetLandmarks(System.String) on controller RouteWise.Bot.Controllers.TestController (RouteWise.Bot).
+2024-05-16 13:12:53.005 +05:00 [INF] Executed DbCommand (10ms) [Parameters=[@__ToUpper_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude", "t"."Id", "t"."CreatedAt", "t"."IsDeleted", "t"."IsMoving", "t"."LandmarkId", "t"."LastEventAt", "t"."LastInspectionOn", "t"."License", "t"."Name", "t"."NextInspectionOn", "t"."UpdatedAt", "t"."Vin", "t"."Year", "t"."Address_City", "t"."Address_State", "t"."Address_Street", "t"."Address_ZipCode", "t"."Coordinates_Latitude", "t"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+LEFT JOIN "Trailers" AS "t" ON "l"."Id" = "t"."LandmarkId"
+WHERE (@__ToUpper_0 = '' OR instr(upper("l"."Name"), @__ToUpper_0) > 0) AND NOT ("l"."IsDeleted")
+ORDER BY "l"."Name", "l"."Id"
+2024-05-16 13:12:53.096 +05:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RouteWise.Service.DTOs.Landmark.LandmarkResultDto, RouteWise.Service, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-05-16 13:12:53.108 +05:00 [INF] Executed action RouteWise.Bot.Controllers.TestController.GetLandmarks (RouteWise.Bot) in 1140.3217ms
+2024-05-16 13:12:53.108 +05:00 [INF] Executed endpoint 'RouteWise.Bot.Controllers.TestController.GetLandmarks (RouteWise.Bot)'
+2024-05-16 13:12:53.115 +05:00 [INF] Request finished HTTP/1.1 GET http://localhost:47278/api/Test/landmarks?name=ATL4 - - - 200 - application/json;+charset=utf-8 1186.6793ms

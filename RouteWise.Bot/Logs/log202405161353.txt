@@ -1,0 +1,1759 @@
+2024-05-16 13:53:09.772 +05:00 [INF] Request starting HTTP/1.1 GET http://localhost:47278/api/Test/UpdateLandmarks - -
+2024-05-16 13:53:09.797 +05:00 [INF] Executing endpoint 'RouteWise.Bot.Controllers.TestController.UpdateLandmarks (RouteWise.Bot)'
+2024-05-16 13:53:09.828 +05:00 [INF] Route matched with {action = "UpdateLandmarks", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] UpdateLandmarks() on controller RouteWise.Bot.Controllers.TestController (RouteWise.Bot).
+2024-05-16 13:53:13.263 +05:00 [INF] Executed DbCommand (11ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.454 +05:00 [INF] Executed DbCommand (4ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 620), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.472 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.478 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 251), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.484 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.487 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 249), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.493 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.497 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 245), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.500 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 11)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.504 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 312), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 11), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.509 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.512 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 562), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.519 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 12)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.525 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 558), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 12), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.530 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.534 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.539 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.544 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.549 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.553 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 312), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.559 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 9)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.563 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 251), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 9), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.568 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.573 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 247), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.579 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.584 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 314), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.587 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.591 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 311), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.597 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.602 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 438), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.608 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.616 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 252), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.623 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.629 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 251), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.636 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.642 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 435), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.647 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.651 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 375), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.657 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.662 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 501), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.667 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 9)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.671 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 251), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 9), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.676 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.680 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 682), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.685 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.689 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 249), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.694 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.701 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 374), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.707 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.713 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 620), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.719 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.725 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 374), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.731 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.737 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 434), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.743 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.752 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 248), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.759 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.766 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 251), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.771 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.778 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 310), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.783 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.789 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 371), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.794 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.799 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 248), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.803 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.807 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 312), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.813 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 11)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.817 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 372), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 11), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.823 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.828 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 247), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.835 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 9)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.840 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 251), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 9), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.846 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.850 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 253), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.856 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 11)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.862 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 245), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 11), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.867 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 11)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.871 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 434), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 11), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.877 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.882 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 375), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.887 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.892 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 372), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.897 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.903 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 247), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.909 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.914 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.920 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.925 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 313), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.931 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.935 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 251), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.940 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.946 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 253), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.950 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 18)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.954 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 251), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 18), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.960 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.965 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 249), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.969 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.973 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 312), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.979 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.983 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 249), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:13.988 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:13.995 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.000 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 11)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.004 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 307), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 11), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.009 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.014 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 498), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.018 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.023 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 373), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.027 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.031 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 252), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.037 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 11)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.044 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 247), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 11), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.049 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.054 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 252), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.060 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.081 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 251), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.087 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.092 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 369), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.097 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.101 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 313), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.105 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.112 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 249), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.117 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.121 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 437), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.126 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.131 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 246), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.136 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 19)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.140 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 500), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 19), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.145 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.150 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 375), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.154 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.159 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 377), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.163 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.167 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 746), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.172 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 9)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.177 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 433), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 9), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.182 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 8)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.185 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 622), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 8), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.191 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 9)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.196 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 375), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 9), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.200 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 8)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.204 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 8), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.210 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 9)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.216 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 623), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 9), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.220 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 9)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.225 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 249), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 9), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.230 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 9)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.235 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 312), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 9), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.241 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 9)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.247 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 374), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 9), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.251 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.255 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 249), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.260 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.264 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 378), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.269 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.276 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 252), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.281 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.285 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.292 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.297 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.303 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.310 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 500), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.315 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.320 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 375), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.326 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.332 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 373), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.336 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.341 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 373), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.346 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.350 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 316), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.355 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.361 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 251), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.367 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.373 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.378 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.383 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 372), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.390 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.395 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 371), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.400 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.404 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 314), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.410 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.415 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 558), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.419 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.424 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 248), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.429 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.433 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 375), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.438 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.443 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 379), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.448 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.452 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 312), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.457 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.463 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 247), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.468 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.472 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 5), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.476 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 7)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.481 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 498), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 7), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.486 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.492 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 245), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.498 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 16)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.502 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 251), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 16), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.509 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 17)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.515 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 17), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.520 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 25)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.525 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 25), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.530 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 31)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.534 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 31), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.539 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 14)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.544 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 253), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 14), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.550 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 11)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.554 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 248), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 11), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.561 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.566 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 249), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.571 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.579 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 371), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.584 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.588 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 249), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.597 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.602 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 249), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.607 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 11)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.614 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 313), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 11), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.619 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.625 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 687), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.631 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.636 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 245), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.643 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.649 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 373), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.654 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.661 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 249), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.666 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.671 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.676 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.681 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 244), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.686 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 19)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.694 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 435), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 19), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.699 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 19)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.704 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 248), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 19), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.710 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 19)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.715 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 254), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 19), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.721 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.729 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 246), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.736 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 19)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.743 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 251), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 19), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.748 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.753 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 315), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.759 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.766 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 495), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.770 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.776 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 561), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.781 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.786 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.792 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.798 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 622), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.803 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.808 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 251), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.814 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.819 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 248), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.825 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.832 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.836 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.842 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 249), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.848 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.852 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 312), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.858 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.865 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 497), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.870 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.876 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.880 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.885 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 249), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.890 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.897 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.901 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.909 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 500), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.914 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.919 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 433), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.923 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.929 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 251), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.934 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.938 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 247), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.945 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.950 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 748), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.955 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.961 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 249), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.966 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.972 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 251), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.978 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.983 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.988 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:14.994 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:14.999 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 9)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.003 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 254), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 9), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.009 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.016 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.020 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.026 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 249), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.032 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.037 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 249), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.042 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.049 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 251), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.054 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.060 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.065 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.070 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.076 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.082 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 440), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.087 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.093 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 375), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.098 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.103 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 1183), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.108 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.113 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 319), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.118 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.123 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 507), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.128 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.133 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 252), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.137 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.143 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 372), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.149 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.154 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.160 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.165 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 509), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.170 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.174 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 434), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.178 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.183 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.188 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.195 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 811), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.199 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.204 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 248), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.210 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.216 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 376), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.220 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.227 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 933), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.232 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.237 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 1252), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.243 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.252 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 623), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.259 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.265 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 930), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.270 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.276 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 1926), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.282 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.288 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 869), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.294 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.302 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 253), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.308 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.317 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 635), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.322 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.330 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 562), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.336 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.341 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 249), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.346 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.352 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 373), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.357 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.364 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 252), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.369 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.374 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 497), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.380 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.387 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 555), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.392 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.399 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 312), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.403 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.409 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 248), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.414 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 3)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.421 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 683), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 3), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.426 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 3)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.432 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 507), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 3), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.437 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.443 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 250), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.448 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 19)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.453 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 249), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 19), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.458 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 19)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.465 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 500), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 19), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.469 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.476 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 251), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.481 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.487 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 500), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.494 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.501 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 378), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.507 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 11)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.514 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 1007), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 11), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.519 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 7)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.526 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 247), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 7), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.531 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.537 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 252), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.543 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 19)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.550 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 251), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 19), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.555 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__update_Name_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."BorderPointsJson", "l"."CreatedAt", "l"."IsDeleted", "l"."Name", "l"."UpdatedAt", "l"."Address_City", "l"."Address_State", "l"."Address_Street", "l"."Address_ZipCode", "l"."Coordinates_Latitude", "l"."Coordinates_Longitude"
+FROM "Landmarks" AS "l"
+WHERE NOT ("l"."IsDeleted") AND "l"."Name" = @__update_Name_0
+LIMIT 1
+2024-05-16 13:53:15.562 +05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p5='?' (DbType = Int32), @p0='?' (Size = 441), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?' (Size = 4), @p4='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Landmarks" SET "BorderPointsJson" = @p0, "CreatedAt" = @p1, "IsDeleted" = @p2, "Name" = @p3, "UpdatedAt" = @p4
+WHERE "Id" = @p5
+RETURNING 1;
+2024-05-16 13:53:15.571 +05:00 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2024-05-16 13:53:15.577 +05:00 [INF] Executed action RouteWise.Bot.Controllers.TestController.UpdateLandmarks (RouteWise.Bot) in 5741.3103ms
+2024-05-16 13:53:15.580 +05:00 [INF] Executed endpoint 'RouteWise.Bot.Controllers.TestController.UpdateLandmarks (RouteWise.Bot)'
+2024-05-16 13:53:15.587 +05:00 [INF] Request finished HTTP/1.1 GET http://localhost:47278/api/Test/UpdateLandmarks - - - 200 0 - 5814.6104ms
+2024-05-16 13:53:37.032 +05:00 [INF] Application is shutting down...
+2024-05-16 13:53:37.044 +05:00 [INF] Webhook removing...
+2024-05-16 13:53:37.046 +05:00 [INF] Start processing HTTP request POST https://api.telegram.org/bot5992062527:AAH5bcHWiRbLvWdK1JXySeaT1yUvEWzuJPs/sendMessage
+2024-05-16 13:53:37.047 +05:00 [INF] Sending HTTP request POST https://api.telegram.org/bot5992062527:AAH5bcHWiRbLvWdK1JXySeaT1yUvEWzuJPs/sendMessage
+2024-05-16 13:53:37.243 +05:00 [INF] Received HTTP response headers after 194.927ms - 200
+2024-05-16 13:53:37.247 +05:00 [INF] End processing HTTP request after 200.6308ms - 200
