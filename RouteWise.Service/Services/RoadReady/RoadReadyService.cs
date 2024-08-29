@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -53,6 +54,21 @@ public class RoadReadyService : IRoadReadyService
 
     private IEnumerable<TrailerStateDto> MapToTrailerStateDto(JArray trailers)
     {
-        return _mapper.Map<List<TrailerStateDto>>(trailers);
+        //return _mapper.Map<List<TrailerStateDto>>(trailers);
+
+        var list = new List<TrailerStateDto>();
+        foreach (var trailer in trailers)
+        {
+            try
+            {
+                list.Add(_mapper.Map<TrailerStateDto>(trailer));
+            }
+            catch
+            {
+                //trailer["location"] = 
+                //Console.WriteLine();
+            }
+        }
+        return list;
     }
 }

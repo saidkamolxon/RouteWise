@@ -69,11 +69,10 @@ public class InitialState : IState
                 {
                     var service = scope.ServiceProvider.GetRequiredService<IDitatTmsService>();
                     
-                    
-
                     var result = new MessageEventResult {
-                        FileUrls = await service.GetUnitDocumentsAsync(string.Join(' ', commandArgs), UnitType.Driver)
+                        FileUrls = await service.GetUnitDocumentsAsync(commandArgs.First(), UnitType.Trailer)
                     };
+                    
                     return result;
                 }
 
@@ -81,7 +80,7 @@ public class InitialState : IState
                 using (var scope = _stateMachine.ServiceProvider.CreateScope())
                 {
                     var service = scope.ServiceProvider.GetRequiredService<ITruckService>();
-                    var origin = (await service.GetAsync(commandArgs.First())).Coordinates;
+                    var origin = (await service.GetByNameAsync(commandArgs.First())).Coordinates;
                     await _stateMachine.SetState(new StateValuesDto { ChatId = message.Chat.Id, UserId = message.From.Id, DistanceOrigin = origin.ToString() }, new DistanceDestinationState(_stateMachine));
                     return "Enter the destination";
                 }

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using RouteWise.Domain.Enums;
+using RouteWise.Service.Extensions;
 using RouteWise.Service.Interfaces;
 using System.Net;
 using System.Text;
@@ -74,7 +75,7 @@ public class DitatTmsService : IDitatTmsService
             if (withDrivers)
             {
                 var driver = summary.Driver.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                builder.Append($" - {driver[0]} {driver[1][0]}.");
+                builder.Append($" - {driver[0].Capitalize()} {driver[1][0]}.");
             }
             
             if (summary.Time.Date == DateTime.Today.Date)
@@ -102,7 +103,8 @@ public class DitatTmsService : IDitatTmsService
             .AddParameter("includeDocuments", true);
 
         var data = await this.getDataAsync(request, cancellationToken: cancellationToken);
-        string unitKey = data.Value<dynamic>("entityGraph")[$"{source}Key"];
+        string key = string.Format("{0}Key", source);
+        string unitKey = data.Value<dynamic>("entityGraph")[key];
             
         var documents = data.Value<IEnumerable<dynamic>>("documents");
 

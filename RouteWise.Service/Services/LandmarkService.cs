@@ -29,7 +29,7 @@ public class LandmarkService : ILandmarkService
     {
         var landmarks = await _unitOfWork
             .LandmarkRepository
-            .SelectAll(l => l.Name.ToUpper().Contains(name.ToUpper()), includes: new[] {"Trailers"})
+            .SelectAll(l => l.Name.ToUpper().Contains(name.ToUpper()), includes: ["Trailers"])
             .OrderBy(l => l.Name)
             .ToListAsync();
 
@@ -43,7 +43,7 @@ public class LandmarkService : ILandmarkService
 
     public async Task<IEnumerable<LandmarkResultDto>> GetAllLandmarksAsync()
     {
-        var landmarks = await _unitOfWork.LandmarkRepository.SelectAll(includes: new []{"Trailers"}).ToListAsync();
+        var landmarks = await _unitOfWork.LandmarkRepository.SelectAll(includes: ["Trailers"]).ToListAsync();
         return _mapper.Map<IEnumerable<LandmarkResultDto>>(landmarks);
     }
 

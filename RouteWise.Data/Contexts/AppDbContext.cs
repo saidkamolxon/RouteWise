@@ -4,10 +4,15 @@ using RouteWise.Domain.Enums;
 
 namespace RouteWise.Data.Contexts;
 
-public class AppDbContext : DbContext
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-
+    public DbSet<Driver> Drivers { get; set; }
+    public DbSet<Landmark> Landmarks { get; set; }
+    public DbSet<Trailer> Trailers { get; set; }
+    public DbSet<Truck> Trucks { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<State> States { get; set; }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         var trailers = modelBuilder.Entity<Trailer>();
@@ -58,11 +63,4 @@ public class AppDbContext : DbContext
         });
         #endregion
     }
-
-    public DbSet<Driver> Drivers { get; set; }
-    public DbSet<Landmark> Landmarks { get; set; }
-    public DbSet<Trailer> Trailers { get; set; }
-    public DbSet<Truck> Trucks { get; set; }
-    public DbSet<User> Users { get; set; }
-    public DbSet<State> States { get; set; }
 }

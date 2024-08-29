@@ -20,4 +20,14 @@ public static class InlineKeyboards
             InlineKeyboardButton.WithCallbackData(text: "Reject ❌", callbackData: "reject_the_request"),
         }
     });
+
+    public static InlineKeyboardMarkup UnitKeyboard(Dictionary<string, string> units)
+    {
+        var keyboard = new InlineKeyboardMarkup();
+
+        foreach (var unit in units)
+            keyboard.AddButton(InlineKeyboardButton.WithCallbackData(text: unit.Key, callbackData: unit.Value));
+
+        return keyboard;
+    }
 }

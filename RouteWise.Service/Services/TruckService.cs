@@ -5,26 +5,19 @@ using RouteWise.Service.Interfaces;
 
 namespace RouteWise.Service.Services;
 
-public class TruckService : ITruckService
+public class TruckService(IGoogleMapsService googleMapsService,
+    ISwiftEldService swiftEldService, IMapper mapper) : ITruckService
 {
-    private readonly IGoogleMapsService _googleMapsService;
-    private readonly ISwiftEldService _swiftEldService;
-    private readonly IMapper _mapper;
+    private readonly IGoogleMapsService _googleMapsService = googleMapsService;
+    private readonly ISwiftEldService _swiftEldService = swiftEldService;
+    private readonly IMapper _mapper = mapper;
 
-    public TruckService(IGoogleMapsService googleMapsService,
-        ISwiftEldService swiftEldService, IMapper mapper)
-    {
-        _googleMapsService = googleMapsService;
-        _swiftEldService = swiftEldService;
-        _mapper = mapper;
-    }
-
-    public async Task<TruckResultDto> GetAsync(string name, CancellationToken cancellationToken = default)
+    public async Task<TruckResultDto> GetByNameAsync(string name, CancellationToken cancellationToken = default)
     {
         var truck = await _swiftEldService.GetTruckStateByNameAsync(name, cancellationToken);
         truck.Address = await _googleMapsService.GetReverseGeocodingAsync(truck.Coordinates.ToString(), cancellationToken);
         truck.LastEventAt = truck.LastEventAt.ConvertUtcToDefaultTime();
-
+        
         return _mapper.Map<TruckResultDto>(truck);
     }
 

@@ -34,7 +34,7 @@ public partial class UpdateHandler
 
             if (command != null && truckNumbers.Contains(command[1..]))
             {
-                var truck = await truckService.GetAsync(command[1..]);
+                var truck = await truckService.GetByNameAsync(command[1..]);
                 await botClient.AnswerMessageWithVenueAsync(message, truck.Coordinates.Latitude, truck.Coordinates.Longitude, $"{truck.Name} 🔥 {truck.LastEventAt} | {truck.Speed}", truck.Address, isReply: true);
                 return;
             }

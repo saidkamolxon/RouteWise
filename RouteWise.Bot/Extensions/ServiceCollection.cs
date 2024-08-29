@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.DependencyInjection;
 using RouteWise.Bot.Interfaces;
 using RouteWise.Bot.Services;
 using RouteWise.Data.IRepositories;
@@ -9,6 +10,7 @@ using RouteWise.Service.Services.DitatTms;
 using RouteWise.Service.Services.FleetLocate;
 using RouteWise.Service.Services.GoogleMaps;
 using RouteWise.Service.Services.RoadReady;
+using RouteWise.Service.Services.Samsara;
 using RouteWise.Service.Services.SwiftEld;
 
 namespace RouteWise.Bot.Extensions;
@@ -32,6 +34,7 @@ public static class ServiceCollection
         AddRoadReady(services, configuration);
         AddSwiftEld(services, configuration);
         AddDitatTms(services, configuration);
+        AddSamsara(services, configuration);
         services.AddScoped<IStateMachine>(provider => new StateMachine(provider));
     }
 
@@ -74,5 +77,13 @@ public static class ServiceCollection
                                              .Get<DitatTmsApiCredentials>(),
             provider.GetRequiredService<IMemoryCache>()) 
         );
+    }
+
+    private static void AddSamsara(IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddScoped<ISamsaraService, SamsaraService>(provider =>
+            new SamsaraService(configuration.GetSection("AccessToExternalAPIs:Samsara")
+                                            .Get<SamsaraApiCredentials>())
+            );
     }
 }

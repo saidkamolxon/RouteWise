@@ -14,24 +14,28 @@ public partial class UpdateHandler
     private readonly ITelegramBotClient botClient;
     private readonly IUserService userService;
     private readonly IStateMachine stateMachine;
+    private readonly ITruckService truckService;
 
     public UpdateHandler(ILogger<ConfigureWebhook> logger,
         ITelegramBotClient botClient,
         IUserService userService,
-        IStateMachine stateMachine)
+        IStateMachine stateMachine,
+        ITruckService truckService)
     {
         this.logger = logger;
         this.botClient = botClient;
         this.userService = userService;
         this.stateMachine = stateMachine;
+        this.truckService = truckService;
     }
 
-    public async Task HandleUpdateAsync(Update update)
+    public async Task HandleUpdateAsync(Update update, CancellationToken cancellationToken = default)
     {
         var handler = update.Type switch
         {
             UpdateType.Message => BotOnMessageReceived(update.Message),
             UpdateType.CallbackQuery => BotOnCallBackQueryReceived(update.CallbackQuery),
+            UpdateType.InlineQuery => BotOnInlineQueryReceived(update.InlineQuery, cancellationToken),
             _ => UnknownUpdateTypeHandler(update)
         };
 

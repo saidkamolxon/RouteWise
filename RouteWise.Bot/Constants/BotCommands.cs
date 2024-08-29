@@ -17,7 +17,7 @@ public class BotCommands
     {
         var fields = typeof(BotCommands)
             .GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static);
-
+        
         return fields.Any(field => field.GetValue(null) as string == command);
     }
 }

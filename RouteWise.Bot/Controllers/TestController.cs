@@ -9,14 +9,16 @@ public class TestController : BaseController
     private readonly ILandmarkService _landmarkService;
     private readonly ITruckService _truckService;
     private readonly IDitatTmsService _ditatTmsService;
+    private readonly ISamsaraService _samsaraService;
 
     public TestController(ITrailerService trailerService, ILandmarkService landmarkService,
-        ITruckService truckService, IDitatTmsService ditatTmsService)
+        ITruckService truckService, IDitatTmsService ditatTmsService, ISamsaraService samsaraService)
     {
         _trailerService = trailerService;
         _landmarkService = landmarkService;
         _truckService = truckService;
         _ditatTmsService = ditatTmsService;
+        _samsaraService = samsaraService;
     }
 
     [HttpGet]
@@ -54,7 +56,7 @@ public class TestController : BaseController
     [HttpGet("trucks/{name}")]
     public async Task<IActionResult> GetAllTrucks(string name)
     {
-        return Ok(await _truckService.GetAsync(name));
+        return Ok(await _truckService.GetByNameAsync(name));
     }
 
     [HttpGet("trucklist")]
@@ -67,5 +69,11 @@ public class TestController : BaseController
     public async Task<IActionResult> GetAvailableTrucksDriverless()
     {
         return Ok(await _ditatTmsService.GetAvailableTrucksAsync(false));
+    }
+
+    [HttpGet("trucks")]
+    public async Task<IActionResult> GetTrucks()
+    {
+        return Ok(_samsaraService.GetTruckStateByNameAsync(""));
     }
 }
