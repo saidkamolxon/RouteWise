@@ -26,13 +26,14 @@ public partial class UpdateHandler
 
             case "accept_the_request":
                 var data = message.Text.Split();
-                await userService.AddAsync(new()
+                var newUser = await userService.AddAsync(new()
                 {
                     FirstName = data[0],
                     LastName = data[1],
                     TelegramId = long.Parse(data[2])
                 });
-                await botClient.EditMessageTextOrCaptionAsync(message, HtmlDecoration.Bold("Accepted ✅"));
+                await botClient.EditMessageTextAsync(message.Chat.Id, message.MessageId, $"{message.Text}\n\n{HtmlDecoration.Bold("Accepted ✅")}");
+                await botClient.SendTextMessageAsync(newUser.TelegramId, $"Your request has been accepted. Your current role is {newUser.Role}");
                 break;
 
             case "reject_the_request":
@@ -42,6 +43,11 @@ public partial class UpdateHandler
                     chatId: message.Text.Split().ElementAt(2),
                     text: HtmlDecoration.Bold("Sorry but your request has been rejected by the owner.")
                 );
+                break;
+
+            case "cancel":
+                await botClient.AnswerCallbackQueryAsync(callbackQuery.Id, "❌ Canceled");
+                await botClient.DeleteMessageAsync(message.Chat.Id, message.MessageId);
                 break;
 
             default:

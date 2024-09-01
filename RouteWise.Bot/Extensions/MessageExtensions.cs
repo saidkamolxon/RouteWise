@@ -33,7 +33,7 @@ public static class MessageExtensions
 
         if (message?.Entities is null) return text;
         
-        StringBuilder htmlText = new StringBuilder(message.Text ?? message.Caption);
+        var htmlText = new StringBuilder(message.Text ?? message.Caption);
         for (int index = 0; index < message.Entities.Length; index++)
         {
             string currentSubString = message.EntityValues.ElementAt(index);

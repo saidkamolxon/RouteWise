@@ -20,13 +20,11 @@ public class InitialState : IState
 
     public async Task<MessageEventResult> Update(Message message)
     {
-        if (message?.Text is null)
-            return "There is nothing I can do for you";
-
         var command = message.GetBotCommand();
         var commandArgs = message.GetBotCommandArgs();
 
-        if (command == null) return message.GetHtmlText();
+        if (command == null)
+            return message.GetHtmlText();
 
         switch (command)
         {

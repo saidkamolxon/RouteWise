@@ -4,6 +4,7 @@ using RouteWise.Bot.Interfaces;
 using RouteWise.Bot.Services;
 using RouteWise.Data.IRepositories;
 using RouteWise.Data.Repositories;
+using RouteWise.Service.Helpers;
 using RouteWise.Service.Interfaces;
 using RouteWise.Service.Services;
 using RouteWise.Service.Services.DitatTms;
@@ -12,6 +13,8 @@ using RouteWise.Service.Services.GoogleMaps;
 using RouteWise.Service.Services.RoadReady;
 using RouteWise.Service.Services.Samsara;
 using RouteWise.Service.Services.SwiftEld;
+using System.Net.Http.Headers;
+using System.Text;
 
 namespace RouteWise.Bot.Extensions;
 
@@ -56,10 +59,16 @@ public static class ServiceCollection
 
     private static void AddFleetLocate(IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<IFleetLocateService, FleetLocateService>(provider =>
-            new FleetLocateService(configuration.GetSection("AccessToExternalAPIs:FleetLocate")
-                                                .Get<FleetLocateApiCredentials>())
-        );
+        var credentials = configuration.GetSection("AccessToExternalAPIs:FleetLocate").Get<FleetLocateApiCredentials>();
+        services.AddHttpClient("FleetLocateApiClient", client =>
+        {
+            client.BaseAddress = new Uri(credentials.BaseUrl);
+            string authString = AuthorizationHelper.GetAuthString(credentials.Login, credentials.Password);
+            client.DefaultRequestHeaders.Add("Authorization", $"Basic {authString}");
+            client.DefaultRequestHeaders.Add("Account", credentials.AccountId);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        });
+        services.AddScoped<IFleetLocateService, FleetLocateService>();
     }
 
     private static void AddRoadReady(IServiceCollection services, IConfiguration configuration)
@@ -86,4 +95,6 @@ public static class ServiceCollection
                                             .Get<SamsaraApiCredentials>())
             );
     }
+    
+    
 }

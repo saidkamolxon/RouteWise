@@ -5,6 +5,7 @@ using RouteWise.Service.Interfaces;
 using Telegram.Bot.Types;
 using RouteWise.Bot.Extensions;
 using Telegram.Bot;
+using Telegram.Bot.Types.Enums;
 
 namespace RouteWise.Bot.Handlers;
 
@@ -14,9 +15,24 @@ public partial class UpdateHandler
     {
         if (!userService.IsPermittedUser(message.From.Id))
         {
-            await botClient.AnswerMessageAsync(message,
-                text: "You can't use the bot. Firstly, request an access from the owner 👇",
+            await botClient.SendTextMessageAsync(message.Chat.Id,
+                "You can't use the bot. Firstly, request an access from the owner 👇",
                 replyMarkup: InlineKeyboards.RequestKeyboard);
+            return;
+        }
+
+        if (!string.IsNullOrEmpty(message.MediaGroupId))
+        {
+            await botClient.SendTextMessageAsync(message.Chat.Id, "Sorry, but media groups are not supported!",
+                                                 replyParameters: message.MessageId);
+            Console.WriteLine("Hello world");
+            return;
+        }
+
+        if (message.Type != MessageType.Text)
+        {
+            await botClient.CopyMessageAsync(message.Chat.Id, message.Chat.Id, message.MessageId, replyMarkup: InlineKeyboards.BroadcastMessageKeyboard);
+            await botClient.DeleteMessageAsync(message.Chat.Id, message.MessageId);
             return;
         }
 

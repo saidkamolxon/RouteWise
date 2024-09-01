@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RouteWise.Service.DTOs.Landmark;
 using RouteWise.Service.DTOs.Trailer;
 using RouteWise.Service.Helpers;
 using RouteWise.Service.Interfaces;
-using System.Net.Http.Headers;
-using System.Text;
-using RouteWise.Service.DTOs.Landmark;
 
 namespace RouteWise.Service.Services.FleetLocate;
 
@@ -17,12 +15,10 @@ public class FleetLocateService : IFleetLocateService
     private readonly IMapper _trailerStateMapper;
     private readonly IMapper _landmarkUpdateMapper;
 
-    public FleetLocateService(FleetLocateApiCredentials credentials)
+    public FleetLocateService(IHttpClientFactory httpClientFactory)
     {
         _tries = 10;
-        _client = new HttpClient();
-        _client.BaseAddress = new Uri(credentials.BaseUrl);
-        Authorize(credentials);
+        _client = httpClientFactory.CreateClient("FleetLocateApiClient");
         _trailerStateMapper = ConfigureTrailerStateMapper();
         _landmarkUpdateMapper = ConfigureLandmarkUpdateMapper();
     }
@@ -53,20 +49,6 @@ public class FleetLocateService : IFleetLocateService
         return config.CreateMapper();
     }
 
-    private void Authorize(FleetLocateApiCredentials credentials)
-    {
-        string authString = this.GetAuthString(credentials.Login, credentials.Password);
-        _client.DefaultRequestHeaders.Add("Authorization", $"Basic {authString}");
-        _client.DefaultRequestHeaders.Add("Account", credentials.AccountId);
-        _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-    }
-
-    private string GetAuthString(string login, string password)
-    {
-        byte[] userBytes = Encoding.ASCII.GetBytes($"{login}:{password}");
-        return Convert.ToBase64String(userBytes);
-    }
-
     public async Task<object> GetAssetsAsync()
     {
         var result = await this.GetDataAsync(url: "asset");
@@ -81,7 +63,6 @@ public class FleetLocateService : IFleetLocateService
         var landmarks = await this.GetDataAsync(url: "landmark");
         return await this.MapToLandmarkUpdateDtoAsync(landmarks);
     }
-        
 
     public async Task<dynamic> GetLandmarksStatusesAsync()
         => await this.GetDataAsync(url: "landmarkStatus");

@@ -144,15 +144,13 @@ public class DitatTmsService : IDitatTmsService
         request.AddHeader("ditat-application-role", _credentials.ApplicationRole);
         
         var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{_credentials.Username}:{_credentials.Password}"));
-        request.AddHeader("authorization", $"Basic {encoded}");
+        request.AddHeader("Authorization", $"Basic {encoded}");
         
         var response = _client.Post(request);
         if (response.IsSuccessful && !string.IsNullOrEmpty(response.Content))
         {
-            var token = response.Content;
-            var expiration = TimeSpan.FromHours(12);
-            _cache.Set(_tokenCacheKey, token, expiration);
-            authorize(token);
+            _cache.Set(_tokenCacheKey, response.Content, TimeSpan.FromHours(12));
+            authorize(response.Content);
             return;
         }
         throw response.ErrorException;

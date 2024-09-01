@@ -73,7 +73,7 @@ public class TrailerService : ITrailerService
                 ?? throw new NotFoundException("Trailer with such name is not found.");
 
         var dto = _mapper.Map<TrailerResultDto>(trailer);
-        dto.PhotoUrl = await _googleMapsService.GetStaticMapAsync(dto.Coordinates);
+        dto.PhotoUrl = await _googleMapsService.GetStaticMapAsync(dto.Coordinates, cancellationToken);
         return dto;
     }
 

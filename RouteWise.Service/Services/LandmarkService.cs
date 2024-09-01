@@ -101,7 +101,7 @@ public class LandmarkService : ILandmarkService
         var bordersArray = borders.ToArray();
 
         if (bordersArray.First() != bordersArray.Last())
-            bordersArray = bordersArray.Append(bordersArray.First()).ToArray();
+            bordersArray = [.. bordersArray, bordersArray.First()];
 
         return factory.CreatePolygon(Array.ConvertAll(bordersArray, b =>
             new Coordinate { X = b.Latitude, Y = b.Longitude }));
