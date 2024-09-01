@@ -69,11 +69,15 @@ public class TrailerService : ITrailerService
     public async Task<TrailerResultDto> GetByNameAsync(string name, CancellationToken cancellationToken = default)
     {
         var trailer = await _unitOfWork.TrailerRepository
-            .SelectAsync(t => t.Name.ToLower().Contains(name.ToLower()))
+            .SelectAsync(t => t.Name.ToLower().Contains(name.ToLower()), includes: ["Landmark"])
                 ?? throw new NotFoundException("Trailer with such name is not found.");
 
         var dto = _mapper.Map<TrailerResultDto>(trailer);
-        dto.PhotoUrl = await _googleMapsService.GetStaticMapAsync(dto.Coordinates, cancellationToken);
+        dto.PhotoUrl = await _googleMapsService.GetStaticMapAsync(dto.Coordinates, cancellationToken: cancellationToken);
+
+        if (trailer.LandmarkId != null || trailer.LandmarkId != 0)
+            dto.Address = trailer.Landmark.Address.ToString();
+
         return dto;
     }
 

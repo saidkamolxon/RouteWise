@@ -1,3 +1,5 @@
+using Hangfire;
+using Hangfire.SQLite;
 using Microsoft.EntityFrameworkCore;
 using RouteWise.Bot.Extensions;
 using RouteWise.Bot.Handlers;
@@ -33,6 +35,14 @@ builder.Services.AddHttpClient("tgwebhook")
 
 builder.Services.AddScoped<UpdateHandler>();
 
+builder.Services.AddHangfire(config =>
+    config.UseSimpleAssemblyNameTypeSerializer()
+          .UseRecommendedSerializerSettings()
+          .UseInMemoryStorage()
+    );
+
+builder.Services.AddHangfireServer(options => options.SchedulePollingInterval = TimeSpan.FromSeconds(15));
+
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -53,6 +63,8 @@ if (app.Environment.IsDevelopment())
 }
 
 //app.UseHttpsRedirection();
+
+app.UseHangfireDashboard();
 
 app.UseRouting();
 

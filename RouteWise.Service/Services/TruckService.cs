@@ -18,7 +18,9 @@ public class TruckService(IGoogleMapsService googleMapsService,
         truck.Address = await _googleMapsService.GetReverseGeocodingAsync(truck.Coordinates.ToString(), cancellationToken);
         truck.LastEventAt = truck.LastEventAt.ConvertUtcToDefaultTime();
         
-        return _mapper.Map<TruckResultDto>(truck);
+        var result = _mapper.Map<TruckResultDto>(truck);
+        result.PhotoUrl = await _googleMapsService.GetStaticMapAsync(truck.Coordinates.ToString(), @"C:\\Users\\Saidkamol\\Source\\Repos\\RouteWise\\RouteWise.Bot\\wwwroot\\icons\\semi-truck 64x64.png", cancellationToken);
+        return result;
     }
 
     public async Task<IEnumerable<string>> GetTruckNumbersAsync(CancellationToken cancellationToken = default)

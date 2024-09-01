@@ -6,8 +6,11 @@
     <UserSecretsId>8a1f6e2d-7d95-4bb0-a0sd-5c8c865cf3d7</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.8.14" />
+    <PackageReference Include="Hangfire.InMemory" Version="0.10.3" />
+    <PackageReference Include="Hangfire.SQLite" Version="1.4.2" />
     <PackageReference Include="masstransit" Version="8.2.2" />
-    <PackageReference Include="RestSharp" Version="110.2.0" />
+    <PackageReference Include="RestSharp" Version="112.0.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
     <PackageReference Include="Serilog.Sinks.Postgresql.Alternative" Version="4.0.3" />
     <PackageReference Include="Serilog.Sinks.Seq" Version="7.0.1" />
@@ -16,7 +19,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.RateLimiting" Version="7.0.0-rc.2.22476.2">
     </PackageReference>
-    <PackageReference Include="Telegram.Bot" Version="21.10.0" />
+    <PackageReference Include="Telegram.Bot" Version="21.10.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8" />

@@ -82,11 +82,14 @@ public class GoogleMapsService : IGoogleMapsService
         return formattedAddress;
     }
 
-    public async Task<string> GetStaticMapAsync(string coordinates, CancellationToken cancellationToken = default)
+    public async Task<string> GetStaticMapAsync(string coordinates, string iconUrl = null, CancellationToken cancellationToken = default)
     {
         var parameters = GetStaticMapsDefaultParameters();
         parameters.Add("center", coordinates);
-        parameters.Add("markers", coordinates);
+        if (string.IsNullOrEmpty(iconUrl))
+            parameters.Add("markers", coordinates);
+        else
+            parameters.Add("markers", $"icon:{iconUrl}|{coordinates}");
         return await Task.FromResult(_client.BuildUri(CreateNewRestRequest("staticmap", parameters)).ToString());
     }
 
