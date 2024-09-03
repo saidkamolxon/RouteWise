@@ -20,7 +20,7 @@ public class TrailerResultDto
     public override string ToString()
     {
         string lastEventAt = LastEventAt.ToString("dd-MMM HH:mm", new CultureInfo("en-US"));
-        string movingSymbol = IsMoving ? "🔴" : "🟢";
+        string movingSymbol = IsMoving ? "🟢" : "🔴";
         return $"Trailer#: {HtmlDecoration.Bold(Name)} {movingSymbol}\n\n" +
                $"Coordinates: {HtmlDecoration.Code(Coordinates)}\n" +
                $"Location: {HtmlDecoration.Bold(Address)}\n\n" +

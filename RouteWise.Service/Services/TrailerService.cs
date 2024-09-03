@@ -75,7 +75,7 @@ public class TrailerService : ITrailerService
         var dto = _mapper.Map<TrailerResultDto>(trailer);
         dto.PhotoUrl = await _googleMapsService.GetStaticMapAsync(dto.Coordinates, cancellationToken: cancellationToken);
 
-        if (trailer.LandmarkId != null || trailer.LandmarkId != 0)
+        if (trailer.LandmarkId != null && trailer.LandmarkId != 0)
             dto.Address = trailer.Landmark.Address.ToString();
 
         return dto;
