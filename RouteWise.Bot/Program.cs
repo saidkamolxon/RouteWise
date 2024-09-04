@@ -73,6 +73,9 @@ app.UseCors();
 app.MapControllerRoute(name: "tgwebhook", pattern: $"bot/{botConfig.Token}",
     defaults: new { controller = "Webhook", action = "Post" });
 
+app.MapControllerRoute(name: "samsarawebhook", pattern: "samsara-webhook",
+    defaults: new { controller = "SamsaraWebhook", action = "Post" });
+
 app.UseAuthorization();
 
 app.MapControllers();
