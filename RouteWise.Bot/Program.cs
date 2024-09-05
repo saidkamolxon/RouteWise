@@ -34,6 +34,7 @@ builder.Services.AddHttpClient("tgwebhook")
         new TelegramBotClient(botConfig.Token, httpClient));
 
 builder.Services.AddScoped<UpdateHandler>();
+builder.Services.AddScoped<NotificationHandler>();
 
 builder.Services.AddHangfire(config =>
     config.UseSimpleAssemblyNameTypeSerializer()

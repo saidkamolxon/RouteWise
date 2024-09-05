@@ -1,35 +1,19 @@
-﻿using MassTransit.Internals;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using RouteWise.Bot.Handlers;
+using RouteWise.Bot.Models;
 using System.Text.Json;
 
 namespace RouteWise.Bot.Controllers;
 
-public class SamsaraWebhookController(ILogger<SamsaraWebhookController> logger) : ControllerBase
+public class SamsaraWebhookController : ControllerBase
 {
-    private readonly ILogger<SamsaraWebhookController> logger = logger;
-
     [HttpPost]
-    public IActionResult Post([FromBody] JsonElement notification)
+    public async Task<IActionResult> Post([FromServices] NotificationHandler handler, [FromBody] JsonDocument document)
     {
-        Console.WriteLine(notification.GetProperty("event").GetProperty("text").GetString());
-        switch (notification.GetProperty("eventType").GetString())
-        {
-            case "Alert":
-                switch (notification.GetProperty("event").GetProperty("alertConditionId").GetString())
-                {
-                    case "DeviceLocationInsideGeofence":
-                        this.logger.LogWarning("This device is inside geofence.");
-                        break;
-
-                    case "DeviceSpeedAboveSpeedLimit":
-                        break;
-                }
-                break;
-            case "Ping":
-                this.logger.LogInformation("Webhook has been set up successfully. --->>>");
-                break;
-        }
-
+        var rootElement = document.RootElement;
+        var notification = JsonSerializer.Deserialize<Notification>(rootElement.GetRawText());
+        await handler.HandleAsync(notification);
+        
         return Ok();
     }
 }
