@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using RouteWise.Bot.Enums;
+﻿using RouteWise.Bot.Enums;
 using RouteWise.Bot.Models;
 using RouteWise.Service.Interfaces;
 using Telegram.Bot;
+using Telegram.Bot.Types;
 
 namespace RouteWise.Bot.Handlers;
 
@@ -11,6 +11,7 @@ public class NotificationHandler(ILogger<NotificationHandler> logger, ITelegramB
     private readonly ILogger<NotificationHandler> logger = logger;
     private readonly ITelegramBotClient botClient = botClient;
     private readonly ISamsaraService service = service;
+    private readonly ChatId chatId = -4581289901;
 
     public async Task HandleAsync(Notification notification)
     {
@@ -40,12 +41,12 @@ public class NotificationHandler(ILogger<NotificationHandler> logger, ITelegramB
         var geofence = notification.Data.GetProperty("address").GetProperty("name").GetString();
         var vehicle = notification.Data.GetProperty("vehicle").GetProperty("name").GetString();
 
-        await this.botClient.SendTextMessageAsync(1249357531, $"Vehicle # {vehicle} has just arrived at {geofence}.");
+        await this.botClient.SendTextMessageAsync(chatId, $"Vehicle # {vehicle} has just arrived at {geofence}.");
     }
 
     private async Task WhenPingNotificationReceivedAsync(Notification notification)
     {
-        await this.botClient.SendTextMessageAsync(1249357531, "Webhook tested. Success!");
+        await this.botClient.SendTextMessageAsync(6877143602, "Webhook tested. Success!");
     }
 
     private async Task WhenGeofenceExitNotificationReceivedAsync(Notification notification)
@@ -53,7 +54,7 @@ public class NotificationHandler(ILogger<NotificationHandler> logger, ITelegramB
         var geofence = notification.Data.GetProperty("address").GetProperty("name").GetString();
         var vehicle = notification.Data.GetProperty("vehicle").GetProperty("name").GetString();
 
-        await this.botClient.SendTextMessageAsync(1249357531, $"Vehicle # {vehicle} has just left {geofence}.");
+        await this.botClient.SendTextMessageAsync(chatId, $"Vehicle # {vehicle} has just left {geofence}.");
     }
 
     private async Task WhenSpeedingNotificationReceivedAsync(Notification notification)
@@ -64,12 +65,10 @@ public class NotificationHandler(ILogger<NotificationHandler> logger, ITelegramB
 
     private async Task WhenStoppedForHalfHourNotificationReceived(Notification notification)
     {
-        dynamic data = JsonConvert.DeserializeObject(notification.Data.ToString());
-
-        if (data.configurationId == "a838b48a-935f-40fd-8a64-8e8e4f8ed606")
+        if (notification.Data.GetProperty("configurationId").GetString() == "a838b48a-935f-40fd-8a64-8e8e4f8ed606")
         {
-            string truck = data.conditions.details.speed.vehicle.name;
-            await this.botClient.SendTextMessageAsync(1249357531, $"Vehicle # {truck} has been stopped for more than 30 minutes.\n\nFor more info please visit:\n{notification.Data.GetProperty("incidentUrl").GetString()}");
+            string truck = notification.Data.GetProperty("conditions")[0].GetProperty("details").GetProperty("speed").GetProperty("vehicle").GetProperty("name").GetString();
+            await this.botClient.SendTextMessageAsync(chatId, $"Vehicle # {truck} has been parked for more than 45 minutes.\n\nFor more info please visit:\n{notification.Data.GetProperty("incidentUrl").GetString()}");
         }
     }
 
