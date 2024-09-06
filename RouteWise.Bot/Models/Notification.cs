@@ -1,4 +1,4 @@
-﻿using RouteWise.Bot.Enums;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace RouteWise.Bot.Models;
@@ -24,8 +24,8 @@ public class Notification
     public string WebhookId { get; set; }
 
     [JsonPropertyName("event")]
-    public dynamic Event { get; set; }
+    public JsonElement Event { get; set; }
 
     [JsonPropertyName("data")]
-    public dynamic Data { get; set; }
+    public JsonElement Data { get; set; }
 }
