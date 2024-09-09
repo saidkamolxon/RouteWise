@@ -26,6 +26,26 @@ public class SamsaraService : ISamsaraService
         return [];
     }
 
+    public async Task<string> GetDriverByTruckNameAsync(string truck, CancellationToken cancellationToken = default)
+    {
+        var request = new RestRequest("fleet/vehicles");
+
+        var data = await this.GetDataAsync(request, cancellationToken);
+
+        var driver = data.FirstOrDefault(d => d.Value<string>("name") == truck);
+
+        return driver.Value<JToken>("staticAssignedDriver").Value<string>("name");
+    }
+
+    public async Task<string> GetDriverByVehicleIdAsync(string vehicleId, CancellationToken cancellationToken = default)
+    {
+        var request = new RestRequest("fleet/vehicles/{id}")
+            .AddUrlSegment("id", vehicleId);
+
+        var data = await this.GetDataAsync(request, cancellationToken);
+        return data.Value<JToken>("staticAssignedDriver").Value<string>("name");
+    }
+
     public async Task<TruckStateDto> GetTruckStateByNameAsync(string name, CancellationToken cancellationToken = default)
     {
         return (await GetAllTrucksStatesAsync())

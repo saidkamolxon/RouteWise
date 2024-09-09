@@ -38,7 +38,7 @@ public partial class UpdateHandler
             UpdateType.InlineQuery => BotOnInlineQueryReceived(update.InlineQuery, cancellationToken),
             _ => UnknownUpdateTypeHandler(update)
         };
-
+            
         try
         {
             await handler;

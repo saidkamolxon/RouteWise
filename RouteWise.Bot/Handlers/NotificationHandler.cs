@@ -1,8 +1,10 @@
 ﻿using RouteWise.Bot.Enums;
 using RouteWise.Bot.Models;
+using RouteWise.Service.Helpers;
 using RouteWise.Service.Interfaces;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 
 namespace RouteWise.Bot.Handlers;
 
@@ -11,7 +13,7 @@ public class NotificationHandler(ILogger<NotificationHandler> logger, ITelegramB
     private readonly ILogger<NotificationHandler> logger = logger;
     private readonly ITelegramBotClient botClient = botClient;
     private readonly ISamsaraService service = service;
-    private readonly ChatId chatId = -4581289901;
+    private readonly ChatId chatId = -1002299403534;
 
     public async Task HandleAsync(Notification notification)
     {
@@ -38,23 +40,39 @@ public class NotificationHandler(ILogger<NotificationHandler> logger, ITelegramB
 
     private async Task WhenGeofenceEntryNotificationReceivedAsync(Notification notification)
     {
+        
         var geofence = notification.Data.GetProperty("address").GetProperty("name").GetString();
-        var vehicle = notification.Data.GetProperty("vehicle").GetProperty("name").GetString();
-
-        await this.botClient.SendTextMessageAsync(chatId, $"Vehicle # {vehicle} has just arrived at {geofence}.");
+        var vehicle = notification.Data.GetProperty("vehicle");
+        var driver = await this.service.GetDriverByVehicleIdAsync(vehicle.GetProperty("id").GetString());
+        try
+        {
+            await this.botClient.SendTextMessageAsync(chatId, $"🚚 <b>{vehicle.GetProperty("name").GetString()} {driver}</b> arrived at {HtmlDecoration.Bold(geofence)}.", parseMode: ParseMode.Html);
+        }
+        catch
+        { 
+            await this.botClient.SendTextMessageAsync(chatId, $"🚚 {HtmlDecoration.Bold(vehicle.GetProperty("name").GetString())} arrived at {HtmlDecoration.Bold(geofence)}.", parseMode: ParseMode.Html);
+        }
     }
 
     private async Task WhenPingNotificationReceivedAsync(Notification notification)
     {
-        await this.botClient.SendTextMessageAsync(6877143602, "Webhook tested. Success!");
+        await this.botClient.SendTextMessageAsync(6877143602, "Webhook tested. Success!", parseMode: ParseMode.Html);
     }
 
     private async Task WhenGeofenceExitNotificationReceivedAsync(Notification notification)
     {
         var geofence = notification.Data.GetProperty("address").GetProperty("name").GetString();
-        var vehicle = notification.Data.GetProperty("vehicle").GetProperty("name").GetString();
+        var vehicle = notification.Data.GetProperty("vehicle");
+        var driver = await this.service.GetDriverByVehicleIdAsync(vehicle.GetProperty("id").GetString());
+        try
+        {
+            await this.botClient.SendTextMessageAsync(chatId, $"🚚 <b>{vehicle.GetProperty("name").GetString()} {driver}</b> left {HtmlDecoration.Bold(geofence)}.", parseMode: ParseMode.Html);
+        }
+        catch
+        {
+            await this.botClient.SendTextMessageAsync(chatId, $"🚚 {HtmlDecoration.Bold(vehicle.GetProperty("name").GetString())} left {HtmlDecoration.Bold(geofence)}.", parseMode: ParseMode.Html);
+        }
 
-        await this.botClient.SendTextMessageAsync(chatId, $"Vehicle # {vehicle} has just left {geofence}.");
     }
 
     private async Task WhenSpeedingNotificationReceivedAsync(Notification notification)
@@ -67,8 +85,9 @@ public class NotificationHandler(ILogger<NotificationHandler> logger, ITelegramB
     {
         if (notification.Data.GetProperty("configurationId").GetString() == "a838b48a-935f-40fd-8a64-8e8e4f8ed606")
         {
-            string truck = notification.Data.GetProperty("conditions")[0].GetProperty("details").GetProperty("speed").GetProperty("vehicle").GetProperty("name").GetString();
-            await this.botClient.SendTextMessageAsync(chatId, $"Vehicle # {truck} has been parked for more than 45 minutes.\n\nFor more info please visit:\n{notification.Data.GetProperty("incidentUrl").GetString()}");
+            var vehicle = notification.Data.GetProperty("conditions")[0].GetProperty("details").GetProperty("speed").GetProperty("vehicle");
+            string driver = await this.service.GetDriverByVehicleIdAsync(vehicle.GetProperty("id").GetString());
+            await this.botClient.SendTextMessageAsync(chatId, $"🚚 <b>{vehicle.GetProperty("name").GetString()} {driver}</b> has stopped for more than 45 minutes.\n\nFor more info please visit:\n{notification.Data.GetProperty("incidentUrl").GetString()}", parseMode: ParseMode.Html);
         }
     }
 

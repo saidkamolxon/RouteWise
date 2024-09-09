@@ -72,12 +72,19 @@ public class DitatTmsService : IDitatTmsService
                 
             builder.Append($"{summary.City}, {summary.State}");
 
-            if (withDrivers)
+            try 
             {
-                var driver = summary.Driver.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                builder.Append($" - {driver[0].Capitalize()} {driver[1][0]}.");
+                if (withDrivers)
+                {
+                    var driver = summary.Driver.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    builder.Append($" - {driver[0].Capitalize()} {driver[1][0]}.");
+                }
             }
-            
+            catch
+            {
+                continue;
+            }
+
             if (summary.Time.Date == DateTime.Today.Date)
                 builder.Append($" - {summary.Time:t}");
 
