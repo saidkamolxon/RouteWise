@@ -21,7 +21,7 @@ public class SamsaraService : ISamsaraService
         var request = new RestRequest("fleet/vehicles/stats")
             .AddParameter("types", "gps");
 
-        var trucks = await this.GetDataAsync(request, cancellationToken);
+        var trucks = await this.GetDataAsync<JArray>(request, cancellationToken);
 
         return [];
     }
@@ -30,7 +30,7 @@ public class SamsaraService : ISamsaraService
     {
         var request = new RestRequest("fleet/vehicles");
 
-        var data = await this.GetDataAsync(request, cancellationToken);
+        var data = await this.GetDataAsync<JArray>(request, cancellationToken);
 
         var driver = data.FirstOrDefault(d => d.Value<string>("name") == truck);
 
@@ -42,7 +42,7 @@ public class SamsaraService : ISamsaraService
         var request = new RestRequest("fleet/vehicles/{id}")
             .AddUrlSegment("id", vehicleId);
 
-        var data = await this.GetDataAsync(request, cancellationToken);
+        var data = await this.GetDataAsync<JToken>(request, cancellationToken);
         return data.Value<JToken>("staticAssignedDriver").Value<string>("name");
     }
 
@@ -52,13 +52,18 @@ public class SamsaraService : ISamsaraService
             .FirstOrDefault(t => t.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
     }
 
-    private async Task<JArray> GetDataAsync(RestRequest request, CancellationToken cancellationToken = default)
+    public Task<TruckResultDto> GetVehicleById(string vehicle, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
+
+    private async Task<T> GetDataAsync<T>(RestRequest request, CancellationToken cancellationToken = default) where T : JToken
     {
         var response = await _client.GetAsync(request, cancellationToken);
         if (response.IsSuccessful && !string.IsNullOrEmpty(response.Content))
         {
             var content = JObject.Parse(response.Content);
-            return content.Value<JArray>("data");
+            return content.Value<T>("data");
         }
         throw new Exception("A bad request...");
     }
