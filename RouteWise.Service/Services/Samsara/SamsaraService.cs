@@ -1,6 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using AutoMapper;
+using Newtonsoft.Json.Linq;
 using RestSharp;
+using RouteWise.Service.DTOs.Trailer;
 using RouteWise.Service.DTOs.Truck;
+using RouteWise.Service.Helpers;
 using RouteWise.Service.Interfaces;
 
 namespace RouteWise.Service.Services.Samsara;
@@ -8,12 +11,28 @@ namespace RouteWise.Service.Services.Samsara;
 public class SamsaraService : ISamsaraService
 {
     private readonly IRestClient _client;
+    private readonly IMapper _mapper;
+
+    private IMapper ConfigureMapper()
+    {
+        var config = new MapperConfiguration(cfg =>
+        {
+            cfg.CreateMap<JToken, TruckStateDto>()
+              .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src["name"].ToString()))
+              .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src["gps"]["reverseGeo"]["formattedLocation"].ToString()))
+              .ForMember(dest => dest.Coordinates, opt => opt.MapFrom<TruckCoordinatesResolver>())
+              .ForMember(dest => dest.LastEventAt, opt => opt.MapFrom<TruckLastEventAtResolver>())
+              .ForMember(dest => dest.Speed, opt => opt.MapFrom(src => src["gps"]["speedMilesPerHour"].ToString() + " mph"));
+        });
+        return config.CreateMapper();
+    }
 
     public SamsaraService(SamsaraApiCredentials credentials)
     {
         _client = new RestClient(credentials.BaseUrl);
         _client.AddDefaultHeader("Authorization", $"Bearer {credentials.Token}");
         _client.AddDefaultHeader("Accept", "application/json");
+        _mapper = ConfigureMapper();
     }
 
     public async Task<IEnumerable<TruckStateDto>> GetAllTrucksStatesAsync(CancellationToken cancellationToken = default)
@@ -48,12 +67,17 @@ public class SamsaraService : ISamsaraService
 
     public async Task<TruckStateDto> GetTruckStateByNameAsync(string name, CancellationToken cancellationToken = default)
     {
-        return (await GetAllTrucksStatesAsync())
+        return (await GetAllTrucksStatesAsync(cancellationToken))
             .FirstOrDefault(t => t.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
     }
 
-    public Task<TruckResultDto> GetVehicleById(string vehicle, CancellationToken cancellationToken = default)
+    public async Task<TruckResultDto> GetVehicleById(string vehicleId, CancellationToken cancellationToken = default)
     {
+        var request = new RestRequest("fleet/vehicles/{id}")
+            .AddUrlSegment("id", vehicleId);
+
+        var data = await this.GetDataAsync<JToken>(request, cancellationToken);
+
         throw new NotImplementedException();
     }
 

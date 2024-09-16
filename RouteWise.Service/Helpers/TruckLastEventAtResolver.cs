@@ -8,8 +8,15 @@ public class TruckLastEventAtResolver : IValueResolver<JToken, TruckStateDto, Da
 {
     public DateTime Resolve(JToken source, TruckStateDto destination, DateTime destMember, ResolutionContext context)
     {
-        var unixTime = source.Value<long>("signalTime");
-        var dateTimeOffset = DateTimeOffset.FromUnixTimeMilliseconds(unixTime);
-        return dateTimeOffset.DateTime;
+        if (source.SelectToken("gps") != null)
+        {
+            // From SwiftEld
+            var unixTime = source.Value<long>("signalTime");
+            var dateTimeOffset = DateTimeOffset.FromUnixTimeMilliseconds(unixTime);
+            return dateTimeOffset.DateTime;
+        }
+
+        // From Samsara
+        return source["gps"].Value<DateTime>();
     }
 }

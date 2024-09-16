@@ -8,5 +8,5 @@ public interface ISamsaraService
     Task<IEnumerable<TruckStateDto>> GetAllTrucksStatesAsync(CancellationToken cancellationToken = default);
     Task<string> GetDriverByTruckNameAsync(string truck, CancellationToken cancellationToken = default);
     Task<string> GetDriverByVehicleIdAsync(string vehicleId, CancellationToken cancellationToken = default);
-    Task<TruckResultDto> GetVehicleById(string vehicle, CancellationToken cancellationToken = default);
+    Task<TruckResultDto> GetVehicleById(string vehicleId, CancellationToken cancellationToken = default);
 }
