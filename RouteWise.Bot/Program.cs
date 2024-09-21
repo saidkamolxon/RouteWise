@@ -8,6 +8,7 @@ using RouteWise.Bot.Services;
 using RouteWise.Data.Contexts;
 using RouteWise.Service.Mappers;
 using Serilog;
+using System.Net;
 using Telegram.Bot;
 
 
@@ -16,6 +17,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((context, loggerConfig) =>
     loggerConfig.ReadFrom.Configuration(context.Configuration));
 
+builder.WebHost.ConfigureKestrel(options =>
+    options.ListenAnyIP(47278));
 
 BotConfiguration botConfig = builder.Configuration.GetSection("BotConfiguration").Get<BotConfiguration>();
 
@@ -26,6 +29,16 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 builder.Services.AddHostedService<ConfigureWebhook>();
 
@@ -80,5 +93,7 @@ app.MapControllerRoute(name: "samsarawebhook", pattern: "samsara-webhook",
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors("AllowAll");
 
 app.Run();

@@ -8,7 +8,7 @@ public class TruckLastEventAtResolver : IValueResolver<JToken, TruckStateDto, Da
 {
     public DateTime Resolve(JToken source, TruckStateDto destination, DateTime destMember, ResolutionContext context)
     {
-        if (source.SelectToken("gps") != null)
+        if (source.SelectToken("gps") is null)
         {
             // From SwiftEld
             var unixTime = source.Value<long>("signalTime");

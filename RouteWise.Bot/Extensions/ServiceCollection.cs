@@ -84,7 +84,8 @@ public static class ServiceCollection
         services.AddScoped<IDitatTmsService, DitatTmsService>(provider =>
             new DitatTmsService(configuration.GetSection("AccessToExternalAPIs:DitatTMS")
                                              .Get<DitatTmsApiCredentials>(),
-            provider.GetRequiredService<IMemoryCache>()) 
+            provider.GetRequiredService<IMemoryCache>(),
+            provider.GetRequiredService<ISwiftEldService>()) 
         );
     }
 

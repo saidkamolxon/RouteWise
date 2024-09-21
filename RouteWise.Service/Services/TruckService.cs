@@ -19,7 +19,7 @@ public class TruckService(IGoogleMapsService googleMapsService,
         truck.LastEventAt = truck.LastEventAt.ConvertUtcToDefaultTime();
         
         var result = _mapper.Map<TruckResultDto>(truck);
-        result.PhotoUrl = await _googleMapsService.GetStaticMapAsync(truck.Coordinates.ToString(), @"C:\\Users\\Saidkamol\\Source\\Repos\\RouteWise\\RouteWise.Bot\\wwwroot\\icons\\semi-truck 64x64.png", cancellationToken);
+        result.PhotoUrl = await _googleMapsService.GetStaticMapAsync(truck.Coordinates.ToString(), "https://i.ibb.co/nBKXZK7/semi-truck-pin-icon.png", cancellationToken);
         return result;
     }
 

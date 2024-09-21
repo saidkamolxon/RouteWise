@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.Configuration.Annotations;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -6,6 +7,7 @@ using RouteWise.Domain.Enums;
 using RouteWise.Service.Extensions;
 using RouteWise.Service.Interfaces;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace RouteWise.Service.Services.DitatTms;
@@ -16,14 +18,46 @@ public class DitatTmsService : IDitatTmsService
     private readonly IMapper _mapper;
     private readonly DitatTmsApiCredentials _credentials;
     private readonly IMemoryCache _cache;
-
+    private readonly ISwiftEldService _swiftEldService;
     private const string _tokenCacheKey = "Ditat-token";
 
-    public DitatTmsService(DitatTmsApiCredentials credentials, IMemoryCache cache)
+    public DitatTmsService(DitatTmsApiCredentials credentials, IMemoryCache cache, ISwiftEldService swiftEldService)
     {
         _client = new RestClient(credentials.BaseUrl);
         _credentials = credentials;
         _cache = cache;
+        _swiftEldService = swiftEldService;
+    }
+
+    public async Task<string> GetTrucksStateWhichHasLoadsAsync(CancellationToken cancellationToken = default)
+    {
+        var request = new RestRequest("dispatch-board", Method.Post).AddJsonBody(new { UpdateCounter = 0 });
+        
+        var response = await executeRequestAndGetDataAsync(request, cancellationToken: cancellationToken);
+
+        var trips = response.Value<JArray>("trips");
+        var trucks = await _swiftEldService.GetAllTrucksStatesAsync(cancellationToken);
+
+        var builder = new StringBuilder();
+        foreach (var trip in trips)
+        {
+            var truck = trip.Value<string>("truckId");
+            var speed = "";
+            try
+            {
+                speed = trucks.FirstOrDefault(t => t.Name.Equals(truck)).Speed;
+            }
+            catch
+            {
+                
+            }
+            var symbol = speed == "0 mph" ? "🔴" : "🟢";
+            var driver = trip.Value<string>("primaryDriverId");
+            //var nextAddress = $"{trip["toAddress"]["address1"]}, {trip["toAddress"]["municipality"]}, {trips["toAddress"]["administrativeArea"]}";
+            builder.AppendLine($"<code>{speed.PadLeft(6)}</code>{symbol}<code>{truck.PadRight(6)}</code> {driver.Split().First().Capitalize().PadRight(10, '*')} ➜ Left: 1064mi (15hrs 12mins)");
+        }
+
+        return builder.ToString();
     }
 
     public async Task<string> GetAvailableTrucksAsync(bool withDrivers = true, CancellationToken cancellationToken = default)
@@ -33,7 +67,7 @@ public class DitatTmsService : IDitatTmsService
             .AddParameter("pendingLoadSummaryUpdateCounter", 0)
             .AddParameter("truckDriverRealTimeUpdateCounter", 0);
         
-        var data = await this.getDataAsync(request, cancellationToken: cancellationToken);
+        var data = await this.executeRequestAndGetDataAsync(request, cancellationToken: cancellationToken);
 
         var truckSummaries = data.Value<IEnumerable<dynamic>>("truckSummaries");
             
@@ -109,7 +143,7 @@ public class DitatTmsService : IDitatTmsService
             .AddParameter("id", unitId)
             .AddParameter("includeDocuments", true);
 
-        var data = await this.getDataAsync(request, cancellationToken: cancellationToken);
+        var data = await this.executeRequestAndGetDataAsync(request, cancellationToken: cancellationToken);
         string key = string.Format("{0}Key", source);
         string unitKey = data.Value<dynamic>("entityGraph")[key];
             
@@ -125,16 +159,16 @@ public class DitatTmsService : IDitatTmsService
                         .AddParameter("ditat-token", _cache.Get<string>(_tokenCacheKey))));
     }
 
-    private async Task<JObject> getDataAsync(RestRequest request, string param = "data", CancellationToken cancellationToken = default)
+    private async Task<JObject> executeRequestAndGetDataAsync(RestRequest request, string param = "data", CancellationToken cancellationToken = default)
     {
         ensureAuthenticated();
 
-        var response = await _client.GetAsync(request, cancellationToken);
+        var response = await _client.ExecuteAsync(request, cancellationToken);
         
         if (response.StatusCode == HttpStatusCode.Unauthorized)
         {
             authenticate();
-            response = await _client.GetAsync(request, cancellationToken);
+            response = await _client.ExecuteAsync(request, cancellationToken);
         }
 
         if (response.IsSuccessful && !string.IsNullOrEmpty(response.Content))

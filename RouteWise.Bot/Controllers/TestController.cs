@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RouteWise.Service.Interfaces;
+using Telegram.Bot;
+using Telegram.Bot.Types.Enums;
 
 namespace RouteWise.Bot.Controllers;
 
@@ -10,22 +12,27 @@ public class TestController : BaseController
     private readonly ITruckService _truckService;
     private readonly IDitatTmsService _ditatTmsService;
     private readonly ISamsaraService _samsaraService;
+    private readonly ITelegramBotClient _botClient;
 
     public TestController(ITrailerService trailerService, ILandmarkService landmarkService,
-        ITruckService truckService, IDitatTmsService ditatTmsService, ISamsaraService samsaraService)
+        ITruckService truckService, IDitatTmsService ditatTmsService, ISamsaraService samsaraService, ITelegramBotClient botClient)
     {
         _trailerService = trailerService;
         _landmarkService = landmarkService;
         _truckService = truckService;
         _ditatTmsService = ditatTmsService;
         _samsaraService = samsaraService;
+        _botClient = botClient;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetRoadReadyTrailers()
+    [HttpGet("GetTrips")]
+    public async Task<IActionResult> GetTrips()
     {
-        await _trailerService.UpdateTrailersStatesAsync();
-        return Ok();
+        var result = await _ditatTmsService.GetTrucksStateWhichHasLoadsAsync();
+        return Ok(result);
+        //var r = string.Join('\n', result.Split('\n')[..20]);
+        //await _botClient.SendTextMessageAsync(6877143602, r, parseMode: ParseMode.Html);
+        //return Ok();
     }
 
     [HttpGet("trailersf")]
