@@ -12,10 +12,9 @@ public class SwiftEldService : ISwiftEldService
     private readonly IRestClient _client;
     private readonly IMapper _mapper;
 
-    public SwiftEldService(SwiftEldApiCredentials credentials)
+    public SwiftEldService(IConfiguredClients configuredClients)
     {
-        _client = new RestClient(credentials.BaseUrl);
-        _client.AddDefaultParameter("token", credentials.Token);
+        _client = configuredClients.SwiftEldClient;
         _mapper = CreateAndConfigureMapper();
     }
 

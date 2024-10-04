@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AutoMapper.Configuration.Annotations;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -7,26 +6,21 @@ using RouteWise.Domain.Enums;
 using RouteWise.Service.Extensions;
 using RouteWise.Service.Interfaces;
 using System.Net;
-using System.Net.Http.Headers;
 using System.Text;
 
 namespace RouteWise.Service.Services.DitatTms;
 
 public class DitatTmsService : IDitatTmsService
 {
-    private readonly RestClient _client;
-    private readonly IMapper _mapper;
-    private readonly DitatTmsApiCredentials _credentials;
     private readonly IMemoryCache _cache;
+    private readonly IRestClient _client;
     private readonly ISwiftEldService _swiftEldService;
-    private const string _tokenCacheKey = "Ditat-token";
+    private readonly IMapper _mapper;
 
-    public DitatTmsService(DitatTmsApiCredentials credentials, IMemoryCache cache, ISwiftEldService swiftEldService)
+    public DitatTmsService(IMemoryCache cache, IConfiguredClients configuredClients, ISwiftEldService swiftEldService)
     {
-        _client = new RestClient(credentials.BaseUrl);
-        _credentials = credentials;
+        _client = configuredClients.DitatTmsClient;
         _cache = cache;
-        _swiftEldService = swiftEldService;
     }
 
     public async Task<string> GetTrucksStateWhichHasLoadsAsync(CancellationToken cancellationToken = default)
@@ -54,7 +48,7 @@ public class DitatTmsService : IDitatTmsService
             var symbol = speed == "0 mph" ? "🔴" : "🟢";
             var driver = trip.Value<string>("primaryDriverId");
             //var nextAddress = $"{trip["toAddress"]["address1"]}, {trip["toAddress"]["municipality"]}, {trips["toAddress"]["administrativeArea"]}";
-            builder.AppendLine($"<code>{speed.PadLeft(6)}</code>{symbol}<code>{truck.PadRight(6)}</code> {driver.Split().First().Capitalize().PadRight(10, '*')} ➜ Left: 1064mi (15hrs 12mins)");
+            builder.AppendLine($"<code>{speed.PadLeft(6)}</code>{symbol}<code>{truck.PadRight(6)}</code> {driver.Split().First().Capitalize().PadRight(10)} ➜ Left: 1064mi (15hrs 12mins)");
         }
 
         return builder.ToString();
@@ -156,18 +150,15 @@ public class DitatTmsService : IDitatTmsService
             .Select(d =>
                 _client.BuildUri(
                     new RestRequest($"data/{source}/{unitKey}/document/{d.documentKey}/file")
-                        .AddParameter("ditat-token", _cache.Get<string>(_tokenCacheKey))));
+                        .AddParameter("ditat-token", _cache.Get<string>("Ditat-token"))));
     }
 
     private async Task<JObject> executeRequestAndGetDataAsync(RestRequest request, string param = "data", CancellationToken cancellationToken = default)
     {
-        ensureAuthenticated();
-
         var response = await _client.ExecuteAsync(request, cancellationToken);
         
         if (response.StatusCode == HttpStatusCode.Unauthorized)
         {
-            authenticate();
             response = await _client.ExecuteAsync(request, cancellationToken);
         }
 
@@ -176,40 +167,4 @@ public class DitatTmsService : IDitatTmsService
         
         throw response.ErrorException;
     }
-
-    #region Auth --->>>
-    private void authenticate()
-    {
-        var request = new RestRequest("auth/login");
-        request.AddHeader("ditat-account-id", _credentials.AccountId);
-        request.AddHeader("ditat-application-role", _credentials.ApplicationRole);
-        
-        var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{_credentials.Username}:{_credentials.Password}"));
-        request.AddHeader("Authorization", $"Basic {encoded}");
-        
-        var response = _client.Post(request);
-        if (response.IsSuccessful && !string.IsNullOrEmpty(response.Content))
-        {
-            _cache.Set(_tokenCacheKey, response.Content, TimeSpan.FromHours(12));
-            authorize(response.Content);
-            return;
-        }
-        throw response.ErrorException;
-    }
-
-    private void ensureAuthenticated()
-    {
-        if (!_cache.TryGetValue(_tokenCacheKey, out string token))
-        {
-            authenticate();
-        }
-        else
-        {
-            authorize(token);
-        }
-    }
-
-    private void authorize(string token)
-        => _client.AddDefaultHeader("Authorization", $"Ditat-token {token}");
-    #endregion
 }

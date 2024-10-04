@@ -58,17 +58,26 @@ public partial class UpdateHandler
 
         var result = await stateMachine.FireEvent(message);
 
-        if (result.FileUrls is not null && result.FileUrls.Any())
+        if (result.IsMediaGroup)
         {
-            var documents = result.FileUrls.Select(u => new InputMediaDocument(InputFile.FromUri(u)));
-            await botClient.SendMediaGroupAsync(message.Chat.Id, documents);
+            var docs = result.Files.Select(f => new InputMediaDocument(InputFile.FromString(f.FileId)));
+            await botClient.SendMediaGroupAsync(message.Chat.Id, docs);
             return;
         }
+        
+        for (int i = 0; i < Math.Max(result.Texts.Count, result.Files.Count); i++)
+        {
+            switch (result.Type)
+            {
+                case MessageType.Photo:
+                    await botClient.AnswerMessageWithPhotoAsync(message, result.Files.ElementAt(i).FileId, result.Texts.ElementAt(i), isReply: true);
+                    break;
 
-        if (!string.IsNullOrEmpty(result.PhotoUrl))
-            await botClient.AnswerMessageWithPhotoAsync(message, result.PhotoUrl, result.AnswerMessage, isReply: true);
-        else
-            await botClient.AnswerMessageAsync(message, result.AnswerMessage, isReply: true);
+                case MessageType.Text:
+                    await botClient.AnswerMessageAsync(message, result.Texts.ElementAt(i), isReply: true);
+                    break;
+            }
+        }
 
         logger.LogInformation("Message received of type: {message.Type}", message.Type);
     }

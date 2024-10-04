@@ -6,4 +6,5 @@ public interface ITruckService
 {
     Task<TruckResultDto> GetByNameAsync(string name, CancellationToken cancellationToken = default);
     Task<IEnumerable<string>> GetTruckNumbersAsync(CancellationToken cancellationToken = default);
+    Task UpdateTrucksStatesAsync(CancellationToken cancellationToken = default);
 }

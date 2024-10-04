@@ -8,3 +8,4 @@ public class TrailerRepository : Repository<Trailer>, ITrailerRepository
 {
     public TrailerRepository(AppDbContext appDbContext) : base(appDbContext) { }
 }
+

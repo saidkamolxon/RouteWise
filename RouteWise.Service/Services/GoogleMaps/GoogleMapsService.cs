@@ -5,15 +5,9 @@ using RouteWise.Service.Interfaces;
 
 namespace RouteWise.Service.Services.GoogleMaps;
 
-public class GoogleMapsService : IGoogleMapsService
+public class GoogleMapsService(IConfiguredClients restClientFactory) : IGoogleMapsService
 {
-    private readonly IRestClient _client;
-
-    public GoogleMapsService(GoogleMapsApiCredentials credentials)
-    {
-        _client = new RestClient(credentials.BaseUrl);
-        _client.AddDefaultParameter("key", credentials.Token);
-    }
+    private readonly IRestClient _client = restClientFactory.GoogleMapsClient;
 
     public async Task<string> GetDistanceAsync(string origin, string destination, CancellationToken cancellationToken = default)
     {

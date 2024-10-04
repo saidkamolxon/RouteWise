@@ -5,7 +5,9 @@ using RouteWise.Bot.Models;
 using RouteWise.Domain.Enums;
 using RouteWise.Service.Helpers;
 using RouteWise.Service.Interfaces;
+using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 
 namespace RouteWise.Bot.States;
 
@@ -44,7 +46,13 @@ public class InitialState : IState
                 {
                     var trailerService = scope.ServiceProvider.GetRequiredService<ITrailerService>();
                     var trailer = await trailerService.GetByNameAsync(commandArgs.First());
-                    return new MessageEventResult { AnswerMessage = trailer.ToString(), PhotoUrl = trailer.PhotoUrl };
+                    var result = new MessageEventResult
+                    {
+                        Type = MessageType.Photo,
+                        Text = trailer.ToString(),
+                        File = new PhotoSize { FileId = trailer.PhotoUrl }
+                    };
+                    return result;
                 }
 
             case BotCommands.GetTruckList:
@@ -66,11 +74,15 @@ public class InitialState : IState
                 using (var scope = _stateMachine.ServiceProvider.CreateScope())
                 {
                     var service = scope.ServiceProvider.GetRequiredService<IDitatTmsService>();
-                    
-                    var result = new MessageEventResult {
-                        FileUrls = await service.GetUnitDocumentsAsync(commandArgs.First(), UnitType.Trailer)
+                    var docs = await service.GetUnitDocumentsAsync(commandArgs.First(), UnitType.Trailer);
+                    var docUrls = docs.Select(d => new Document { FileId = d.ToString() });
+
+                    var result = new MessageEventResult
+                    {
+                        Type = MessageType.Document,
+                        IsMediaGroup = true,
+                        Files = [..docUrls.Cast<FileBase>()]
                     };
-                    
                     return result;
                 }
 

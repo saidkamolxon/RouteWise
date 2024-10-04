@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json.Linq;
 using RestSharp;
-using RouteWise.Service.DTOs.Trailer;
 using RouteWise.Service.DTOs.Truck;
 using RouteWise.Service.Helpers;
 using RouteWise.Service.Interfaces;
@@ -12,6 +11,12 @@ public class SamsaraService : ISamsaraService
 {
     private readonly IRestClient _client;
     private readonly IMapper _mapper;
+
+    public SamsaraService(IConfiguredClients configuredClients)
+    {
+        _client = configuredClients.SamsaraClient;
+        _mapper = ConfigureMapper();
+    }
 
     private IMapper ConfigureMapper()
     {
@@ -27,13 +32,7 @@ public class SamsaraService : ISamsaraService
         return config.CreateMapper();
     }
 
-    public SamsaraService(SamsaraApiCredentials credentials)
-    {
-        _client = new RestClient(credentials.BaseUrl);
-        _client.AddDefaultHeader("Authorization", $"Bearer {credentials.Token}");
-        _client.AddDefaultHeader("Accept", "application/json");
-        _mapper = ConfigureMapper();
-    }
+
 
     public async Task<IEnumerable<TruckStateDto>> GetAllTrucksStatesAsync(CancellationToken cancellationToken = default)
     {

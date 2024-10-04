@@ -14,10 +14,9 @@ public class RoadReadyService : IRoadReadyService
     private readonly IRestClient _client;
     private readonly IMapper _mapper;
 
-    public RoadReadyService(RoadReadyApiCredentials credentials)
+    public RoadReadyService(IConfiguredClients configuredClients)
     {
-        _client = new RestClient(credentials.BaseUrl);
-        _client.AddDefaultHeader("x-api-key", credentials.Token);
+        _client = configuredClients.RoadReadyClient;
         _mapper = CreateAndConfigureMapper();
     }
 

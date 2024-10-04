@@ -1,5 +1,4 @@
 using Hangfire;
-using Hangfire.SQLite;
 using Microsoft.EntityFrameworkCore;
 using RouteWise.Bot.Extensions;
 using RouteWise.Bot.Handlers;
@@ -8,7 +7,6 @@ using RouteWise.Bot.Services;
 using RouteWise.Data.Contexts;
 using RouteWise.Service.Mappers;
 using Serilog;
-using System.Net;
 using Telegram.Bot;
 
 
@@ -65,7 +63,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddMemoryCache();
-builder.Services.AddServices(builder.Configuration);
+builder.Services.AddServices();
 
 var app = builder.Build();
 

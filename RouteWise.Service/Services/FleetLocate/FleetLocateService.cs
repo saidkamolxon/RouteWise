@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RestSharp;
 using RouteWise.Service.DTOs.Landmark;
 using RouteWise.Service.DTOs.Trailer;
 using RouteWise.Service.Helpers;
@@ -10,15 +11,15 @@ namespace RouteWise.Service.Services.FleetLocate;
 
 public class FleetLocateService : IFleetLocateService
 {
-    private readonly HttpClient _client;
+    private readonly IRestClient _client;
     private readonly int _tries;
     private readonly IMapper _trailerStateMapper;
     private readonly IMapper _landmarkUpdateMapper;
 
-    public FleetLocateService(IHttpClientFactory httpClientFactory)
+    public FleetLocateService(IConfiguredClients configuredClients)
     {
         _tries = 10;
-        _client = httpClientFactory.CreateClient("FleetLocateApiClient");
+        _client = configuredClients.FleetLocateClient;
         _trailerStateMapper = ConfigureTrailerStateMapper();
         _landmarkUpdateMapper = ConfigureLandmarkUpdateMapper();
     }
@@ -92,10 +93,12 @@ public class FleetLocateService : IFleetLocateService
 
     private async Task<dynamic> GetJsonResponseAsync(string url)
     {
-        var response = await _client.GetAsync(url);
-        response.EnsureSuccessStatusCode();
-        var responseBody = await response.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<dynamic>(responseBody);
+        var response = await _client.GetAsync(new RestRequest(url));
+        
+        if(response.IsSuccessful)
+            return JsonConvert.DeserializeObject<dynamic>(response.Content);
+
+        throw new Exception(); // need to implement here
     }
 
     private Task<IEnumerable<TrailerStateDto>> MapToTrailerStateDtoAsync(IEnumerable<JToken> trailers)

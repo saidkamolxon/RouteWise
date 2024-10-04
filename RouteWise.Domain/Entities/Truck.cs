@@ -1,6 +1,5 @@
 ﻿using RouteWise.Domain.Enums;
 using RouteWise.Domain.Models;
-using System.ComponentModel.DataAnnotations;
 
 namespace RouteWise.Domain.Entities;
 
