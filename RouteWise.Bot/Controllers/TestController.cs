@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RouteWise.Service.Brokers.APIs.DitatTms;
+using RouteWise.Service.Brokers.APIs.Samsara;
 using RouteWise.Service.Interfaces;
 using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
@@ -10,12 +12,12 @@ public class TestController : BaseController
     private readonly ITrailerService _trailerService;
     private readonly ILandmarkService _landmarkService;
     private readonly ITruckService _truckService;
-    private readonly IDitatTmsService _ditatTmsService;
-    private readonly ISamsaraService _samsaraService;
+    private readonly IDitatTmsApiBroker _ditatTmsService;
+    private readonly ISamsaraApiBroker _samsaraService;
     private readonly ITelegramBotClient _botClient;
 
     public TestController(ITrailerService trailerService, ILandmarkService landmarkService,
-        ITruckService truckService, IDitatTmsService ditatTmsService, ISamsaraService samsaraService, ITelegramBotClient botClient)
+        ITruckService truckService, IDitatTmsApiBroker ditatTmsService, ISamsaraApiBroker samsaraService, ITelegramBotClient botClient)
     {
         _trailerService = trailerService;
         _landmarkService = landmarkService;

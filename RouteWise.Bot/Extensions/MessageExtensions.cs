@@ -9,6 +9,9 @@ public static class MessageExtensions
 {
     public static string GetBotCommand(this Message message)
     {
+        if (message.Text.StartsWith('/') && message.Text.Split().Length == 1)
+            return message.Text.Split('@').First();
+
         if (message?.Entities is null) return null;
 
         if (message.Entities.First().Type is MessageEntityType.BotCommand)
@@ -22,7 +25,7 @@ public static class MessageExtensions
         if (message?.Entities is null) return null;
 
         if (message.Entities.First().Type is MessageEntityType.BotCommand)
-            return message.Text.Split().Skip(1).ToArray();
+            return message.Text.Split()[1..];
 
         return null;
     }

@@ -1,7 +1,7 @@
 ﻿using RouteWise.Bot.Interfaces;
 using RouteWise.Bot.Models;
 using RouteWise.Data.IRepositories;
-using RouteWise.Service.Interfaces;
+using RouteWise.Service.Brokers.APIs.GoogleMaps;
 using Telegram.Bot.Types;
 
 namespace RouteWise.Bot.States;
@@ -21,7 +21,7 @@ public class DistanceDestinationState : IState
         
         using (var scope = _stateMachine.ServiceProvider.CreateScope())
         {
-            var googleMapsService = scope.ServiceProvider.GetRequiredService<IGoogleMapsService>();
+            var googleMapsService = scope.ServiceProvider.GetRequiredService<IGoogleMapsApiBroker>();
             var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
 
             var stateValues = await unitOfWork.StateRepository.SelectAsync(s => s.ChatId.Equals(message.Chat.Id) && s.UserId.Equals(message.From.Id));

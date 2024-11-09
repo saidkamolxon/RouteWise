@@ -25,7 +25,6 @@ public partial class UpdateHandler
         {
             await botClient.SendTextMessageAsync(message.Chat.Id, "Sorry, but media groups are not supported!",
                                                  replyParameters: message.MessageId);
-            Console.WriteLine("Hello world");
             return;
         }
 
@@ -74,11 +73,11 @@ public partial class UpdateHandler
                     break;
 
                 case MessageType.Text:
-                    await botClient.AnswerMessageAsync(message, result.Texts.ElementAt(i), isReply: true);
+                    await botClient.AnswerMessageAsync(message, result.Texts.ElementAt(i), isReply: i == 0);
                     break;
             }
         }
 
-        logger.LogInformation("Message received of type: {message.Type}", message.Type);
+        logger.LogInformation("[{userId}] [{userName}] Message received of type: {messageType}", message.From.Id, message.From.GetFullName(), message.Type);
     }
 }

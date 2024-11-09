@@ -1,23 +1,23 @@
 ﻿using AutoMapper;
 using RouteWise.Data.IRepositories;
 using RouteWise.Domain.Entities;
-using RouteWise.Service.DTOs.Trailer;
+using RouteWise.Service.Brokers.APIs.GoogleMaps;
+using RouteWise.Service.Brokers.APIs.Samsara;
+using RouteWise.Service.Brokers.APIs.SwiftEld;
 using RouteWise.Service.DTOs.Truck;
 using RouteWise.Service.Helpers;
 using RouteWise.Service.Interfaces;
-using SQLitePCL;
-using System.Threading;
 
 namespace RouteWise.Service.Services;
 
-public class TruckService(IMapper mapper, IUnitOfWork unitOfWork, IGoogleMapsService googleMapsService,
-    ISwiftEldService swiftEldService, ISamsaraService samsaraService, ILandmarkService landmarkService) : ITruckService
+public class TruckService(IMapper mapper, IUnitOfWork unitOfWork, IGoogleMapsApiBroker googleMapsService,
+    ISwiftEldApiBroker swiftEldService, ISamsaraApiBroker samsaraService, ILandmarkService landmarkService) : ITruckService
 {
     private readonly IMapper _mapper = mapper;
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
-    private readonly IGoogleMapsService _googleMapsService = googleMapsService;
-    private readonly ISwiftEldService _swiftEldService = swiftEldService;
-    private readonly ISamsaraService _samsaraService = samsaraService;
+    private readonly IGoogleMapsApiBroker _googleMapsService = googleMapsService;
+    private readonly ISwiftEldApiBroker _swiftEldService = swiftEldService;
+    private readonly ISamsaraApiBroker _samsaraService = samsaraService;
     private readonly ILandmarkService _landmarkService = landmarkService;
 
     public async Task<TruckResultDto> GetByNameAsync(string name, CancellationToken cancellationToken = default)

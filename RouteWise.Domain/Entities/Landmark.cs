@@ -11,19 +11,20 @@ public class Landmark : Auditable
     public string Name { get; set; }
 
     [Required]
-    public Coordinate Coordinates { get; set; }
+    public Coordination Coordinates { get; set; }
 
     [NotMapped]
-    public IEnumerable<Coordinate> BorderPoints { get; set; }
+    public IEnumerable<Coordination> BorderPoints { get; set; }
 
     [Required]
     public Address Address { get; set; }
     public IEnumerable<Trailer> Trailers { get; set; }
+    public IEnumerable<Truck> Trucks { get; set; }
 
     public string BorderPointsJson
     {
         get => JsonSerializer.Serialize(BorderPoints);
-        set => BorderPoints = JsonSerializer.Deserialize<IEnumerable<Coordinate>>(value);
+        set => BorderPoints = JsonSerializer.Deserialize<IEnumerable<Coordination>>(value);
     }
 
     public override string ToString() => string.Format("{0} -> {1}", Name, Address);

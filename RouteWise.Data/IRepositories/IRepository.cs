@@ -12,4 +12,5 @@ public interface IRepository<TEntity> where TEntity : Auditable
     Task<TEntity?> SelectAsync(int id, bool asNoTracking = false, string[]? includes = null);
     Task<TEntity?> SelectAsync(Expression<Func<TEntity, bool>> expression, bool asNoTracking = false, string[]? includes = null);
     IQueryable<TEntity> SelectAll(Expression<Func<TEntity, bool>>? expression = null, bool asNoTracking = true, string[]? includes = null);
+    Task<int?> DestroyAllAsync(Expression<Func<TEntity, bool>>? expression = null, CancellationToken cancellationToken = default);
 }

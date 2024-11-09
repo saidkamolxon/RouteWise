@@ -7,10 +7,11 @@ namespace RouteWise.Bot.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class HangfireController(IRecurringJobManagerV2 jobManager, ITrailerService trailerService) : ControllerBase
+public class HangfireController(IRecurringJobManagerV2 jobManager, ITrailerService trailerService, ILandmarkService landmarkService) : ControllerBase
 {
     private readonly IRecurringJobManager jobManager = jobManager;
     private readonly ITrailerService trailerService = trailerService;
+    private readonly ILandmarkService landmarkService = landmarkService;
 
     [HttpGet("job")]
     public void RunHangfire()
@@ -19,5 +20,14 @@ public class HangfireController(IRecurringJobManagerV2 jobManager, ITrailerServi
         "UpdateTrailers",
         () => trailerService.UpdateTrailersStatesAsync(default),
         Cron.MinuteInterval(5));
+    }
+
+    [HttpGet("remove-redundant-landmarks")]
+    public void RunRemoval()
+    {
+        jobManager.AddOrUpdate(
+            "RemoveRedundantLandmarks",
+            () => landmarkService.RemoveRedundantLandmarks(default),
+            Cron.Daily);
     }
 }

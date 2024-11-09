@@ -1,78 +1,84 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using NetTopologySuite.Geometries;
+using RouteWise.Data.Contexts;
 using RouteWise.Data.IRepositories;
 using RouteWise.Domain.Entities;
+using RouteWise.Domain.Models;
+using RouteWise.Service.Brokers.APIs.FleetLocate;
+using RouteWise.Service.Brokers.APIs.GoogleMaps;
 using RouteWise.Service.DTOs.Landmark;
 using RouteWise.Service.Interfaces;
 
 namespace RouteWise.Service.Services;
 
-public class LandmarkService : ILandmarkService
+public class LandmarkService(
+    ILogger<LandmarkService> logger,
+    IMapper mapper,
+    IUnitOfWork unitOfWork,
+    IFleetLocateApiBroker fleetLocateApiBroker,
+    IGoogleMapsApiBroker googleMapsApiBroker) : ILandmarkService
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IFleetLocateService _service;
-    private readonly IGoogleMapsService _googleMapsService;
-    private readonly IMapper _mapper;
+    private readonly ILogger<LandmarkService> logger = logger;
+    private readonly IMapper mapper = mapper;
+    private readonly IUnitOfWork unitOfWork = unitOfWork;
+    private readonly IFleetLocateApiBroker fleetLocateApiBroker = fleetLocateApiBroker;
+    private readonly IGoogleMapsApiBroker googleMapsApiBroker = googleMapsApiBroker;
 
-    public LandmarkService(IUnitOfWork unitOfWork, IMapper mapper,
-                           IFleetLocateService service,
-                           IGoogleMapsService googleMapsService)
+    public async Task<IEnumerable<LandmarkResultDto>> GetLandmarksByNameAsync(string name, CancellationToken cancellationToken = default)
     {
-        _unitOfWork = unitOfWork;
-        _service = service;
-        _googleMapsService = googleMapsService;
-        _mapper = mapper;
-    }
-
-    public async Task<IEnumerable<LandmarkResultDto>> GetLandmarksByNameAsync(string name)
-    {
-        var landmarks = await _unitOfWork
+        var landmarks = await unitOfWork
             .LandmarkRepository
             .SelectAll(l => l.Name.ToUpper().Contains(name.ToUpper()), includes: ["Trailers"])
             .OrderBy(l => l.Name)
             .ToListAsync();
 
-        var mappedLandmarks = _mapper.Map<IEnumerable<LandmarkResultDto>>(landmarks);
+        var mappedLandmarks = mapper.Map<IEnumerable<LandmarkResultDto>>(landmarks);
         
         foreach (var landmark in mappedLandmarks)
-            landmark.PhotoUrl = await _googleMapsService.GetStaticMapAsync(landmark.Coordinates, landmark.Trailers.Select(t => t.Coordinates).ToArray());
+            landmark.PhotoUrl = await googleMapsApiBroker
+                .GetStaticMapAsync(landmark.Coordinates,
+                landmark.Trailers
+                    .OrderBy(t => t.ArrivedAt).Select(t => t.Coordinates)
+                    .ToArray(),
+                cancellationToken);
 
         return mappedLandmarks;
     }
 
-    public async Task<IEnumerable<LandmarkResultDto>> GetAllLandmarksAsync()
+    public async Task<IEnumerable<LandmarkResultDto>> GetAllLandmarksAsync(CancellationToken cancellationToken = default)
     {
-        var landmarks = await _unitOfWork.LandmarkRepository.SelectAll(includes: ["Trailers"]).ToListAsync();
-        return _mapper.Map<IEnumerable<LandmarkResultDto>>(landmarks);
+        var landmarks = await unitOfWork.LandmarkRepository.SelectAll(includes: ["Trailers"]).ToListAsync();
+        return mapper.Map<IEnumerable<LandmarkResultDto>>(landmarks);
     }
 
-    public async Task UpdateLandmarksAsync()
+    public async Task UpdateLandmarksAsync(CancellationToken cancellationToken = default)
     {
-        var landmarkUpdates = await _service.GetLandmarksAsync();
+        var landmarkUpdates = await fleetLocateApiBroker.GetLandmarksAsync(cancellationToken);
         foreach (var update in landmarkUpdates)
         {
-            var landmark = await _unitOfWork.LandmarkRepository.SelectAsync(l => l.Name.Equals(update.Name));
+            var landmark = await unitOfWork.LandmarkRepository.SelectAsync(l => l.Name.Equals(update.Name));
             if (landmark is not null)
             {
-                _mapper.Map(update, landmark);
-                _unitOfWork.LandmarkRepository.Update(landmark);
+                mapper.Map(update, landmark);
+                unitOfWork.LandmarkRepository.Update(landmark);
             }
             else
             {
-                var newLandmark = _mapper.Map<Landmark>(update);
-                await _unitOfWork.LandmarkRepository.CreateAsync(newLandmark);
+                var newLandmark = mapper.Map<Landmark>(update);
+                await unitOfWork.LandmarkRepository.CreateAsync(newLandmark);
             }
-            await _unitOfWork.SaveAsync();
+            await unitOfWork.SaveAsync(cancellationToken);
         }
     }
 
-    public async Task<int?> GetLandmarkIdOrDefaultAsync(string state, Domain.Models.Coordinate coordinates)
+    public async Task<int?> GetLandmarkIdOrDefaultAsync(string state, Coordination coordinates, CancellationToken cancellationToken = default)
     {
-        var landmarks = await _unitOfWork.LandmarkRepository
+        var landmarks = await unitOfWork.LandmarkRepository
             .SelectAll(landmark => landmark.Address.State
                 .Equals(state), asNoTracking:true)
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
 
         var landmark = landmarks.FirstOrDefault(landmark =>
             IsAssetWithinLandmark(landmark.BorderPoints, coordinates));
@@ -80,23 +86,23 @@ public class LandmarkService : ILandmarkService
         return landmark?.Id;
     }
 
-    public static bool IsAssetWithinLandmark(IEnumerable<Domain.Models.Coordinate> landmarkBorders, Domain.Models.Coordinate assetCoordinates) //TODO need to make private
+    private bool IsAssetWithinLandmark(IEnumerable<Coordination> landmarkBorders, Coordination assetCoordinates)
     {
         try
         {
             var factory = new GeometryFactory();
-            var landmark = CreateLandmarkPolygon(landmarkBorders, factory);
-            var asset = CreateAssetPoint(assetCoordinates, factory);
+            var landmark = createLandmarkPolygon(landmarkBorders, factory);
+            var asset = createAssetPoint(assetCoordinates, factory);
             return landmark.Contains(asset);
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error: {ex.Message}");
+            logger.LogError(ex, "An error occured while checking if an asset is within a landmark.");
             return false;
         }
     }
 
-    private static Polygon CreateLandmarkPolygon(IEnumerable<Domain.Models.Coordinate> borders, GeometryFactory factory)
+    private Polygon createLandmarkPolygon(IEnumerable<Coordination> borders, GeometryFactory factory)
     {
         var bordersArray = borders.ToArray();
 
@@ -107,6 +113,15 @@ public class LandmarkService : ILandmarkService
             new Coordinate { X = b.Latitude, Y = b.Longitude }));
     }
 
-    private static Point CreateAssetPoint(Domain.Models.Coordinate coordinates, GeometryFactory factory)
+    private Point createAssetPoint(Coordination coordinates, GeometryFactory factory)
         => factory.CreatePoint(new Coordinate { X = coordinates.Latitude, Y = coordinates.Longitude });
+
+    public async Task RemoveRedundantLandmarks(CancellationToken cancellationToken = default)
+    {
+        var theDayBefore = DateTime.UtcNow - TimeSpan.FromHours(24);
+        var landmarks = this.unitOfWork.LandmarkRepository.SelectAll(l => l.UpdatedAt < theDayBefore);
+        var rowsDeleted = await this.unitOfWork.LandmarkRepository.DestroyAllAsync(l => l.UpdatedAt < theDayBefore, cancellationToken);
+        if (rowsDeleted != null)
+            this.logger.LogInformation("{count} redundant landmarks deleted from the database", rowsDeleted);
+    }
 }

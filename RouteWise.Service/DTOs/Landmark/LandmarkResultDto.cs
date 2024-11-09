@@ -17,8 +17,11 @@ public class LandmarkResultDto
         if (Trailers.Any()) result += HtmlDecoration.Bold("\n\nTRAILERS:\n");
 
         int sn = 1;
-        foreach(var trailer in Trailers)
-            result += $"{HtmlDecoration.Bold((sn++).ToString())}. {HtmlDecoration.Code(trailer.Name.PadRight(10))} ➜ {HtmlDecoration.Code(trailer.Coordinates)}\n";
+        foreach(var trailer in Trailers.OrderBy(t => t.ArrivedAt))
+        {
+            var duration = TimeHelper.ConvertUtcToDefaultTime(DateTime.UtcNow) - trailer.ArrivedAt;
+            result += $"{HtmlDecoration.Bold((sn++).ToString())}. {HtmlDecoration.Code(trailer.Name.PadRight(10))} ➜ {HtmlDecoration.Code(trailer.Coordinates)} ({TimeHelper.FormatDuration(duration)})\n";
+        }
 
         return result;
     }

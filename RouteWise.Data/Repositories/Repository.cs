@@ -62,4 +62,14 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Auditabl
 
         return query.Where(e => !e.IsDeleted);
     }
+
+    public async Task<int?> DestroyAllAsync(Expression<Func<TEntity, bool>>? expression = null, CancellationToken cancellationToken = default)
+    {
+        IQueryable<TEntity> query = _dbSet;
+
+        if (expression is not null)
+            query.Where(expression);
+
+        return await query.ExecuteDeleteAsync(cancellationToken);
+    }
 }

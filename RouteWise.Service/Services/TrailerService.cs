@@ -1,28 +1,36 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using RouteWise.Data.IRepositories;
 using RouteWise.Domain.Entities;
+using RouteWise.Service.Brokers.APIs.FleetLocate;
+using RouteWise.Service.Brokers.APIs.GoogleMaps;
+using RouteWise.Service.Brokers.APIs.RoadReady;
 using RouteWise.Service.DTOs.Trailer;
 using RouteWise.Service.Exceptions;
+using RouteWise.Service.Helpers;
 using RouteWise.Service.Interfaces;
 
 namespace RouteWise.Service.Services;
 
 public class TrailerService : ITrailerService
 {
+    private readonly ILogger<TrailerService> _logger;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
-    private readonly IFleetLocateService _fleetLocateService;
-    private readonly IRoadReadyService _roadReadyService;
+    private readonly IFleetLocateApiBroker _fleetLocateService;
+    private readonly IRoadReadyApiBroker _roadReadyService;
     private readonly ILandmarkService _landmarkService;
-    private readonly IGoogleMapsService _googleMapsService;
+    private readonly IGoogleMapsApiBroker _googleMapsService;
 
-    public TrailerService(IUnitOfWork unitOfWork, IMapper mapper,
-                          IFleetLocateService fleetLocateService,
-                          IRoadReadyService roadReadyService,
+    public TrailerService(ILogger<TrailerService> logger,
+                          IUnitOfWork unitOfWork, IMapper mapper,
+                          IFleetLocateApiBroker fleetLocateService,
+                          IRoadReadyApiBroker roadReadyService,
                           ILandmarkService landmarkService,
-                          IGoogleMapsService googleMapsService)
+                          IGoogleMapsApiBroker googleMapsService)
     {
+        _logger = logger;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _fleetLocateService = fleetLocateService;
@@ -52,15 +60,15 @@ public class TrailerService : ITrailerService
     public async Task<IReadOnlyList<TrailerResultDto>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         var trailers = await _unitOfWork.TrailerRepository
-                                .SelectAll(asNoTracking: true, includes: new [] { "Landmark" })
+                                .SelectAll(asNoTracking: true, includes: ["Landmark"])
                                 .OrderBy(t => t.Name)
-                                .ToListAsync();
+                                .ToListAsync(cancellationToken);
         return _mapper.Map<IReadOnlyList<TrailerResultDto>>(trailers);
     }
 
     public async Task<TrailerResultDto> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     { 
-        var trailer = await _unitOfWork.TrailerRepository.SelectAsync(id, includes: new[] { "Landmark" })
+        var trailer = await _unitOfWork.TrailerRepository.SelectAsync(id, includes: ["Landmark"])
             ?? throw new NotFoundException("Trailer with such id is not found.");
 
         return _mapper.Map<TrailerResultDto>(trailer);
@@ -104,19 +112,31 @@ public class TrailerService : ITrailerService
             if (trailer is not null)
             {
                 _mapper.Map(state, trailer);
-                trailer.LandmarkId = await _landmarkService.GetLandmarkIdOrDefaultAsync(trailer.Address.State, trailer.Coordinates);
+                
+                var landmarkId = await _landmarkService.GetLandmarkIdOrDefaultAsync(trailer.Address.State, trailer.Coordinates);
+
+                if (landmarkId != trailer.LandmarkId)
+                {
+                    trailer.LandmarkId = landmarkId;
+                    trailer.ArrivedAt = landmarkId == null ? null : trailer.LastEventAt;
+                }
+
+                if (landmarkId != null && trailer.ArrivedAt == null)
+                    trailer.ArrivedAt = trailer.LastEventAt;
+
                 _unitOfWork.TrailerRepository.Update(trailer);
             }
             else
             {
                 var newTrailer = _mapper.Map<Trailer>(state);
                 newTrailer.LandmarkId = await _landmarkService.GetLandmarkIdOrDefaultAsync(newTrailer.Address.State, newTrailer.Coordinates);
+                newTrailer.ArrivedAt = state.LastEventAt;
                 await _unitOfWork.TrailerRepository.CreateAsync(newTrailer);
             }
             await _unitOfWork.SaveAsync();
         }
 
-        await Console.Out.WriteLineAsync("Done");
+        _logger.LogInformation("Trailers states have been updated.");
     }
 
     private static List<TrailerStateDto> MergeData(IEnumerable<TrailerStateDto> firstData, IEnumerable<TrailerStateDto> secondData)

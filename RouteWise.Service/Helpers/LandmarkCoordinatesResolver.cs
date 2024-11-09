@@ -5,8 +5,8 @@ using RouteWise.Service.DTOs.Landmark;
 
 namespace RouteWise.Service.Helpers;
 
-public class LandmarkCoordinatesResolver : IValueResolver<JToken, LandmarkUpdateDto, Coordinate>
+public class LandmarkCoordinatesResolver : IValueResolver<JToken, LandmarkUpdateDto, Coordination>
 {
-    public Coordinate Resolve(JToken source, LandmarkUpdateDto destination, Coordinate destMember, ResolutionContext context) 
+    public Coordination Resolve(JToken source, LandmarkUpdateDto destination, Coordination destMember, ResolutionContext context) 
         => new () { Latitude = source.Value<double>("lat"), Longitude = source.Value<double>("lng") };
 }

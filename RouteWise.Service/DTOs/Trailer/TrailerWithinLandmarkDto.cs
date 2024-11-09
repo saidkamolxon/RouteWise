@@ -7,4 +7,5 @@ public class TrailerWithinLandmarkDto
     public string Coordinates { get; set; }
     public bool IsMoving { get; set; }
     public DateTime LastEventAt { get; set; }
+    public DateTime ArrivedAt { get; set; }
 }

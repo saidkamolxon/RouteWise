@@ -2,15 +2,15 @@
 using RouteWise.Bot.Services;
 using RouteWise.Data.IRepositories;
 using RouteWise.Data.Repositories;
+using RouteWise.Service.Brokers.APIs.DitatTms;
+using RouteWise.Service.Brokers.APIs.FleetLocate;
+using RouteWise.Service.Brokers.APIs.GoogleMaps;
+using RouteWise.Service.Brokers.APIs.RoadReady;
+using RouteWise.Service.Brokers.APIs.Samsara;
+using RouteWise.Service.Brokers.APIs.SwiftEld;
 using RouteWise.Service.Helpers;
 using RouteWise.Service.Interfaces;
 using RouteWise.Service.Services;
-using RouteWise.Service.Services.DitatTms;
-using RouteWise.Service.Services.FleetLocate;
-using RouteWise.Service.Services.GoogleMaps;
-using RouteWise.Service.Services.RoadReady;
-using RouteWise.Service.Services.Samsara;
-using RouteWise.Service.Services.SwiftEld;
 
 namespace RouteWise.Bot.Extensions;
 
@@ -28,17 +28,19 @@ public static class ServiceCollection
 
         services.AddTransient<IStateMachine>(provider => new StateMachine(provider));
         services.AddTransient<IConfiguredClients, ConfiguredClients>();
+        services.AddSingleton<IConfiguredMappers, ConfiguredMappers>();
 
-        // Api services --->>>
-        services.AddScoped<IFleetLocateService, FleetLocateService>();
-        services.AddScoped<IGoogleMapsService, GoogleMapsService>();
         services.AddScoped<ILandmarkService, LandmarkService>();
-        services.AddScoped<IRoadReadyService, RoadReadyService>();
-        services.AddScoped<ISamsaraService, SamsaraService>();
-        services.AddScoped<ISwiftEldService, SwiftEldService>();
         services.AddScoped<ITrailerService, TrailerService>();
         services.AddScoped<ITruckService, TruckService>();
         services.AddScoped<IUserService, UserService>();
-        services.AddScoped<IDitatTmsService, DitatTmsService>();
+
+        // Api services --->>>
+        services.AddScoped<IFleetLocateApiBroker, FleetLocateApiBroker>();
+        services.AddScoped<IGoogleMapsApiBroker, GoogleMapsApiBroker>();
+        services.AddScoped<IRoadReadyApiBroker, RoadReadyApiBroker>();
+        services.AddScoped<ISamsaraApiBroker, SamsaraApiBroker>();
+        services.AddScoped<ISwiftEldApiBroker, SwiftEldApiBroker>();
+        services.AddScoped<IDitatTmsApiBroker, DitatTmsApiBroker>();
     }
 }

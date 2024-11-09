@@ -7,5 +7,5 @@ public interface IUnitOfWork : IDisposable
     ITruckRepository TruckRepository { get; }
     IUserRepository UserRepository { get; }
     IStateRepository StateRepository { get; }
-    Task SaveAsync();
+    Task SaveAsync(CancellationToken cancellationToken = default);
 }

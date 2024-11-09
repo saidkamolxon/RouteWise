@@ -3,28 +3,22 @@ using RouteWise.Data.IRepositories;
 
 namespace RouteWise.Data.Repositories;
 
-public class UnitOfWork : IUnitOfWork
+public class UnitOfWork(AppDbContext context,
+    ITrailerRepository trailerRepository,
+    ILandmarkRepository landmarkRepository,
+    IUserRepository userRepository,
+    IStateRepository stateRepository,
+    ITruckRepository truckRepository) : IUnitOfWork
 {
-    private readonly AppDbContext _context;
+    private readonly AppDbContext context = context;
 
-    public UnitOfWork(AppDbContext context, ITrailerRepository trailerRepository,
-        ILandmarkRepository landmarkRepository, IUserRepository userRepository, IStateRepository stateRepository, ITruckRepository truckRepository)
-    {
-        _context = context;
-        TrailerRepository = trailerRepository;
-        LandmarkRepository = landmarkRepository;
-        UserRepository = userRepository;
-        StateRepository = stateRepository;
-        TruckRepository = truckRepository;
-    }
+    public ILandmarkRepository LandmarkRepository { get; set; } = landmarkRepository;
+    public IStateRepository StateRepository { get; } = stateRepository;
+    public ITrailerRepository TrailerRepository { get; } = trailerRepository;
+    public ITruckRepository TruckRepository { get; } = truckRepository;
+    public IUserRepository UserRepository { get; } = userRepository;
 
-    public ILandmarkRepository LandmarkRepository { get; set; }
-    public IStateRepository StateRepository { get; }
-    public ITrailerRepository TrailerRepository { get; }
-    public ITruckRepository TruckRepository { get; }
-    public IUserRepository UserRepository { get; }
-
-    public async Task SaveAsync() => await _context.SaveChangesAsync();
+    public async Task SaveAsync(CancellationToken cancellationToken = default) => await context.SaveChangesAsync(cancellationToken);
     
     public void Dispose() => GC.SuppressFinalize(this);
 }

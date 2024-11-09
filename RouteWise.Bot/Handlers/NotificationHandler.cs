@@ -1,18 +1,18 @@
 ﻿using RouteWise.Bot.Enums;
 using RouteWise.Bot.Models;
+using RouteWise.Service.Brokers.APIs.Samsara;
 using RouteWise.Service.Helpers;
-using RouteWise.Service.Interfaces;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
 namespace RouteWise.Bot.Handlers;
 
-public class NotificationHandler(ILogger<NotificationHandler> logger, ITelegramBotClient botClient, ISamsaraService service)
+public class NotificationHandler(ILogger<NotificationHandler> logger, ITelegramBotClient botClient, ISamsaraApiBroker service)
 {
     private readonly ILogger<NotificationHandler> logger = logger;
     private readonly ITelegramBotClient botClient = botClient;
-    private readonly ISamsaraService service = service;
+    private readonly ISamsaraApiBroker service = service;
     private readonly ChatId chatId = -1002299403534;
 
     public async Task HandleAsync(Notification notification)
@@ -72,7 +72,6 @@ public class NotificationHandler(ILogger<NotificationHandler> logger, ITelegramB
         {
             await this.botClient.SendTextMessageAsync(chatId, $"🟠 {HtmlDecoration.Bold(vehicle.GetProperty("name").GetString())} left {HtmlDecoration.Bold(geofence)}.", parseMode: ParseMode.Html);
         }
-
     }
 
     private async Task WhenSpeedingNotificationReceivedAsync(Notification notification)
@@ -93,6 +92,14 @@ public class NotificationHandler(ILogger<NotificationHandler> logger, ITelegramB
 
     private async Task WhenUnknownNotificationReceivedAsync(Notification notification)
     {
-        throw new NotImplementedException();
+        var alertCondition = notification.Event.GetProperty("alertConditionId").GetString();
+        switch (alertCondition)
+        {
+            case "DeviceSevereSpeedAboveSpeedLimit":
+                var vehicle = notification.Event.GetProperty("device").GetProperty("name").GetString();
+                string driver = await this.service.GetDriverByTruckNameAsync(vehicle);
+                await this.botClient.SendTextMessageAsync(chatId, notification.Event.GetProperty("details").GetString());
+                break;
+        }
     }
 }

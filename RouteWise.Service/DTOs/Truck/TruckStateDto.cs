@@ -9,7 +9,7 @@ public class TruckStateDto
     public string Vin { get; set; }
     public string Address { get; set; }
     public DateTime LastEventAt { get; set; }
-    public Coordinate Coordinates { get; set; }
+    public Coordination Coordinates { get; set; }
     public string Odometer { get; set; }
     public int? DriverId { get; set; }
     public string Speed { get; set; }

@@ -1,24 +1,21 @@
 ﻿using RouteWise.Bot.Constants;
 using RouteWise.Bot.Extensions;
+using RouteWise.Bot.Helpers;
 using RouteWise.Bot.Interfaces;
 using RouteWise.Bot.Models;
 using RouteWise.Domain.Enums;
+using RouteWise.Service.Brokers.APIs.DitatTms;
 using RouteWise.Service.Helpers;
 using RouteWise.Service.Interfaces;
-using Telegram.Bot;
+using System.Text;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
 namespace RouteWise.Bot.States;
 
-public class InitialState : IState
+public class InitialState(IStateMachine stateMachine) : IState
 {
-    private readonly IStateMachine _stateMachine;
-
-    public InitialState(IStateMachine stateMachine)
-    {
-        _stateMachine = stateMachine;
-    }
+    private readonly IStateMachine _stateMachine = stateMachine;
 
     public async Task<MessageEventResult> Update(Message message)
     {
@@ -28,7 +25,7 @@ public class InitialState : IState
         if (command == null)
             return message.GetHtmlText();
 
-        switch (command)
+        switch (command.ToLower())
         {
             case BotCommands.Start:
                 return $"Assalomu alaykum. {HtmlDecoration.Bold(message.From.GetFullName())}.";
@@ -58,7 +55,7 @@ public class InitialState : IState
             case BotCommands.GetTruckList:
                 using (var scope = _stateMachine.ServiceProvider.CreateScope())
                 {
-                    var service = scope.ServiceProvider.GetRequiredService<IDitatTmsService>();
+                    var service = scope.ServiceProvider.GetRequiredService<IDitatTmsApiBroker>();
                     var result = await service.GetAvailableTrucksAsync();
                     return result;
                 }
@@ -66,14 +63,14 @@ public class InitialState : IState
             case BotCommands.GetTruckListWithoutDrivers:
                 using (var scope = _stateMachine.ServiceProvider.CreateScope())
                 {
-                    var service = scope.ServiceProvider.GetRequiredService<IDitatTmsService>();
+                    var service = scope.ServiceProvider.GetRequiredService<IDitatTmsApiBroker>();
                     return await service.GetAvailableTrucksAsync(withDrivers: false);
                 }
 
             case BotCommands.GetUnitDocuments:
                 using (var scope = _stateMachine.ServiceProvider.CreateScope())
                 {
-                    var service = scope.ServiceProvider.GetRequiredService<IDitatTmsService>();
+                    var service = scope.ServiceProvider.GetRequiredService<IDitatTmsApiBroker>();
                     var docs = await service.GetUnitDocumentsAsync(commandArgs.First(), UnitType.Trailer);
                     var docUrls = docs.Select(d => new Document { FileId = d.ToString() });
 
@@ -81,7 +78,7 @@ public class InitialState : IState
                     {
                         Type = MessageType.Document,
                         IsMediaGroup = true,
-                        Files = [..docUrls.Cast<FileBase>()]
+                        Files = [.. docUrls.Cast<FileBase>()]
                     };
                     return result;
                 }
@@ -96,10 +93,29 @@ public class InitialState : IState
                 }
 
             case BotCommands.GetAllTrailersInfo:
-                //TODO need to implement code for this case
-                return "This is gonna be all trailer info";
+                using (var scope = _stateMachine.ServiceProvider.CreateScope())
+                {
+                    var service = scope.ServiceProvider.GetRequiredService<ITrailerService>();
+                    var trailers = await service.GetAllAsync();
+                    var builder = new StringBuilder();
+                    var now = TimeHelper.ConvertUtcToDefaultTime(DateTime.UtcNow);
+                    foreach (var trailer in trailers)
+                    {
+                        var address = trailer.Landmark?.Split("->").First().Trim() ?? trailer.Address;
+                        string symbol = trailer.IsMoving ? "🟢" : "🔴";
+                        
+                        var upd = now - trailer.LastEventAt;
+                        if (upd >= TimeSpan.FromHours(24))
+                            symbol = "⚠️";
 
-            default: return "Unknown command";
+                        builder.AppendLine($"{symbol} <code>{trailer.Name.PadRight(10)}</code> ➜ {address}");
+                    }
+                    var result = builder.ToString();
+                    var messages = MessageHelper.SplitMessage(result);
+                    return new MessageEventResult { Type = MessageType.Text, Texts = messages };
+                }
+            default:
+                return "Unknown command";
         }
     }
-}
+}   

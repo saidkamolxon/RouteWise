@@ -1,13 +1,13 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using RestSharp;
+using RouteWise.Service.Brokers.APIs.DitatTms;
+using RouteWise.Service.Brokers.APIs.FleetLocate;
+using RouteWise.Service.Brokers.APIs.GoogleMaps;
+using RouteWise.Service.Brokers.APIs.RoadReady;
+using RouteWise.Service.Brokers.APIs.Samsara;
+using RouteWise.Service.Brokers.APIs.SwiftEld;
 using RouteWise.Service.Interfaces;
-using RouteWise.Service.Services.DitatTms;
-using RouteWise.Service.Services.FleetLocate;
-using RouteWise.Service.Services.GoogleMaps;
-using RouteWise.Service.Services.RoadReady;
-using RouteWise.Service.Services.Samsara;
-using RouteWise.Service.Services.SwiftEld;
 
 namespace RouteWise.Service.Helpers;
 

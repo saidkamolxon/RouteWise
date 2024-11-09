@@ -15,7 +15,7 @@ namespace RouteWise.Data.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.11");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
 
             modelBuilder.Entity("RouteWise.Domain.Entities.Driver", b =>
                 {
@@ -26,8 +26,8 @@ namespace RouteWise.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("DriverId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("DitatId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("TEXT");
@@ -40,6 +40,12 @@ namespace RouteWise.Data.Migrations
 
                     b.Property<string>("Phone")
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("SamsaraId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("SwiftEldId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("TEXT");
@@ -120,6 +126,9 @@ namespace RouteWise.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime?>("ArrivedAt")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
@@ -198,10 +207,12 @@ namespace RouteWise.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("Odometer")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Ownership")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -261,7 +272,7 @@ namespace RouteWise.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 13, 20, 35, 4, 782, DateTimeKind.Utc).AddTicks(5318),
+                            CreatedAt = new DateTime(2024, 10, 24, 10, 26, 35, 779, DateTimeKind.Utc).AddTicks(4421),
                             CurrentStep = 0,
                             FirstName = "Saidkamol",
                             IsDeleted = false,
@@ -433,11 +444,9 @@ namespace RouteWise.Data.Migrations
                                 .HasForeignKey("TruckId");
                         });
 
-                    b.Navigation("Address")
-                        .IsRequired();
+                    b.Navigation("Address");
 
-                    b.Navigation("Coordinates")
-                        .IsRequired();
+                    b.Navigation("Coordinates");
 
                     b.Navigation("Landmark");
                 });

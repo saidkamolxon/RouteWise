@@ -8,7 +8,7 @@ public class Trailer : Auditable
     [Required]
     public string Name { get; set; }
     [Required]
-    public Coordinate Coordinates { get; set; }
+    public Coordination Coordinates { get; set; }
     [Required]
     public Address Address { get; set; }
     public string Vin { get; set; }
@@ -21,4 +21,5 @@ public class Trailer : Auditable
 
     public int? LandmarkId { get; set; }
     public Landmark Landmark { get; set; }
+    public DateTime? ArrivedAt { get; set; } // Arrived at the landmark at this time
 }

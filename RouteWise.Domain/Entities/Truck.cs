@@ -13,7 +13,7 @@ public class Truck : Auditable
     public int? Year { get; set; }
     public required Address Address { get; set; }
     public DateTime LastEventAt { get; set; }
-    public required Coordinate Coordinates { get; set; }
+    public required Coordination Coordinates { get; set; }
     public long? Odometer { get; set; }
     //public int? DriverId { get; set; }
     //public Driver Driver { get; set; }

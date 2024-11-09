@@ -27,11 +27,21 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         trailers
             .HasIndex(t => t.License)
             .IsUnique();
+        trailers
+            .HasOne(t => t.Landmark)
+            .WithMany(l => l.Trailers)
+            .HasForeignKey(t => t.LandmarkId)
+            .OnDelete(DeleteBehavior.SetNull);
 
         
         var trucks = modelBuilder.Entity<Truck>();
         trucks.OwnsOne(t => t.Address);
         trucks.OwnsOne(t => t.Coordinates);
+        trucks
+            .HasOne(t => t.Landmark)
+            .WithMany(l => l.Trucks)
+            .HasForeignKey(t => t.LandmarkId)
+            .OnDelete(DeleteBehavior.SetNull);
 
 
         var landmarks = modelBuilder.Entity<Landmark>();

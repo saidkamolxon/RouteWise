@@ -25,12 +25,12 @@ public partial class UpdateHandler
                 break;
 
             case "accept_the_request":
-                var data = message.Text.Split();
+                var data = message.Text.Split('\n');
                 var newUser = await userService.AddAsync(new()
                 {
                     FirstName = data[0],
-                    LastName = data[1],
-                    TelegramId = long.Parse(data[2])
+                    //LastName = data[1],
+                    TelegramId = long.Parse(data[1])
                 });
                 await botClient.EditMessageTextAsync(message.Chat.Id, message.MessageId, $"{message.Text}\n\n{HtmlDecoration.Bold("Accepted ✅")}");
                 await botClient.SendTextMessageAsync(newUser.TelegramId, $"Your request has been accepted. Your current role is {newUser.Role}");
