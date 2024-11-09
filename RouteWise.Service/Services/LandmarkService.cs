@@ -119,7 +119,6 @@ public class LandmarkService(
     public async Task RemoveRedundantLandmarks(CancellationToken cancellationToken = default)
     {
         var theDayBefore = DateTime.UtcNow - TimeSpan.FromHours(24);
-        var landmarks = this.unitOfWork.LandmarkRepository.SelectAll(l => l.UpdatedAt < theDayBefore);
         var rowsDeleted = await this.unitOfWork.LandmarkRepository.DestroyAllAsync(l => l.UpdatedAt < theDayBefore, cancellationToken);
         if (rowsDeleted != null)
             this.logger.LogInformation("{count} redundant landmarks deleted from the database", rowsDeleted);

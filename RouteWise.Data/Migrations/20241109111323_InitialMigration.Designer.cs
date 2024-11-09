@@ -11,8 +11,8 @@ using RouteWise.Data.Contexts;
 namespace RouteWise.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241024102636_SecondSetup")]
-    partial class SecondSetup
+    [Migration("20241109111323_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -275,7 +275,7 @@ namespace RouteWise.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 10, 24, 10, 26, 35, 779, DateTimeKind.Utc).AddTicks(4421),
+                            CreatedAt = new DateTime(2024, 11, 9, 11, 13, 23, 120, DateTimeKind.Utc).AddTicks(1953),
                             CurrentStep = 0,
                             FirstName = "Saidkamol",
                             IsDeleted = false,
@@ -312,7 +312,7 @@ namespace RouteWise.Data.Migrations
                                 .HasForeignKey("LandmarkId");
                         });
 
-                    b.OwnsOne("RouteWise.Domain.Models.Coordinate", "Coordinates", b1 =>
+                    b.OwnsOne("RouteWise.Domain.Models.Coordination", "Coordinates", b1 =>
                         {
                             b1.Property<int>("LandmarkId")
                                 .HasColumnType("INTEGER");
@@ -342,7 +342,8 @@ namespace RouteWise.Data.Migrations
                 {
                     b.HasOne("RouteWise.Domain.Entities.Landmark", "Landmark")
                         .WithMany("Trailers")
-                        .HasForeignKey("LandmarkId");
+                        .HasForeignKey("LandmarkId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.OwnsOne("RouteWise.Domain.Models.Address", "Address", b1 =>
                         {
@@ -369,7 +370,7 @@ namespace RouteWise.Data.Migrations
                                 .HasForeignKey("TrailerId");
                         });
 
-                    b.OwnsOne("RouteWise.Domain.Models.Coordinate", "Coordinates", b1 =>
+                    b.OwnsOne("RouteWise.Domain.Models.Coordination", "Coordinates", b1 =>
                         {
                             b1.Property<int>("TrailerId")
                                 .HasColumnType("INTEGER");
@@ -400,8 +401,9 @@ namespace RouteWise.Data.Migrations
             modelBuilder.Entity("RouteWise.Domain.Entities.Truck", b =>
                 {
                     b.HasOne("RouteWise.Domain.Entities.Landmark", "Landmark")
-                        .WithMany()
-                        .HasForeignKey("LandmarkId");
+                        .WithMany("Trucks")
+                        .HasForeignKey("LandmarkId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.OwnsOne("RouteWise.Domain.Models.Address", "Address", b1 =>
                         {
@@ -428,7 +430,7 @@ namespace RouteWise.Data.Migrations
                                 .HasForeignKey("TruckId");
                         });
 
-                    b.OwnsOne("RouteWise.Domain.Models.Coordinate", "Coordinates", b1 =>
+                    b.OwnsOne("RouteWise.Domain.Models.Coordination", "Coordinates", b1 =>
                         {
                             b1.Property<int>("TruckId")
                                 .HasColumnType("INTEGER");
@@ -482,6 +484,8 @@ namespace RouteWise.Data.Migrations
             modelBuilder.Entity("RouteWise.Domain.Entities.Landmark", b =>
                 {
                     b.Navigation("Trailers");
+
+                    b.Navigation("Trucks");
                 });
 #pragma warning restore 612, 618
         }

@@ -6,11 +6,19 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RouteWise.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class SecondSetup : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Trailers_Landmarks_LandmarkId",
+                table: "Trailers");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Trucks_Landmarks_LandmarkId",
+                table: "Trucks");
+
             migrationBuilder.RenameColumn(
                 name: "DriverId",
                 table: "Drivers",
@@ -70,12 +78,36 @@ namespace RouteWise.Data.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 10, 24, 10, 26, 35, 779, DateTimeKind.Utc).AddTicks(4421));
+                value: new DateTime(2024, 11, 9, 11, 13, 23, 120, DateTimeKind.Utc).AddTicks(1953));
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Trailers_Landmarks_LandmarkId",
+                table: "Trailers",
+                column: "LandmarkId",
+                principalTable: "Landmarks",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.SetNull);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Trucks_Landmarks_LandmarkId",
+                table: "Trucks",
+                column: "LandmarkId",
+                principalTable: "Landmarks",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.SetNull);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Trailers_Landmarks_LandmarkId",
+                table: "Trailers");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Trucks_Landmarks_LandmarkId",
+                table: "Trucks");
+
             migrationBuilder.DropColumn(
                 name: "Ownership",
                 table: "Trucks");
@@ -133,6 +165,20 @@ namespace RouteWise.Data.Migrations
                 keyValue: 1,
                 column: "CreatedAt",
                 value: new DateTime(2024, 4, 13, 20, 35, 4, 782, DateTimeKind.Utc).AddTicks(5318));
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Trailers_Landmarks_LandmarkId",
+                table: "Trailers",
+                column: "LandmarkId",
+                principalTable: "Landmarks",
+                principalColumn: "Id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Trucks_Landmarks_LandmarkId",
+                table: "Trucks",
+                column: "LandmarkId",
+                principalTable: "Landmarks",
+                principalColumn: "Id");
         }
     }
 }

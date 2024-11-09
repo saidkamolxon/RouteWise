@@ -68,7 +68,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Auditabl
         IQueryable<TEntity> query = _dbSet;
 
         if (expression is not null)
-            query.Where(expression);
+            query = query.Where(expression);
 
         return await query.ExecuteDeleteAsync(cancellationToken);
     }

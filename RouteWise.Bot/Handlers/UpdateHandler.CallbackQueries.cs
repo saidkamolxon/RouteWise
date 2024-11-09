@@ -32,16 +32,17 @@ public partial class UpdateHandler
                     //LastName = data[1],
                     TelegramId = long.Parse(data[1])
                 });
-                await botClient.EditMessageTextAsync(message.Chat.Id, message.MessageId, $"{message.Text}\n\n{HtmlDecoration.Bold("Accepted ✅")}");
-                await botClient.SendTextMessageAsync(newUser.TelegramId, $"Your request has been accepted. Your current role is {newUser.Role}");
+                await botClient.EditMessageTextAsync(message.Chat.Id, message.MessageId, $"{message.GetHtmlText()}\n\n{HtmlDecoration.Bold("Accepted ✅")}", parseMode: ParseMode.Html);
+                await botClient.SendTextMessageAsync(newUser.TelegramId, $"✅ Your request has been accepted. Your current role is {newUser.Role}");
                 break;
 
             case "reject_the_request":
                 await botClient.AnswerCallbackQueryAsync(callbackQuery.Id, "Rejected");
-                await botClient.EditMessageTextOrCaptionAsync(message, HtmlDecoration.Bold("Rejected ❌"));
+                await botClient.EditMessageTextOrCaptionAsync(message, $"{message.GetHtmlText()}\n\n{HtmlDecoration.Bold("Rejected ❌")}", parseMode: ParseMode.Html);
                 await botClient.SendTextMessageAsync(
-                    chatId: message.Text.Split().ElementAt(2),
-                    text: HtmlDecoration.Bold("Sorry but your request has been rejected by the owner.")
+                    chatId: message.Text.Split('\n').ElementAt(1),
+                    text: HtmlDecoration.Bold("❌ Sorry but your request has been rejected by the owner."),
+                    parseMode: ParseMode.Html
                 );
                 break;
 

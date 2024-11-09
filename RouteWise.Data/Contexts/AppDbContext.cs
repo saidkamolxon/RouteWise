@@ -12,7 +12,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Truck> Trucks { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<State> States { get; set; }
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         var trailers = modelBuilder.Entity<Trailer>();
