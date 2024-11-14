@@ -4,6 +4,7 @@ namespace RouteWise.Service.Interfaces;
 
 public interface IConfiguredClients
 {
+    IRestClient BingMapsClient { get; }
     IRestClient DitatTmsClient { get; }
     IRestClient FleetLocateClient { get; }
     IRestClient GoogleMapsClient { get; }

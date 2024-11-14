@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using RestSharp;
+using RouteWise.Service.Brokers.APIs.BingMaps;
 using RouteWise.Service.Brokers.APIs.DitatTms;
 using RouteWise.Service.Brokers.APIs.FleetLocate;
 using RouteWise.Service.Brokers.APIs.GoogleMaps;
@@ -16,6 +17,7 @@ public class ConfiguredClients(IConfiguration configuration, IMemoryCache cache)
     private readonly IConfiguration configuration = configuration;
     private readonly IMemoryCache cache = cache;
 
+    public IRestClient BingMapsClient => bingMapsClient.Value;
     public IRestClient DitatTmsClient => ditatTmsClient.Value;
     public IRestClient GoogleMapsClient => googleMapsClient.Value;
     public IRestClient FleetLocateClient => fleetlocateClient.Value;
@@ -23,6 +25,12 @@ public class ConfiguredClients(IConfiguration configuration, IMemoryCache cache)
     public IRestClient SamsaraClient => samsaraClient.Value;
     public IRestClient SwiftEldClient => swiftEldClient.Value;
 
+    private Lazy<IRestClient> bingMapsClient => new(() =>
+    {
+        var credentials = this.configuration.GetSection("AccessToExternalAPIs:BingMaps").Get<BingMapsApiCredentials>();
+        return new RestClient(credentials.BaseUrl).AddDefaultParameter("key", credentials.Token);
+    });
+    
     private Lazy<IRestClient> ditatTmsClient => new(() =>
     {
         var credentials = this.configuration.GetSection("AccessToExternalAPIs:DitatTMS").Get<DitatTmsApiCredentials>();
@@ -78,7 +86,7 @@ public class ConfiguredClients(IConfiguration configuration, IMemoryCache cache)
         client.AddDefaultHeader("accept", "application/json");
         return client;
     });
-
+ 
     private Lazy<IRestClient> googleMapsClient => new(() =>
     {
         var credentials = this.configuration.GetSection("AccessToExternalAPIs:GoogleMaps").Get<GoogleMapsApiCredentials>();

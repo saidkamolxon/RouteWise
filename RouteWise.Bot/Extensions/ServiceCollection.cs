@@ -35,6 +35,8 @@ public static class ServiceCollection
         services.AddScoped<ITruckService, TruckService>();
         services.AddScoped<IUserService, UserService>();
 
+        services.AddScoped<IHangfireService, HangfireService>();
+        
         // Api services --->>>
         services.AddScoped<IFleetLocateApiBroker, FleetLocateApiBroker>();
         services.AddScoped<IGoogleMapsApiBroker, GoogleMapsApiBroker>();

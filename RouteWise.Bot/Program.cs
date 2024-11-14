@@ -5,6 +5,7 @@ using RouteWise.Bot.Handlers;
 using RouteWise.Bot.Models;
 using RouteWise.Bot.Services;
 using RouteWise.Data.Contexts;
+using RouteWise.Service.Interfaces;
 using RouteWise.Service.Mappers;
 using Serilog;
 using Telegram.Bot;
@@ -15,28 +16,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((context, loggerConfig) =>
     loggerConfig.ReadFrom.Configuration(context.Configuration));
 
-builder.WebHost.ConfigureKestrel(options =>
-    options.ListenAnyIP(47278));
-
-BotConfiguration botConfig = builder.Configuration.GetSection("BotConfiguration").Get<BotConfiguration>();
-
-// Add services to the container.
+var botConfig = builder.Configuration.GetSection("BotConfiguration").Get<BotConfiguration>();
 
 builder.Services.AddControllers().AddJsonOptions(options =>
     JsonBotAPI.Configure(options.JsonSerializerOptions));
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", builder =>
-    {
-        builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader();
-    });
-});
+    options.AddPolicy("AllowAll", pBuilder =>
+        pBuilder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 
 builder.Services.AddHostedService<ConfigureWebhook>();
 
@@ -74,7 +63,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
+if (app.Environment.IsProduction() && builder.Configuration.GetValue<int?>("PORT") is not null)
+    builder.WebHost.UseUrls($"http://*:{builder.Configuration.GetValue<int>("PORT")}");
+    
+app.UseHttpsRedirection();
 
 app.UseHangfireDashboard();
 
@@ -93,5 +85,12 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseCors("AllowAll");
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var hangfireService = services.GetService<IHangfireService>();
+    hangfireService.Start();
+}
 
 app.Run();

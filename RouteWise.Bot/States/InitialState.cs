@@ -15,15 +15,15 @@ namespace RouteWise.Bot.States;
 
 public class InitialState(IStateMachine stateMachine) : IState
 {
-    private readonly IStateMachine _stateMachine = stateMachine;
+    private readonly IStateMachine stateMachine = stateMachine;
 
     public async Task<MessageEventResult> Update(Message message)
     {
         var command = message.GetBotCommand();
         var commandArgs = message.GetBotCommandArgs();
 
-        if (command == null)
-            return message.GetHtmlText();
+        if (command is null)
+            return message.GetBotCommand();
 
         switch (command.ToLower())
         {
@@ -31,15 +31,15 @@ public class InitialState(IStateMachine stateMachine) : IState
                 return $"Assalomu alaykum. {HtmlDecoration.Bold(message.From.GetFullName())}.";
 
             case BotCommands.MeasureDistance:
-                await _stateMachine.SetState(new StateValuesDto { ChatId = message.Chat.Id, UserId = message.From.Id }, new DistanceOriginState(_stateMachine));
+                await this.stateMachine.SetState(new StateValuesDto { ChatId = message.Chat.Id, UserId = message.From.Id }, new DistanceOriginState(stateMachine));
                 return "Enter the origin";
 
-            case BotCommands.GetLandmarkStatus:
-                await _stateMachine.SetState(new StateValuesDto { ChatId = message.Chat.Id, UserId = message.From.Id }, new LandmarkStatusState(_stateMachine));
+            case BotCommands.LandmarkStatus:
+                await this.stateMachine.SetState(new StateValuesDto { ChatId = message.Chat.Id, UserId = message.From.Id }, new LandmarkStatusState(stateMachine));
                 return "Enter the name of the lane:";
 
-            case BotCommands.GetTrailerStatus:
-                using (var scope = _stateMachine.ServiceProvider.CreateScope())
+            case BotCommands.TrailerStatusGoogle:
+                using (var scope = this.stateMachine.ServiceProvider.CreateScope())
                 {
                     var trailerService = scope.ServiceProvider.GetRequiredService<ITrailerService>();
                     var trailer = await trailerService.GetByNameAsync(commandArgs.First());
@@ -52,23 +52,23 @@ public class InitialState(IStateMachine stateMachine) : IState
                     return result;
                 }
 
-            case BotCommands.GetTruckList:
-                using (var scope = _stateMachine.ServiceProvider.CreateScope())
+            case BotCommands.TruckList:
+                using (var scope = this.stateMachine.ServiceProvider.CreateScope())
                 {
                     var service = scope.ServiceProvider.GetRequiredService<IDitatTmsApiBroker>();
                     var result = await service.GetAvailableTrucksAsync();
                     return result;
                 }
 
-            case BotCommands.GetTruckListWithoutDrivers:
-                using (var scope = _stateMachine.ServiceProvider.CreateScope())
+            case BotCommands.TruckListWithoutDrivers:
+                using (var scope = this.stateMachine.ServiceProvider.CreateScope())
                 {
                     var service = scope.ServiceProvider.GetRequiredService<IDitatTmsApiBroker>();
                     return await service.GetAvailableTrucksAsync(withDrivers: false);
                 }
 
-            case BotCommands.GetUnitDocuments:
-                using (var scope = _stateMachine.ServiceProvider.CreateScope())
+            case BotCommands.UnitDocuments:
+                using (var scope = this.stateMachine.ServiceProvider.CreateScope())
                 {
                     var service = scope.ServiceProvider.GetRequiredService<IDitatTmsApiBroker>();
                     var docs = await service.GetUnitDocumentsAsync(commandArgs.First(), UnitType.Trailer);
@@ -83,17 +83,19 @@ public class InitialState(IStateMachine stateMachine) : IState
                     return result;
                 }
 
-            case BotCommands.GetEtaToDestination:
-                using (var scope = _stateMachine.ServiceProvider.CreateScope())
+            case BotCommands.EtaToDestination:
+                using (var scope = this.stateMachine.ServiceProvider.CreateScope())
                 {
                     var service = scope.ServiceProvider.GetRequiredService<ITruckService>();
                     var origin = (await service.GetByNameAsync(commandArgs.First())).Coordinates;
-                    await _stateMachine.SetState(new StateValuesDto { ChatId = message.Chat.Id, UserId = message.From.Id, DistanceOrigin = origin.ToString() }, new DistanceDestinationState(_stateMachine));
+                    await this.stateMachine.SetState(
+                        new StateValuesDto(chatId: message.Chat.Id, userId: message.From.Id,
+                            distanceOrigin: origin.ToString()), new DistanceDestinationState(stateMachine));
                     return "Enter the destination";
                 }
 
-            case BotCommands.GetAllTrailersInfo:
-                using (var scope = _stateMachine.ServiceProvider.CreateScope())
+            case BotCommands.AllTrailersInfo:
+                using (var scope = this.stateMachine.ServiceProvider.CreateScope())
                 {
                     var service = scope.ServiceProvider.GetRequiredService<ITrailerService>();
                     var trailers = await service.GetAllAsync();
@@ -102,7 +104,7 @@ public class InitialState(IStateMachine stateMachine) : IState
                     foreach (var trailer in trailers)
                     {
                         var address = trailer.Landmark?.Split("->").First().Trim() ?? trailer.Address;
-                        string symbol = trailer.IsMoving ? "🟢" : "🔴";
+                        var symbol = trailer.IsMoving ? "🟢" : "🔴";
                         
                         var upd = now - trailer.LastEventAt;
                         if (upd >= TimeSpan.FromHours(24))
@@ -114,6 +116,16 @@ public class InitialState(IStateMachine stateMachine) : IState
                     var messages = MessageHelper.SplitMessage(result);
                     return new MessageEventResult { Type = MessageType.Text, Texts = messages };
                 }
+                
+            case BotCommands.UpdateLandmarks:
+                using (var scope = this.stateMachine.ServiceProvider.CreateScope())
+                {
+                    var service = scope.ServiceProvider.GetRequiredService<ILandmarkService>();
+                    await service.UpdateLandmarksAsync();
+                    await service.RemoveRedundantLandmarks();
+                    return "Landmarks updated";
+                }
+
             default:
                 return "Unknown command";
         }

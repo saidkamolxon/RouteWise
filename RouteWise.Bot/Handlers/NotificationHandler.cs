@@ -76,8 +76,9 @@ public class NotificationHandler(ILogger<NotificationHandler> logger, ITelegramB
 
     private async Task WhenSpeedingNotificationReceivedAsync(Notification notification)
     {
-        //var truck = 
-        throw new NotImplementedException();
+        var vehicle = notification.Event.GetProperty("device").GetProperty("name").GetString();
+        string driver = await this.service.GetDriverByTruckNameAsync(vehicle);
+        await this.botClient.SendTextMessageAsync(chatId, notification.Event.GetProperty("details").GetString());
     }
 
     private async Task WhenStoppedForHalfHourNotificationReceived(Notification notification)
@@ -93,13 +94,19 @@ public class NotificationHandler(ILogger<NotificationHandler> logger, ITelegramB
     private async Task WhenUnknownNotificationReceivedAsync(Notification notification)
     {
         var alertCondition = notification.Event.GetProperty("alertConditionId").GetString();
-        switch (alertCondition)
+        var handler = alertCondition switch
         {
-            case "DeviceSevereSpeedAboveSpeedLimit":
-                var vehicle = notification.Event.GetProperty("device").GetProperty("name").GetString();
-                string driver = await this.service.GetDriverByTruckNameAsync(vehicle);
-                await this.botClient.SendTextMessageAsync(chatId, notification.Event.GetProperty("details").GetString());
-                break;
+            "DeviceSevereSpeedAboveSpeedLimit" => WhenSpeedingNotificationReceivedAsync(notification),
+            _ => Console.Out.WriteLineAsync()
+        };
+
+        try
+        {
+            await handler;
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error occured while trying to handle Webhook V1 notification from Samsara.");
         }
     }
 }

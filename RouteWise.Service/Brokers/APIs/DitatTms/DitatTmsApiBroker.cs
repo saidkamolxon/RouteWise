@@ -66,7 +66,7 @@ public class DitatTmsApiBroker : IDitatTmsApiBroker
 
         var truckSummaries = data.Value<IEnumerable<dynamic>>("truckSummaries");
 
-        var sortedSummaries = new List<TruckSummary>();
+        var sortedSummaries = new List<TruckSummaryDto>();
 
         foreach (var ts in truckSummaries)
         {

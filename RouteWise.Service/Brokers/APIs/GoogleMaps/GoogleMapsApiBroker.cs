@@ -82,10 +82,7 @@ public class GoogleMapsApiBroker(IConfiguredClients clients) : IGoogleMapsApiBro
     {
         var parameters = GetStaticMapsDefaultParameters();
         parameters.Add("center", coordinates);
-        if (string.IsNullOrEmpty(iconUrl))
-            parameters.Add("markers", coordinates);
-        else
-            parameters.Add("markers", $"icon:{iconUrl}|{coordinates}");
+        parameters.Add("markers", string.IsNullOrEmpty(iconUrl) ? coordinates : $"icon:{iconUrl}|{coordinates}");
         return await Task.FromResult(client.BuildUri(CreateNewRestRequest("staticmap", parameters)).ToString());
     }
 
@@ -102,16 +99,16 @@ public class GoogleMapsApiBroker(IConfiguredClients clients) : IGoogleMapsApiBro
             url += $"&markers=color:{colors[sn % colors.Length]}%7Clabel:{++sn}%7C{obj}";
 
         return await Task.FromResult(url);
-    }
+    }   
 
-    private static Dictionary<string, string> GetStaticMapsDefaultParameters()
-    {
-        return new Dictionary<string, string>
-           {{ "scale", "2" },
-            { "language", "en" },
-            { "zoom", "17" },
-            { "maptype", "hybrid" },
-            { "size", "700x700" },
-            { "format", "jpg" }};
-    }
+private static Dictionary<string, string> GetStaticMapsDefaultParameters()
+{
+    return new Dictionary<string, string>
+       {{ "scale", "2" },
+        { "language", "en" },
+        { "zoom", "17" },
+        { "maptype", "hybrid" },
+        { "size", "700x700" },
+        { "format", "jpg" }};
+}
 }
